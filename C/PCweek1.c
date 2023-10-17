@@ -3,7 +3,7 @@
 
 int primeCheck(int n){
     if(n == 1) return 0;
-    int counter, flag = 1, upperBound = (sqrt(n) + 1)/1;
+    int counter, flag = 1, upperBound = ceil(sqrt(n));
     for(counter = 2; counter < upperBound; counter++){
         if(n % counter == 0){
             flag = 0;
