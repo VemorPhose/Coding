@@ -17,6 +17,7 @@ typedef vector<int> vi;
 typedef vector<vector<int>> vvi;
 
 int main(){
+    fastio();
     int t; cin >> t;
     while(t--){
         
