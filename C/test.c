@@ -1,69 +1,108 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <math.h>
 
-int fac(int n){
-    int f=1,i;
-    for(i=1;i<=n;i++){
-        f=f*i;
+int fact(int);
+int prime(int someNum);
+int numberGenerator(int, int, int);
+int digitCounter(int);
+
+
+int main(){
+    // Taking input
+    int input=987654321;
+    printf("Total number of patient:");
+    scanf("%d", &input);
+
+    // Making an array with all the digits
+    int digit = digitCounter(input), in = input;
+    int digits[digit];
+    in = input;
+    for (int _ = 0; _ < digit; _++){
+        digits[_] = (in%10);
+        in/=10;
     }
-    return f;
-}
-int numdig(int n){
-    int temp=n,a,dig=0;
-    while(n>0){
-       a=n%10;
-       dig++;
-       n=n/10;} 
-    return fac(dig);
-}
 
-
-int digstore(int n){
-    int a,i=0,j,k,dig[i];
-    while(n>0){
-        dig[i]=n%10;
-        n=n/10;
-        i++;
-    }
-    for(j=1;j<i;j++){
-        for(int k=0;k<i-j;k++){
-            if(dig[k]<dig[k+1]){
-                //swap
-                int temp=dig[k+1];
-                dig[k+1]=dig[k];
-                dig[k]=temp;
+    // Sorting the array
+    for (int _ = 0; _ < digit; _++){
+        for (int _2 = _+1; _2 < digit; _2++){
+            if (digits[_] > digits[_2]) {
+                int temp = digits[_];
+                digits[_] = digits[_2];
+                digits[_2] = temp;
             }
         }
     }
-    printf("max number is : ");
-    for(k=0;k<i;k++)
-        printf("%d",dig[k]);
-    printf("\n");
-    return 0;
+
+    // converting sorted array into integer to be able to pass it to functions (points not yet taught, it's complicated)
+    int sortedNumber = 0;
+    for (int _ = 0; _ < digit; _++){
+        sortedNumber*=10;
+        sortedNumber+= digits[_];
+    }
+
+    // Finding and printing results
+    int maxCases = fact(digit);
+    printf("Possible combinations of patient IDs: %d\n", maxCases);
+
+//    for (int _ = 0; _ < maxCases; _++) {
+//        if (((_ % 10 == 3) || (_ % 10 == 7)) && (prime(_))) {
+//            printf("Patient ID at rank %d is: \t%d\n", _, numberGenerator(_, sortedNumber, digit));
+//        }
+//    }
+
+    numberGenerator(13, sortedNumber, digit);
 }
 
-int primeCheck(int n){
-    if(n <= 1) return 0;
-    int flag = 1;
-    for(int i = 2; i < n; i++){
-        if(n % i == 0){
-            flag = 0;
-            break;
-        }
+
+// why list all the numbers when we can calculate the number at n-th position
+int numberGenerator(int rank, int number, int numberOfDigits) {
+    // Was more comfortable in finding the rank from lowest to highest
+    // so simply converted the descending rank to ascending rank
+    // rank = fact(numberOfDigits) - rank;
+
+    int resultant = 0;
+    rank--;
+    int prevFact = 1;
+    printf("%d\n", rank);
+    for (int _ = 0; _ < numberOfDigits -1; _++) {
+        int index = ((rank%prevFact) / fact(digitCounter(number) -1));
+        prevFact = fact(digitCounter(number) - 1);
+        int digitAtIndex = (number/ (int) pow(10, digitCounter(number) - index - 1)) % 10;
+        resultant*=10;
+        resultant+=digitAtIndex;
+        number = ((number/(int)pow(10, digitCounter(number) - index)) * (int)pow(10, digitCounter(number) - index - 1) + number%(int)pow(10, digitCounter(number) - index -1));
+        printf("%d\t%d\t%d\n", number, index, resultant);
     }
-    return flag;
+    resultant*=10;
+    resultant+=number;
+    printf("%d", resultant);
+    return resultant;
 }
 
-int main(){
-    int N;
-    printf("enter number of patients : ");
-    scanf("%d",&N);
+int digitCounter(int input){
+    int digit=0;
+    while (input){
+        digit++;
+        input/=10;
+    }
+    return digit;
+}
 
-    printf("possible number of combination :%d\n",numdig(N)); 
-    digstore(N);
-    for(int i = 1; i <= numdig(N); i++){
-        if((i%10 == 3 || i%10 == 7) && primeCheck(i)){
-            printf("%d\n", i);
+int fact(int _) {
+    int out = 1;
+    while (_) {
+        out*=_;
+        _--;
+    }
+    return out;
+}
+
+int prime(int someNum) {
+    int sqrt_i = sqrt(someNum);
+    for (int _=2; _<=sqrt_i; _++){
+        if (!(someNum%_)){
+            return 0;
         }
     }
-    return 0;    
+    return 1;
 }

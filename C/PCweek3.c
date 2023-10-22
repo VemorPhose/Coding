@@ -1,5 +1,15 @@
+// Pratapaditya Chander 2301154
 #include <stdio.h>
 #include <math.h>
+
+//-----------------------GLOBAL VARIABLES--------------------------------
+
+// global array of digits
+int arrDigits[9]; // stores sorted array of inital inputted digits
+int arrOut[9]; // array after sorting
+int arrTemp[9]; // temporary array before sorting
+
+//-----------------------BASIC FUNCTIONS--------------------------------
 
 // prime checker function
 int primeCheck(int n){
@@ -26,10 +36,7 @@ int factorial(int n){
     return n * factorial(n-1);
 }
 
-// global array of digits
-int arrDigits[9]; // stores sorted array of inital inputted digits
-int arrOut[9]; // array after sorting
-int arrTemp[9]; // temporary array before sorting
+//-----------------------ARRAY MANIPULATION FUNCTIONS--------------------------------
 
 // return int from passed array of digits
 int arrToNum(int arrDigits[], int numDigits){
@@ -67,6 +74,8 @@ int arrCmp(int numDigits){
     return flag;
 }
 
+//-----------------------SORTING FUNCTION--------------------------------
+
 // selection sort descending, from arrTemp (input) to arrOut (output)
 void selectionSort(int numDigits){
     int arrIndex = 0;
@@ -83,6 +92,8 @@ void selectionSort(int numDigits){
     }
     // O(numDigits^2)
 }
+
+//-----------------------MAIN FUNCTION--------------------------------
 
 void main(){
     // input number of patient
@@ -135,6 +146,8 @@ void main(){
         }
     }
 }
+
+//-----------------------FOOTNOTES--------------------------------
 
 // Time complexity: O(10^8 * sqrt(count)) ~~ O(10^10) {worst case}
 // Nine and Eight digit numbers take a long while to process.
