@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+// prime checker function
 int primeCheck(int n){
     if(n <= 1) return 0;
     int upperBound = ceil(sqrt(n)), flag = 1;
@@ -13,20 +14,22 @@ int primeCheck(int n){
     return flag;
 }
 
+// number of digits in given int
 int digitsNum(int n){
     if(n == 0) return 0;
     return 1 + digitsNum(n/10);
 }
 
+// factorial of given int
 int factorial(int n){
     if(n <= 1) return 1;
     return n * factorial(n-1);
 }
 
 // global array of digits
-int arrDigits[9];
-int arrOut[9];
-int arrTemp[9];
+int arrDigits[9]; // stores sorted array of inital inputted digits
+int arrOut[9]; // array after sorting
+int arrTemp[9]; // temporary array before sorting
 
 // return int from passed array of digits
 int arrToNum(int arrDigits[], int numDigits){
@@ -38,7 +41,7 @@ int arrToNum(int arrDigits[], int numDigits){
     return num;
 }
 
-// converts num to array, stored in arrOut (global)
+// converts num to array, stored in arrTemp (global)
 void numToArr(int num, int numDigits){
     for(int i = numDigits-1; i >= 0; i--){
         arrTemp[i] = num % 10;
@@ -53,7 +56,7 @@ void arrCpy(int arr2[], int arr1[], int numDigits){
     }
 }
 
-// compare arrays as equal or not
+// compare arrOut (sorted arrTemp) and arrDigits for equality
 int arrCmp(int numDigits){
     int flag = 1;
     for(int i = 0; i < numDigits; i++){
@@ -64,7 +67,7 @@ int arrCmp(int numDigits){
     return flag;
 }
 
-// selection sort
+// selection sort descending, from arrTemp (input) to arrOut (output)
 void selectionSort(int numDigits){
     int arrIndex = 0;
     for(int i = 0; i < numDigits; i++){
@@ -78,10 +81,11 @@ void selectionSort(int numDigits){
         arrTemp[arrIndex] = 0;
         arrOut[i] = maxDigit;
     }
+    // O(numDigits^2)
 }
 
 void main(){
-    // data input block
+    // input number of patient
     printf("Total number of patient: ");
     int num;
     scanf("%d", &num);
@@ -100,27 +104,37 @@ void main(){
         temp /= 10;
     }
 
-    // number of patients
+    // number of combinations of patient id
     int perms = factorial(numDigits);
 
     // selection sort descending on array of digits
-    selectionSort(numDigits);
-    arrCpy(arrDigits, arrOut, numDigits);
+    selectionSort(numDigits); // arrOut has digits in order of largest number
+    arrCpy(arrDigits, arrOut, numDigits); // copied to arrDigits
 
     // printing basic info lines
-    int maxNum = arrToNum(arrDigits, numDigits);
+    int maxNum = arrToNum(arrDigits, numDigits); // converted array of digits of largest number to int
     printf("The maximum number is: %d\n", maxNum);
     printf("Possible combinations of patient id are: %d\n", perms);
 
+    // for number of digits 1 and 2, least rank i.e. 3 will not be reached.
+    if(numDigits < 3){ 
+        printf("Not enough combinations to generate required patient id list\n");
+    }
+
     // printing in reverse lexicographical order
-    for(int i = (int)pow(10, numDigits), count = 0; i > (int)pow(10, numDigits-1) && count < perms; i--){
-        numToArr(i, numDigits);
-        selectionSort(numDigits);
-        if(arrCmp(numDigits)){
-            count++;
-            if((count%10 == 3 || count%10 == 7) && primeCheck(count)){
+    // loop starts from largest number, upto either lowest number of n digits
+    // or till required number of ranks are displayed.
+    for(int i = maxNum, count = 0; i > (int)pow(10, numDigits-1) && count < perms; i--){
+        numToArr(i, numDigits); // arrTemp stores the counter variable digits.
+        selectionSort(numDigits); // digits from arrTemp sorted to arrOut.
+        if(arrCmp(numDigits)){ // comparing digits of counter number to inputted number
+            count++; // increased count of valid numbers.
+            if((count%10 == 3 || count%10 == 7) && primeCheck(count)){ // checking for last digit 3, 7 and prime in counter number
                 printf("Patient id at rank %d is: %d\n", count, i);
             }
         }
     }
 }
+
+// Time complexity: O(10^8 * sqrt(count)) ~~ O(10^10) {worst case}
+// Nine and Eight digit numbers take a long while to process.
