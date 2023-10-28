@@ -9,7 +9,7 @@ void main(){
     int i, temp;
     for(i = 0; i < n - 1; i++){
         scanf("%d", &temp);
-        sumToN = sumToN ^ temp;
+        sumToN -= temp; // each step subtracts the inputted number from sum.
     }
     // the resultant number is the only number not subtracted from sum of all numbers, i.e. the missing number.
     printf("%d", sumToN);
