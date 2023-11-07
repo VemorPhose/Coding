@@ -17,15 +17,15 @@ void main(){
     int n;
     scanf("%d", &n);
 
-    // exception case for n = 0:
-    if(n == 0){
-        printf("0 (Contents of array Time)\n");
+    // exception case for n = 1:
+    if(n == 1){
+        printf("1 (Contents of array Time)\n");
         printf("0 (Nearest Palindromic number less \"than secret number\")\n");
         printf("0 (Time got destroyed)\n");
     }
 
-    // for all other numbers:
-    else{
+    // for all other numbers except 0:
+    else if (n > 1){
         int sz = (int)floor(log2(n)) + 1;
         int Time[sz];
 
@@ -37,10 +37,11 @@ void main(){
         // finding and outputting greatest base 10
         // palindromic number less than inputted number in binary.
         while(1){
+            n--;
             if(palindromeCheck(n)){
                 backInTime(n, Time, sz);
                 break;
-            }else n--;
+            }
         }
         printTime(Time, sz);
         printf(" (Nearest Palindromic number less \"than secret number\")\n");

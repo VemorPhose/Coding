@@ -21,9 +21,15 @@ int main(){
     int t; cin >> t;
     while(t--){
         int n; cin >> n;
-        while(!(n&1)) n>>1;
-        int cnt = 0;
-        for()
+        string s; cin >> s;
+        unordered_map<char, int> mp;
+        for(int i = 0; i < n; i++){
+            if(s[i] == 'A') mp['A']++;
+            else mp['B']++;
+        }
+        if(mp['A'] > mp['B']) cout << "A" << endl;
+        else if(mp['B'] > mp['A']) cout << "B" << endl;
+        else cout << "?" << endl;
     }
     return 0;
 }
