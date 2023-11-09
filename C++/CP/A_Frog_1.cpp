@@ -16,20 +16,17 @@ typedef pair<int, int> pii;
 typedef vector<int> vi;
 typedef vector<vector<int>> vvi;
 
+const int N = 1e5 + 10;
+int dp[N];
+
+int frog1(int cur, int n, int arr[]){
+
+}
+
 int main(){
     fastio();
-    int t; cin >> t;
-    while(t--){
-        int n; cin >> n;
-        string s; cin >> s;
-        unordered_map<char, int> mp;
-        for(int i = 0; i < n; i++){
-            if(s[i] == 'A') mp['A']++;
-            else mp['B']++;
-        }
-        if(mp['A'] > mp['B']) cout << "A" << endl;
-        else if(mp['B'] > mp['A']) cout << "B" << endl;
-        else cout << "?" << endl;
-    }
+    int n; cin >> n;
+    int arr[n]; arrIn(arr, n);
+    // int minSum = INT_MAX;
     return 0;
 }
