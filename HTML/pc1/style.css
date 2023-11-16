@@ -1,27 +1,59 @@
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 body {
-    background-color: beige;
+    background-color: rgb(26, 26, 26);
 }
 
 .login, .landing, .success {
-    color: darkslategray;
+    color: beige;
     text-align: center;
 }
 
 button {
     padding: 10px;
     color: beige;
-    background-color: darkslategray;
+    font-size: larger;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(26, 26, 26);
 }
 
 .signup {
+    color: beige;
     text-align: left;
     justify-content: center;
 }
 
-input {
-    display: inline-block;
+.landing {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    z-index: -1;
 }
 
-label {
-    display: inline-block;
+img {
+    max-width: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    min-height: 100%;
+    object-fit: cover;
+}
+
+.landingbuttondiv {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 300px;
+  }
+
+.landingbutton {
+    width: 40%;
+    padding: 20px;
+    margin-left: 14px;
+    margin-right: 14px;
+    border-radius: 25px;
+    border: 5px solid rgb(42, 42, 42);
 }
