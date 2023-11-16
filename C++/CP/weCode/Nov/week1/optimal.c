@@ -57,13 +57,6 @@ void main(){
         }
     }
 
-    // for(i = 0; i < 8; i++){
-    //     for(j = 0; j < countE; j++){
-    //         printf("%d ", arrB[i][j]);
-    //     }
-    //     printf("\n");
-    // }
-
     int arrV[8];
     for(i = 0; i < 8; i++){
         arrV[i] = 0;
@@ -74,5 +67,4 @@ void main(){
 
     insertionSort(arrV, 8);
     for(i = 0; i < 8; i++) if(arrV[i]) printf("%d ", arrV[i]);
-    // printf("\n");
 }

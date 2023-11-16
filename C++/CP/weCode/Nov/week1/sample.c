@@ -1,133 +1,129 @@
-// decode5. - POORVI AGARWAL.c
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
-int sum();
+void bin_to_dec(int m, int arr[][8], int num); // Prototype of the function for converting binary to decimal
+void decimalToBinary(int decimalArray[], int times); // Prototype of the function for converting decimal to binary
+void min_notes(int notes[], int numNotes, int target, int count[]); //Prototype of the function for finding minimum notes
+void bubble_sort(int new_curr[], int length); // Prototype of the function for sorting the array ekements
 int main()
 {
-    int n;
-    // printf("enter number : ");
-    scanf("%d", &n);
-    sum(n);
-    return 0;
-}
+    int notes[] = {100, 50, 20, 10, 5, 2, 1}; // Earth currency
+    int numNotes = sizeof(notes) / sizeof(notes[0]); // length of the array
+    int target, j, times = 0;
+    int arr[100];
 
-int sum(int n)
-{
-    int arr[n];
-    int i = 0;
-    while (n > 0)
+    // printf("Enter the target value: ");
+    scanf("%d", &target);
+    int count[numNotes];
+
+    min_notes(notes, numNotes, target, count); // calling the function
+
+    for (j = 0; j < numNotes; j++)
     {
-        if (n >= 100)
+        if (count[j] == 1)
         {
-            n = n - 100;
-            arr[i] = 100;
-            i++;
-        }
-        else if (n >= 50)
-        {
-            n = n - 50;
-            arr[i] = 50;
-
-            i++;
-        }
-        else if (n >= 20)
-        {
-            n = n - 20;
-            arr[i] = 20;
-
-            i++;
-        }
-        else if (n >= 10)
-        {
-            n = n - 10;
-            arr[i] = 10;
-
-            i++;
-        }
-        else if (n >= 5)
-        {
-            n = n - 5;
-            arr[i] = 5;
-
-            i++;
-        }
-        else if (n >= 2)
-        {
-            n = n - 2;
-            arr[i] = 2;
-
-            i++;
-        }
-        else if (n >= 1)
-        {
-            n = n - 1;
-            arr[i] = 1;
-            i++;
-        }
-    }
-    int crr[100][8] = {0};
-
-    // for (int j = 0; j < i; j++)
-    //     printf("%d ", arr[j]);
-    // printf("\n");
-    for (int k = 0; k < i; k++)
-    {
-        for (int j = 7; j >= 0; j--)
-        {
-            crr[k][j] = arr[k] % 2;
-
-            arr[k] = arr[k] / 2;
-        }
-    }
-
-    for (int k = 0; k < 8; k++)
-    {
-        // for (int j = 0; j < i; j++)
-        // {
-        //     printf("%d ", crr[j][k]);
-        // }
-        // printf("\n");
-    }
-    int brr[8];
-    int l = 0;
-    // printf("binary to decimal form are : ");
-    for (int k = 0; k < 8; k++)
-    {
-        int sum = 0;
-        int p = i - 1;
-        for (int j = 0; j < i; j++)
-        {
-            sum = sum + ((pow(2, p)) * crr[j][k]);
-            p--;
-        }
-        brr[l] = sum;
-        l++;
-    }
-    for (int l = 0; l < 8; l++)
-    {
-        // printf("%d ", brr[l]);
-    }
-    // printf("\n");
-    int temp = 0;
-    int num = 0;
-    for (int j = 1; j < 8; j++)
-    {
-        for (int k = 0; k < 8 - j; k++)
-        {
-            if (brr[k] < brr[k + 1])
+            if (notes[j] != 0)
             {
-                temp = brr[k + 1];
-                brr[k + 1] = brr[k];
-                brr[k] = temp;
+                arr[times] = notes[j];
+            }
+            times = times + 1;
+        }
+        else if (count[j] > 1)
+        {
+            while (count[j] >= 1)
+            {
+                arr[times] = notes[j];
+                if (notes[j] != 0)
+                {
+                    times += 1;
+                }
+                count[j]--;
             }
         }
     }
-    for (int k = 0; k < 8; k++)
-    {
-        if (brr[k] != 0)
-            num = num * 10 + brr[k];
-    }
-    printf("%d ", num);
+    decimalToBinary(arr, times); // calling the function
 
     return 0;
+}
+void bubble_sort(int new_curr[], int length){ // function for sorting the final elements of output arraY
+    int temp = 0;
+
+    for (int i = 0; i < length; i++) {   
+        for (int j = 0; j < length-i-1; j++) {   
+           if(new_curr[j+1] > new_curr[j]) {  
+               temp = new_curr[j+1];  
+               new_curr[j+1] = new_curr[j];  
+               new_curr[j] = temp;  
+           }   
+        }   
+    } 
+    printf("\n");   
+    for (int i = 0; i < length; i++) { 
+        if(new_curr[i] == 0)
+        continue;  
+        printf("%d ", new_curr[i]);  
+    }    
+}   
+void bin_to_dec(int m, int arr[][8], int num) // function for converting binary to decimal
+{
+    int x = 8 - num,length=0;
+    int new_curr[8] = {0};
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 7; j >= 0; j--)
+        {
+            new_curr[i] = new_curr[i] + arr[i][j] * pow(2, (7 - j));
+        }
+
+        new_curr[i] = new_curr[i] / (pow(2, x));
+    }
+    for (int i = 7; i >= 0; i--)
+    {
+        if (new_curr[i] != 0)
+        {
+            length++;
+
+        }
+        
+    }
+    bubble_sort(new_curr,8); // calling the function
+    return;
+}
+
+void decimalToBinary(int decimalArray[], int times) // function for converting decimal to binary
+{
+    int BinaryArray[8][8] = {0};
+    int col = 0;
+
+    for (int i = 0; i < times; i++)
+    {
+        int decimal = decimalArray[i];
+        for (int j = 7; j >= 0; j--)
+        {
+            int k = (decimal >> j) & 1;
+            BinaryArray[i][j] = k;
+        }
+        col++;
+    }
+    int new_arr[8][8] = {0};
+
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < times; j++)
+        {
+            new_arr[8 - i - 1][j] = BinaryArray[j][i];
+        }
+    }
+
+    bin_to_dec(8, new_arr, col); // calling the function
+}
+
+void min_notes(int notes[], int numNotes, int target, int count[]) // function for finding the least amount of earth currency used whose sum is equal to the target value
+{
+    for (int i = 0; i < numNotes; i++)
+    {
+        count[i] = target / notes[i];
+        target %= notes[i];
+    }    
 }

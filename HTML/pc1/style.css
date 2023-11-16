@@ -1,0 +1,27 @@
+body {
+    background-color: beige;
+}
+
+.login, .landing, .success {
+    color: darkslategray;
+    text-align: center;
+}
+
+button {
+    padding: 10px;
+    color: beige;
+    background-color: darkslategray;
+}
+
+.signup {
+    text-align: left;
+    justify-content: center;
+}
+
+input {
+    display: inline-block;
+}
+
+label {
+    display: inline-block;
+}
