@@ -1,129 +1,129 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-void bin_to_dec(int m, int arr[][8], int num); // Prototype of the function for converting binary to decimal
-void decimalToBinary(int decimalArray[], int times); // Prototype of the function for converting decimal to binary
-void min_notes(int notes[], int numNotes, int target, int count[]); //Prototype of the function for finding minimum notes
-void bubble_sort(int new_curr[], int length); // Prototype of the function for sorting the array ekements
-int main()
-{
-    int notes[] = {100, 50, 20, 10, 5, 2, 1}; // Earth currency
-    int numNotes = sizeof(notes) / sizeof(notes[0]); // length of the array
-    int target, j, times = 0;
-    int arr[100];
-
-    // printf("Enter the target value: ");
-    scanf("%d", &target);
-    int count[numNotes];
-
-    min_notes(notes, numNotes, target, count); // calling the function
-
-    for (j = 0; j < numNotes; j++)
-    {
-        if (count[j] == 1)
-        {
-            if (notes[j] != 0)
-            {
-                arr[times] = notes[j];
-            }
-            times = times + 1;
+#include<stdio.h>
+int main(){
+    int N;
+    // printf("ENTER AMOUNT OF MONEY : ");
+    scanf("%d", &N);
+    int N1=N;
+    int numberOfSteps=0;
+    while(N1>0){
+        if(N1>=100){
+            N1=N1-100;
         }
-        else if (count[j] > 1)
-        {
-            while (count[j] >= 1)
-            {
-                arr[times] = notes[j];
-                if (notes[j] != 0)
-                {
-                    times += 1;
-                }
-                count[j]--;
+        else if(N1<100 && N1>=50){
+            N1=N1-50;
+        }
+        else if(N1<50 && N1>=20){
+            N1=N1-20;
+        }
+        else if(N1<20 && N1>=10){
+            N1=N1-10;
+        }
+        else if(N1<10 && N1>=5){
+            N1=N1-5;
+        }
+        else if(N1<5 && N1>=2){
+            N1=N1-2;
+        }
+        else if(N1<2 && N1>=1){
+            N1=N1-1;
+        }
+        numberOfSteps++;
+    }
+    int N2=N;
+    int D[numberOfSteps];
+    for(int k=0;k<=(numberOfSteps-1);k++){
+        if(N2>=100){
+            N2=N2-100;
+            D[k]=100;
+        }
+        else if(N2<100 && N2>=50){
+            N2=N2-50;
+            D[k]=50;
+        }
+        else if(N2<100 && N2>=50){
+            N2=N2-50;
+            D[k]=50;
+        }
+        else if(N2<50 && N2>=20){
+            N2=N2-20;
+            D[k]=20;
+        }
+        else if(N2<20 && N2>=10){
+            N2=N2-10;
+            D[k]=10;
+        }
+        else if(N2<10 && N2>=5){
+            N2=N2-5;
+            D[k]=5;
+        }
+        else if(N2<5 && N2>=2){
+            N2=N2-2;
+            D[k]=2;
+        }
+        else if(N2<2 && N2>=1){
+            N2=N2-1;
+            D[k]=1;
+        }
+    }
+    int m;
+    int a[8][numberOfSteps];
+    for(int i=0;i<=(numberOfSteps-1);i++){
+        m=128;
+        for(int j=0;j<=7;j++){
+            if(D[i]>=m){
+            a[j][i]=1;
+        }
+        if(D[i]<m){
+            a[j][i]=0;
+        }
+        if(a[j][i]==1){
+            D[i]=D[i]-m;
+        }
+        m=m/2;
+        }
+    }
+    int A[8];
+    for(int Y=0;Y<=7;Y++){
+        A[Y]=0;
+    }
+    int M;
+    for(int K=0;K<=7;K++){
+        M=1;
+        for(int J=(numberOfSteps-1);J>=0;J--){
+            A[K]=A[K]+(M*a[K][J]);
+            M=M*2;
+        }
+    }
+    int COUNT=0;
+    int count=0;
+    while(COUNT<=7){
+        if(A[COUNT]!=0){
+            count++;
+        }
+        COUNT++;
+    }
+    int I[count];
+    int R=0;
+    int H=0;
+    while(H<=7){
+        if(A[H]!=0){
+            I[R]=A[H];
+            R++;
+        }
+        H++;
+    }
+    int temp;
+    for(int p=0;p<=(count-1);p++){
+        for(int P=p;P<=(count-1);P++){
+            if(I[p]<I[P]){
+                temp=I[p];
+                I[p]=I[P];
+                I[P]=temp;
             }
         }
     }
-    decimalToBinary(arr, times); // calling the function
-
+    for(int Q=0;Q<=(count-1);Q++){
+        printf("%d ", I[Q]);
+    }
     return 0;
-}
-void bubble_sort(int new_curr[], int length){ // function for sorting the final elements of output arraY
-    int temp = 0;
-
-    for (int i = 0; i < length; i++) {   
-        for (int j = 0; j < length-i-1; j++) {   
-           if(new_curr[j+1] > new_curr[j]) {  
-               temp = new_curr[j+1];  
-               new_curr[j+1] = new_curr[j];  
-               new_curr[j] = temp;  
-           }   
-        }   
-    } 
-    printf("\n");   
-    for (int i = 0; i < length; i++) { 
-        if(new_curr[i] == 0)
-        continue;  
-        printf("%d ", new_curr[i]);  
-    }    
-}   
-void bin_to_dec(int m, int arr[][8], int num) // function for converting binary to decimal
-{
-    int x = 8 - num,length=0;
-    int new_curr[8] = {0};
-
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 7; j >= 0; j--)
-        {
-            new_curr[i] = new_curr[i] + arr[i][j] * pow(2, (7 - j));
-        }
-
-        new_curr[i] = new_curr[i] / (pow(2, x));
-    }
-    for (int i = 7; i >= 0; i--)
-    {
-        if (new_curr[i] != 0)
-        {
-            length++;
-
-        }
-        
-    }
-    bubble_sort(new_curr,8); // calling the function
-    return;
-}
-
-void decimalToBinary(int decimalArray[], int times) // function for converting decimal to binary
-{
-    int BinaryArray[8][8] = {0};
-    int col = 0;
-
-    for (int i = 0; i < times; i++)
-    {
-        int decimal = decimalArray[i];
-        for (int j = 7; j >= 0; j--)
-        {
-            int k = (decimal >> j) & 1;
-            BinaryArray[i][j] = k;
-        }
-        col++;
-    }
-    int new_arr[8][8] = {0};
-
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0; j < times; j++)
-        {
-            new_arr[8 - i - 1][j] = BinaryArray[j][i];
-        }
-    }
-
-    bin_to_dec(8, new_arr, col); // calling the function
-}
-
-void min_notes(int notes[], int numNotes, int target, int count[]) // function for finding the least amount of earth currency used whose sum is equal to the target value
-{
-    for (int i = 0; i < numNotes; i++)
-    {
-        count[i] = target / notes[i];
-        target %= notes[i];
-    }    
 }
