@@ -27,16 +27,26 @@ int main(){
     fastio();
     int t; cin >> t;
     while(t--){
-        int n; cin >> n;
-        int flag = 1;
-        for(int i = 2; i < n; i++){
-            if(n%i==0){
-                flag = 0;
-                break;
+        int n,k;cin>>n>>k;
+        vi v; vIn(v, n);
+        sort(all(v));
+        int maxcont = 0;
+        int temp = 1;
+        for(int i = 0; i < n-1; i++){
+            if(v[i+1]-v[i] <=k) temp++;
+            else{
+                if(temp > maxcont){
+                    // cout << i << " " << temp << " " << v[i] << endl;
+                    maxcont = temp;
+                }
+                temp = 1;
             }
         }
-        if(flag) cout << 1 << endl;
-        else cout << 0 << endl;
+        if(temp > maxcont){
+            maxcont = temp;
+            temp = 1;
+        }
+        cout << n-maxcont << endl;
     }
     return 0;
 }

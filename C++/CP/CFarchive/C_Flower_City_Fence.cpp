@@ -27,16 +27,38 @@ int main(){
     fastio();
     int t; cin >> t;
     while(t--){
-        int n; cin >> n;
+        ll n;cin>>n;
+        vi v;
+        vi vtemp;
+        for(ll i = 0; i < n; i++){
+            ll temp; cin >> temp;
+            v.pub(temp);
+            vtemp.pub(temp);
+        }
+        if(v[0] != sz(v)){
+            cout << "NO" << endl;
+            continue;
+        }
+        ll vflip[n];
+        for(int i = 0; i < n; i++){
+            vflip[i]=0;
+        }
+        for(auto x: v){
+            while(x--){
+                vflip[x]++;
+            }
+        }
         int flag = 1;
-        for(int i = 2; i < n; i++){
-            if(n%i==0){
+        for(ll i = 0; i < n; i++){
+            if(v[i] != vflip[i]){
                 flag = 0;
                 break;
             }
+            // cout << v[i] << " " << vflip[i] << endl;
         }
-        if(flag) cout << 1 << endl;
-        else cout << 0 << endl;
+        // cout << endl;
+        if(flag) cout << "YES" << endl;
+        else cout << "NO" << endl;
     }
     return 0;
 }

@@ -28,15 +28,12 @@ int main(){
     int t; cin >> t;
     while(t--){
         int n; cin >> n;
-        int flag = 1;
-        for(int i = 2; i < n; i++){
-            if(n%i==0){
-                flag = 0;
-                break;
-            }
+        int wq = 0; int w = 0;
+        for(int i = 0; i < n; i++){
+            int a,b;cin>>a>>b;
+            if(a<=10) if(b>wq) {wq=b;w=i+1;}
         }
-        if(flag) cout << 1 << endl;
-        else cout << 0 << endl;
+        cout << w << endl;
     }
     return 0;
 }

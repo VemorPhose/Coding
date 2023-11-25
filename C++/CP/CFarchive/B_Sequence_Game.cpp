@@ -27,16 +27,18 @@ int main(){
     fastio();
     int t; cin >> t;
     while(t--){
+        vi v;
         int n; cin >> n;
-        int flag = 1;
-        for(int i = 2; i < n; i++){
-            if(n%i==0){
-                flag = 0;
-                break;
-            }
+        vIn(v, n);
+        vi vout;
+        vout.pub(v[0]);
+        for(int i = 1; i < sz(v); i++){
+            if(v[i]!=v[i-1] && v[i-1]!=1 && v[i-1]>v[i]) vout.pub(1);
+            vout.pub(v[i]);
         }
-        if(flag) cout << 1 << endl;
-        else cout << 0 << endl;
+        cout << sz(vout) << endl;
+        for(auto x: vout) cout << x << " ";
+        cout << endl;
     }
     return 0;
 }

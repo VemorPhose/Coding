@@ -27,16 +27,18 @@ int main(){
     fastio();
     int t; cin >> t;
     while(t--){
-        int n; cin >> n;
-        int flag = 1;
-        for(int i = 2; i < n; i++){
-            if(n%i==0){
-                flag = 0;
-                break;
+        vector<string> vs;
+        for(int i = 0; i < 8; i++){
+            string s; cin >> s;
+            vs.pub(s);
+        }
+        string out = "";
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(vs[i][j]!='.') out.pub(vs[i][j]);
             }
         }
-        if(flag) cout << 1 << endl;
-        else cout << 0 << endl;
+        cout << out << endl;
     }
     return 0;
 }
