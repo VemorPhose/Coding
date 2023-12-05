@@ -1,111 +1,69 @@
-#include <stdio.h>
-#include <math.h>
-
-int numOfCoins(int n, int coins[7]);
-int binarize(int n, int binCoin[8]);
-void sort(int arr[8]);
-
-int main(void)
-{
-    int n;
-    printf("Enter value in Earth currency: ");
-    scanf("%d", &n);
-
-    if (n > pow(2,8) || n < 1)
-    {
-        printf("INVALID INPUT!\n");
-        return 1;
-    }
-
-    int coins[7], binCoin[8], binCoins[8][7];
-
-    int c = numOfCoins(n, coins);
-    printf("Processing Steps:\n");
-
-    for(int i = 0; i < c; i++)
-        printf("%4d", coins[i]);
-
-    printf("\n");
-    
-    for (int i = 0; i < c; i++)
-    {
-        binarize(coins[i], binCoin);
-
-        for (int j = 0; j < 8; j++)
-        {
-            binCoins[j][i] = binCoin[7 - j];
-        }
-    }
-
-    for (int i = 0; i < 8; i++)
-    {
-        for (int j = 0;  j < c; j++)
-        {
-            printf ("%4d", binCoins[i][j]);
-        }
-        printf ("\n");
-    }
-    
-    int vCoins[8] = {0};
-    for (int i = 0; i < 8; i++)
-    {
-        vCoins[i] = binCoins[i][0] * 4 + binCoins[i][1] * 2 + binCoins[i][2] * 1;
-        printf("%d ", vCoins[i]);
-    }
-    
-    sort(vCoins);
-    printf("\n");
-    
-    int i;
-    
-    while(vCoins[i])
-        printf("%d ", vCoins[i++]);
+#include<stdio.h>
+#include<string.h>
+#include<math.h>
+void first();
+void outcome(char *arr,int l);
+void palindrome(char *arr,int l);
+int main()
+{ 
+  int t;
+  scanf("%d",&t);
+  while(t--)
+  first();
+return 0;
 }
 
-int numOfCoins(int n, int coin[7])
-{
-    int earthCoins[7] = {100, 50, 20, 10, 5, 2, 1};
-    int j = 0;
-    for (int i = 0; i < 7; i++)
-    {
-        if (n >= earthCoins[i])
-        {
-            coin[j] = earthCoins[i];
-            n -= earthCoins[i];
-            j++;
-        }
-        if (n == 0)
-            break;
-    }
-    return j;
-}
-
-int binarize(int n, int binCoin[8])
-{
-    int i = 0;
-    while (n != 0)
-    {
-        binCoin[i++] = n % 2;
-        n /= 2;
-    }
+void first()
+  { int l;
+    scanf("%d",&l); 
+    char str[13];
     
-    for(int j = i; j < 8; j++)
-    binCoin[j] = 0;
+ scanf("%s",str);
+ 
+if(l>=1 && l<=12)
+ palindrome(str,l);
+else 
+printf("-1");
+ }
+   
 
+void palindrome(char *str,int l)
+{   int i,result=0;
+    for(i=0;i<l;i++)
+    { int a= (int)str[i];
+      if(a<123 && a>96 || str[i]=='.')
+     {if(str[i] != str[l-1-i] && str[i] != '.' && str[l-1-i] != '.')
+        { result = -1;
+          break; }
+       
+        else if(str[i] == '.' || str[l-1-i] == '.')
+          { if(str[i] == '.' && str[l-i-1] == '.')
+                {str[i] = 'a' ;
+                 str[l-i-1] = 'a';}
+         
+            else if(str[i] != '.' )           
+            str[l-i-1] = str[i];
+            }}
+            else
+            result=-1;
+    }
+    if(result == -1)
+     printf("-1\n");
+    else
+     outcome(str,l);
 }
 
-void sort(int arr[8])
-{
-    for (int i = 0; i < 8; i++)
-    {
-        for(int j = 7; j > i; j--)
-        {
-            if (arr[j] > arr[i])
-            {
-                int t = arr[j];
-                arr[j] = arr[i];
-                arr[i] = t;
-            }
-        }
-    }
+void outcome(char *str,int l)
+{  double sum=0;
+  for(int i=1;i<l;i++)
+    sum=sum+pow(26,i);
+  for(long int i=0;i<l-1;i++)
+  {  sum=sum+(((int)str[i]-97) * pow(26,l-i-1));
+          }  
+  
+  sum=sum+(int)str[l-1]-96;
+  //printf("%lf\n",sum);
+  long long int k;
+  k=sum;
+  printf("%lld\n",k);
 }

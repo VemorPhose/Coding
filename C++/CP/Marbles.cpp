@@ -66,7 +66,34 @@ int main(){
     fastio();
     int t; cin >> t;
     while(t--){
-        
+        ll a, b; cin>>a>>b;
+        ll minct = LL_MAX;
+        ll cnt = 0;
+        if(a%b==0){
+            cout << 0 << endl;
+            continue;
+        }
+        ll a1 = a, b1 = b;
+        while(b1 > 1){
+            ++cnt;
+            --b1;
+            ++a1;
+            if(a1%b1==0){
+                if(cnt < minct) minct = cnt;
+                break;
+            }
+        }
+        a1 = a; b1 = b; cnt = 0;
+        while(a1-b1 >= 2){
+            ++cnt;
+            ++b1;
+            --a1;
+            if(a1%b1==0){
+                if(cnt < minct) minct = cnt;
+                break;
+            }
+        }
+        cout << minct << endl;
     }
     return 0;
 }
