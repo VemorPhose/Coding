@@ -19,43 +19,33 @@ void mapify(char para[], int len);
 void mpSSsort();
 
 int main(){
-    // 1
     char para[50010];
     printf("Enter a paragraph in one line.\n");
     scanf("%[^\n]%*c", para);
-
     int len = strlen(para);
-    // para[len] = 0; // gets rid of \n from fgets
 
-    // 2
     wspPara(para, len);
     printf("%s\n\n", para);
 
-    // 3
     upperPara(para, len);
     printf("%s\n\n", para);
 
-    // 4
     mpInit();
     mapify(para, len);
     mpPrint();
     printf("\n");
 
-    // 5
     mpSSsort();
 
-    // 6
     mpPrint();
     printf("\n");
 
-    // 7
     bool nfflag;
     while(true){
         nfflag = true;
         printf("Enter a word (0 to exit): ");
         char word[55];
         scanf("%[^\n]%*c", word);
-        // word[strlen(word)-1] = 0;
         upperPara(word, strlen(word));
         if(strcmp(word, "0") == 0) break;
         int i;

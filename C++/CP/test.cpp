@@ -4,10 +4,10 @@
 using namespace std;
 
 // typedefs
-#define ll              int_fast64_t
-#define ull             uint_fast64_t
-#define int             int_fast32_t
-#define uint            uint_fast32_t
+#define ll              int64_t
+#define ull             uint64_t
+#define Int             int32_t
+#define uint            uint32_t
 #define pii             pair<ll, ll>
 #define vi              vector<ll>
 #define vvi             vector<vector<ll>>
@@ -16,9 +16,9 @@ using namespace std;
 #define vs              vector<string>
 
 // shortcuts
-#define MOD             1e9+7
+#define MOD             1000000007
 #define mod             998244353
-#define INF             1e18+10
+#define INF             1000000000000000010
 #define PI              2 * acos(0.0)
 #define LL_MAX          LLONG_MAX
 #define LL_MIN          LLONG_MIN
