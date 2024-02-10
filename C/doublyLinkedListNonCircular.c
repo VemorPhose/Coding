@@ -182,7 +182,7 @@ int removeFirstOccurence(Node *pHead, Node *pTail, Type *data, Type key){
 }
 
 // 11
-void reverseList(Node *pHead, Node *pTail){
+void reverseListNewList(Node *pHead, Node *pTail){
     Node p = *pHead;
     Type buf;
     Node headNew = NULL;
@@ -193,6 +193,123 @@ void reverseList(Node *pHead, Node *pTail){
     }
     *pHead = headNew;
     *pTail = tailNew;
+}
+
+// 12
+void reverseList(Node *pHead, Node *pTail){
+    Node p = *pHead;
+    for(; p; p = p->prev){
+        Node temp = p->next;
+        p->next = p->prev;
+        p->prev = temp;
+    }
+    Node temp = *pHead;
+    *pHead = *pTail;
+    *pTail = temp;
+}
+
+// 13
+void insertInSortedList(Node *pHead, Node *pTail, Type data){
+    if(!*pHead || (*pHead)->data > data){
+        addFirst(pHead, pTail, data);
+        return;
+    }
+    if((*pTail)->data <= data){
+        addLast(pHead, pTail, data);
+        return;
+    }
+    Node p = *pHead;
+    for(; p->next; p = p->next){
+        if(p->data <= data && p->next->data >= data){
+            Node node = newNode(p, data, p->next);
+            p->next = p->next->prev = node;
+            return;
+        }
+    }
+    Node node = newNode(p, data, p->next);
+    p->next = p->next->prev = node;
+    return;
+}
+
+// 14
+void sortList(Node *pHead, Node *pTail){
+    Node headNew = NULL;
+    Node tailNew = NULL;
+    Type buf;
+    while(*pHead){
+        insertInSortedList(&headNew, &tailNew, (*pHead)->data);
+        removeFirst(pHead, pTail, &buf);
+    }
+    *pHead = headNew;
+    *pTail = tailNew;
+}
+
+// 15
+void mergeLists(Node *pHead1, Node *pTail1, Node *pHead2, Node *pTail2){
+    (*pTail1)->next = *pHead2;
+    (*pHead2)->prev = *pTail1;
+    *pTail1 = *pTail2;
+}
+
+// 16
+int getAtIndex(Node *pHead, Node *pTail, Type *data, int index){
+    if(index >= countListElements(*pHead))
+        return 0;
+    Node p = *pHead;
+    for(int i = 0; i < index; i++)
+        p = p->next;
+    *data = p->data;
+    return 1;
+}
+
+// 17
+void mergeSort(Node *pHead1, Node *pTail1, Node *pHead2, Node *pTail2){
+    mergeLists(pHead1, pTail1, pHead2, pTail2);
+    sortList(pHead1, pTail1);
+}
+
+// 18
+void printListRecursive(Node head, Node tail){
+    if(head == NULL && tail == NULL){
+        printf("NULL\n");
+        return;
+    }
+    if(head == tail){
+        printf("%d\n", head->data);
+        return;
+    }
+    printf("%d -> ", head->data);
+    printListRecursive(head->next, tail);
+}
+
+// 19
+void printListRecursiveReverse(Node head, Node tail){
+    if(head == NULL && tail == NULL){
+        printf("NULL\n");
+        return;
+    }
+    if(head == tail){
+        printf("%d\n", tail->data);
+        return;
+    }
+    printf("%d <- ", tail->data);
+    printListRecursiveReverse(head, tail->prev);
+}
+
+// 20
+void reverseListRecursive(Node *pHead, Node *pTail, Node head){
+    if(!*pHead && !*pTail)
+        return;
+    if(!head){
+        Node temp = *pHead;
+        *pHead = *pTail;
+        *pTail = temp;
+        return;
+    }
+    Node temp = head->next;
+    head->next = head->prev;
+    head->prev = temp;
+    reverseListRecursive(pHead, pTail, head->prev);
 }
 
 int main(){
@@ -223,20 +340,33 @@ int main(){
     addAfterFirstOccurence(&head, &tail, 7, 3);
     addAfterFirstOccurence(&head, &tail, 7, 5);
     printList(head, tail, data, status);
-    removeAtIndex(&head, &tail, &data, 4);
+    status = removeAtIndex(&head, &tail, &data, 4);
     printList(head, tail, data, status);
-    removeAtIndex(&head, &tail, &data, 0);
+    status = removeAtIndex(&head, &tail, &data, 0);
     printList(head, tail, data, status);
-    removeAtIndex(&head, &tail, &data, 5);
+    status = removeAtIndex(&head, &tail, &data, 5);
     printList(head, tail, data, status);
-    removeFirstOccurence(&head, &tail, &data, 7);
+    status = removeFirstOccurence(&head, &tail, &data, 7);
     printList(head, tail, data, status);
-    removeFirstOccurence(&head, &tail, &data, 6);
+    status = removeFirstOccurence(&head, &tail, &data, 6);
     printList(head, tail, data, status);
-    removeFirstOccurence(&head, &tail, &data, 5);
+    status = removeFirstOccurence(&head, &tail, &data, 5);
+    printList(head, tail, data, status);
+    reverseListNewList(&head, &tail);
     printList(head, tail, data, status);
     reverseList(&head, &tail);
     printList(head, tail, data, status);
+    addFirst(&head, &tail, 2);
+    addFirst(&head, &tail, 4);
+    addFirst(&head, &tail, 3);
+    printList(head, tail, data, status);
+    sortList(&head, &tail);
+    printList(head, tail, data, status);
+    printListRecursive(head, tail);
+    printListRecursiveReverse(head, tail);
+    reverseListRecursive(&head, &tail, head);
+    printListRecursive(head, tail);
+    printListRecursiveReverse(head, tail);
 
     return 0;
 }
