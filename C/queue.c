@@ -25,24 +25,26 @@ int isEmpty(Queue queue){
 }
 
 int isFull(Queue queue){
-    return queue->rear == queue->capacity - 1;
+    return queue->rear - queue->front == queue->capacity - 1;
 }
 
 int enqueue(Queue queue, Type data){
     if(isFull(queue)) return 0;
-    if(isEmpty){
+    if(isEmpty(queue)){
         queue->front = queue->rear = 0;
         queue->array[queue->front] = data;
     }
-    else
-        queue->array[++queue->rear] = data;
+    else{
+        ++queue->rear;
+        queue->array[queue->rear%queue->capacity] = data;
+    }
     return 1;
 }
 
 int dequeue(Queue queue, Type *data){
     if(isEmpty(queue)) return 0;
     *data = queue->array[queue->front];
-    queue->array[queue->front++] = 0;
+    queue->array[(queue->front++)%queue->capacity] = 0;
     if(queue->front > queue->rear)
         queue->front = queue->rear = -1;
     return 1;
@@ -50,13 +52,13 @@ int dequeue(Queue queue, Type *data){
 
 int front(Queue queue, Type *data){
     if(isEmpty(queue)) return 0;
-    *data = queue->array[queue->front];
+    *data = queue->array[queue->front%queue->capacity];
     return 1;
 }
 
 int rear(Queue queue, Type *data){
     if(isEmpty(queue)) return 0;
-    *data = queue->array[queue->rear];
+    *data = queue->array[queue->rear%queue->capacity];
     return 1;
 }
 
@@ -65,9 +67,9 @@ void print(Queue queue){
         printf("\n");
         return;
     }
-    for(int i = queue->front; i <= queue->rear; i++)
-        printf("%d ", queue->array[i]);
-    printf("\n");
+    for(int i = queue->front; i < queue->rear; i++)
+        printf("%d <- ", queue->array[i%queue->capacity]);
+    printf("%d\n", queue->array[queue->rear%queue->capacity]);    
     return;
 }
 
@@ -85,6 +87,21 @@ int main(){
     print(queue);
     dequeue(queue, &data);
     print(queue);
+    printf("%d\n", data);
+    enqueue(queue, 6);
+    print(queue);
+    dequeue(queue, &data);
+    print(queue);
+    printf("%d\n", data);
+    dequeue(queue, &data);
+    print(queue);
+    printf("%d\n", data);
+    dequeue(queue, &data);
+    print(queue);
+    printf("%d\n", data);
+    front(queue, &data);
+    printf("%d\n", data);
+    rear(queue, &data);
     printf("%d\n", data);
 
     return 0;
