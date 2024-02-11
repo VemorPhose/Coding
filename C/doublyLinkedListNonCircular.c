@@ -315,58 +315,127 @@ void reverseListRecursive(Node *pHead, Node *pTail, Node head){
 int main(){
     Node head = NULL;
     Node tail = NULL;
+    Node head2 = NULL;
+    Node tail2 = NULL;
     Type data = 0;
     int status = 1;
-    addFirst(&head, &tail, 2);
-    addFirst(&head, &tail, 4);
-    addFirst(&head, &tail, 3);
-    printList(head, tail, data, status);
-    printf("no. of elements: %d\n", countListElements(head));
-    status = removeFirst(&head, &tail, &data);
-    printList(head, tail, data, status);
-    status = removeFirst(&head, &tail, &data);
-    printList(head, tail, data, status);
-    removeFirst(&head, &tail, &data);
-    printList(head, tail, data, status);
-    // printf("%p\n%p\n", head, tail);
-    addFirst(&head, &tail, 2);
-    addFirst(&head, &tail, 4);
-    addFirst(&head, &tail, 3);
-    addLast(&head, &tail, 5);
-    printList(head, tail, data, status);
-    addAtIndex(&head, &tail, 6, 2);
-    printList(head, tail, data, status);
-    addAfterFirstOccurence(&head, &tail, 7, 6);
-    addAfterFirstOccurence(&head, &tail, 7, 3);
-    addAfterFirstOccurence(&head, &tail, 7, 5);
-    printList(head, tail, data, status);
-    status = removeAtIndex(&head, &tail, &data, 4);
-    printList(head, tail, data, status);
-    status = removeAtIndex(&head, &tail, &data, 0);
-    printList(head, tail, data, status);
-    status = removeAtIndex(&head, &tail, &data, 5);
-    printList(head, tail, data, status);
-    status = removeFirstOccurence(&head, &tail, &data, 7);
-    printList(head, tail, data, status);
-    status = removeFirstOccurence(&head, &tail, &data, 6);
-    printList(head, tail, data, status);
-    status = removeFirstOccurence(&head, &tail, &data, 5);
-    printList(head, tail, data, status);
-    reverseListNewList(&head, &tail);
-    printList(head, tail, data, status);
-    reverseList(&head, &tail);
-    printList(head, tail, data, status);
-    addFirst(&head, &tail, 2);
-    addFirst(&head, &tail, 4);
-    addFirst(&head, &tail, 3);
-    printList(head, tail, data, status);
-    sortList(&head, &tail);
-    printList(head, tail, data, status);
-    printListRecursive(head, tail);
-    printListRecursiveReverse(head, tail);
-    reverseListRecursive(&head, &tail, head);
-    printListRecursive(head, tail);
-    printListRecursiveReverse(head, tail);
+    int index = 0;
+    int f = 1;
+    Type key = 0;
+
+    do{
+        printf("0. exit\n");
+        printf("1. add element to beginning\n");
+        printf("2. print list\n");
+        printf("3. count number of elements\n");
+        printf("4. remove first element\n");
+        printf("5. add element at end\n");
+        printf("6. remove last element\n");
+        printf("7. add element at index\n");
+        printf("8. remove element at index\n");
+        printf("9. add element after first occurence of an element\n");
+        printf("10. remove first occurence of an element\n");
+        printf("11. reverse list\n");
+        printf("12. reverse list no new list\n");
+        printf("13. insert into sorted list\n");
+        printf("14. sort list\n");
+        printf("15. merge lists\n");
+        printf("16. find at index\n");
+        printf("17. merge sorted lists\n");
+        printf("18. print list recursively\n");
+        printf("19. print list in reverse order recursively\n");
+        printf("20. reverse list recursively\n");
+
+        printf("\nenter choice: ");
+        scanf("%d", &f);
+        if(f==1||f==5||f==7||f==9||f==13){
+            printf("enter element to be added: ");
+            scanf("%d", &data);
+        }
+        if(f==7||f==8||f==16){
+            printf("enter index of element: ");
+            scanf("%d", &index);
+        }
+        if(f==9||f==10){
+            printf("enter element to find: ");
+            scanf("%d", &key);
+        }
+
+        switch(f){
+            case 1:
+                addFirst(&head, &tail, data);
+                break;
+            case 2:
+                printList(head, tail, data, status);
+                break;
+            case 3:
+                printf("no. of elements in list is/are %d\n", countListElements(head));
+                break;
+            case 4:
+                status = removeFirst(&head, &tail, &data);
+                break;
+            case 5:
+                addLast(&head, &tail, data);
+                break;
+            case 6:
+                status = removeLast(&head, &tail, &data);
+                break;
+            case 7:
+                status = addAtIndex(&head, &tail, data, index);
+                if(status) printf("added element successfully\n");
+                else printf("failed to add element\n");
+                break;
+            case 8:
+                status = removeAtIndex(&head, &tail, &data, index);
+                if(status) printf("removed element successfully\n");
+                else printf("failed to remove element\n");
+                break;
+            case 9:
+                status = addAfterFirstOccurence(&head, &tail, data, key);
+                if(status) printf("added element successfully\n");
+                else printf("failed to add element\n");
+                break;
+            case 10:
+                status = removeFirstOccurence(&head, &tail, &data, key);
+                if(status) printf("removed element successfully\n");
+                else printf("failed to remove element\n");
+                break;
+            case 11:
+                reverseListNewList(&head, &tail);
+                break;
+            case 12:
+                reverseList(&head, &tail);
+                break;
+            case 13:
+                insertInSortedList(&head, &tail, data);
+                break;
+            case 14:
+                sortList(&head, &tail);
+                break;
+            case 15:
+                mergeLists(&head, &tail, &head2, &tail2);
+                break;
+            case 16:
+                status = getAtIndex(&head, &tail, &data, index);
+                if(!status) printf("failed to find element\n");
+                else printf("element at index %d is %d\n", index, data);
+                break;
+            case 17:
+                mergeSort(&head, &tail, &head2, &tail2);
+                break;
+            case 18:
+                printListRecursive(head, tail);
+                break;
+            case 19:
+                printListRecursiveReverse(head, tail);
+                break;
+            case 20:
+                reverseListRecursive(&head, &tail, head);
+                break;
+            default:
+                break;
+        }
+    } while(f);
 
     return 0;
 }

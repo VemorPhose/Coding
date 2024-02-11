@@ -62,47 +62,68 @@ int rear(Queue queue, Type *data){
     return 1;
 }
 
-void print(Queue queue){
+void print(Queue queue, Type data, int status){
     if(isEmpty(queue)){
         printf("\n");
         return;
     }
     for(int i = queue->front; i < queue->rear; i++)
         printf("%d <- ", queue->array[i%queue->capacity]);
-    printf("%d\n", queue->array[queue->rear%queue->capacity]);    
+    printf("%d\n", queue->array[queue->rear%queue->capacity]);
+    printf("data: %d, status: %d\n", data, status);    
     return;
 }
 
 int main(){
     Queue queue = newQueue(5);
     Type data = 0;
+    int status = 1;
+    int f = 1;
 
-    enqueue(queue, 1);
-    enqueue(queue, 2);
-    enqueue(queue, 3);
-    enqueue(queue, 4);
-    enqueue(queue, 5);
-    print(queue);
-    enqueue(queue, 6);
-    print(queue);
-    dequeue(queue, &data);
-    print(queue);
-    printf("%d\n", data);
-    enqueue(queue, 6);
-    print(queue);
-    dequeue(queue, &data);
-    print(queue);
-    printf("%d\n", data);
-    dequeue(queue, &data);
-    print(queue);
-    printf("%d\n", data);
-    dequeue(queue, &data);
-    print(queue);
-    printf("%d\n", data);
-    front(queue, &data);
-    printf("%d\n", data);
-    rear(queue, &data);
-    printf("%d\n", data);
+    while(f){
+        printf("\n0. exit\n");
+        printf("1. isEmpty\n");
+        printf("2. isFull\n");
+        printf("3. queue\n");
+        printf("4. dequeue\n");
+        printf("5. front\n");
+        printf("6. rear\n");
+        printf("7. print\n");
+        printf("enter choice: ");
+        scanf("%d", &f);
+
+        switch(f){
+            case 1:
+                printf(isEmpty(queue) ? "YES\n" : "NO\n");
+                break;
+            case 2:
+                printf(isFull(queue) ? "YES\n" : "NO\n");
+                break;
+            case 3:
+                printf("enter data: ");
+                scanf("%d", &data);
+                status = enqueue(queue, data);
+                printf(status ? "success\n" : "failed\n");
+                break;
+            case 4:
+                status = dequeue(queue, &data);
+                printf(status ? "success\n" : "failed\n");
+                break;
+            case 5:
+                status = front(queue, &data);
+                printf("data at front: %d\n", data);
+                break;
+            case 6:
+                status = rear(queue, &data);
+                printf("data at rear: %d\n", data);
+                break;
+            case 7:
+                print(queue, data, status);
+                break;
+            default:
+                break;
+        }
+    }
 
     return 0;
 }

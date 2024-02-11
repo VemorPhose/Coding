@@ -52,31 +52,62 @@ int size(Stack stack){
     return stack->top + 1;
 }
 
-void print(Stack stack){
+void print(Stack stack, Type data, int status){
     for(int i = 0; i <= stack->top; i++)
         printf("%d ", stack->array[i]);
     printf("\n");
+    printf("data: %d, status: %d\n", data, status);
     return;
 }
 
 int main(){
-    Stack stack = newStack(5);
+    Stack stack = newStack(8);
     Type data = 0;
+    int status = 1;
+    int f = 1;
+    while(f){
+        printf("\n0. exit\n");
+        printf("1. isEmpty\n");
+        printf("2. isFull\n");
+        printf("3. push\n");
+        printf("4. pop\n");
+        printf("5. peek\n");
+        printf("6. size\n");
+        printf("7. print\n");
+        printf("enter choice: ");
+        scanf("%d", &f);
 
-    push(stack, 1);
-    push(stack, 2);
-    push(stack, 3);
-    push(stack, 4);
-    push(stack, 5);
-    print(stack);
-    push(stack, 6);
-    print(stack);
-    pop(stack, &data);
-    print(stack);
-    printf("%d\n", data);
-    peek(stack, &data);
-    print(stack);
-    printf("%d\n", data);
+        switch(f){
+            case 1:
+                printf(isEmpty(stack) ? "YES\n" : "NO\n");
+                break;
+            case 2:
+                printf(isFull(stack) ? "YES\n" : "NO\n");
+                break;
+            case 3:
+                printf("enter data: ");
+                scanf("%d", &data);
+                status = push(stack, data);
+                printf(status ? "success\n" : "failed\n");
+                break;
+            case 4:
+                status = pop(stack, &data);
+                printf(status ? "success\n" : "failed\n");
+                break;
+            case 5:
+                status = peek(stack, &data);
+                printf("data at top: %d\n", data);
+                break;
+            case 6:
+                printf("size of stack: %d", size(stack));
+                break;
+            case 7:
+                print(stack, data, status);
+                break;
+            default:
+                break;
+        }
+    }
 
     return 0;
 }
