@@ -1,37 +1,41 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-// shit aint working
+typedef int Type;
+typedef struct node_t *Node;
 
-int partition(int *A, int p, int r){
-    int x = A[r];
-    int i = p-1;
-    for(int j = p; j < r; j++){
-        if(A[j] <= x){
-            ++i;
-            A[i+1] ^= A[j];
-            A[j] ^= A[i+1];
-            A[i+1] ^= A[j];
-        }
-    }
-    A[i+1] ^= A[r];
-    A[r] ^= A[i+1];
-    A[i+1] ^= A[r];
-    return i+1;
+struct node_t
+{
+    Type data;
+    Node next; 
+};
+
+Type data = 0;
+int status = 1;
+
+Node newNode(Node next, Type data){
+    Node nNode = (Node) calloc(1, sizeof(struct node_t));
+    nNode->data = data;
+    nNode->next = next;
+    return nNode;
 }
 
-void quicksort(int *A, int p, int r){
-    if(p >= r)
-        return;
-    int q = partition(A, p, r);
-    quicksort(A, p, q-1);
-    quicksort(A, q+1, r);
+Node addFirst(Node node, Type data){
+    return newNode(node, data);
+}
+
+Node addLast(Node node, Type data){
+    if(!node){
+        return addFirst(node, data);
+    }
+    Node pLast = node;
+    for(; pLast->next; pLast = pLast->next);
+    pLast->next = newNode(NULL, data);
+    return node;
 }
 
 int main(){
-    int arr[] = {4, 5, 6, 1, 3, 2, 0, 9, 8, 0, 4, 5};
-    quicksort(arr, 0, sizeof(arr)/sizeof(int)-1);
-    for(int i = 0; i < sizeof(arr)/sizeof(int); i++)
-        printf("%d ", arr[i]);
-    printf("\n");
+    Node list = NULL;
+    
     return 0;
 }
