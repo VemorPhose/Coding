@@ -18,6 +18,7 @@ void bubbleSortBestCaseN(int *A, unsigned int n){
     bool swapped = true;
     for(int i = 0; swapped && i < n-1; ++i){
         swapped = false;
+        // if no swaps occur --> already sorted --> breaks
         for(int j = 0; j < n-i-1; ++j){
             if(A[j] > A[j+1]){
                 swapped = true;
