@@ -59,13 +59,13 @@ void printTree(Tree tree){
     printf("\n");
 }
 
-Tree insertIntoBST(Tree tree, Type key){
+Tree insertIntoBST(Tree tree, Type key, Tree parent){
     if (!tree)
-        return newTree(tree, key, NULL, NULL); // base case when no node, new node created and its address returned to parent node to assign
+        return newTree(parent, key, NULL, NULL); // base case when no node, new node created and its address returned to parent node to assign
     if (key < tree->key)
-        tree->left = insertIntoBST(tree->left, key); // after recursive call, immediate child gets assigned to tree->left
+        tree->left = insertIntoBST(tree->left, key, tree); // after recursive call, immediate child gets assigned to tree->left
     else
-        tree->right = insertIntoBST(tree->right, key); // same logic after recursive call
+        tree->right = insertIntoBST(tree->right, key, tree); // same logic after recursive call
     return tree; // returning to assign to parent node
 }
 
@@ -74,7 +74,7 @@ int main() {
     int n = sizeof(keys)/sizeof(keys[0]);
     Tree bst = NULL;
     for(int i = 0; i < n; i++){
-        bst = insertIntoBST(bst, keys[i]);
+        bst = insertIntoBST(bst, keys[i], NULL);
         printTree(bst);
         printf("\n");
     }
