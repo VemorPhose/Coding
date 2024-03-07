@@ -3,45 +3,47 @@
 #include <stdbool.h>
 
 void sToPoly(int *p, char *s){
-    int flag = 0;
-    int sign = 0;
+    int flag = 0; // if 0, write to coeff, else write to exp
+    int sign = 0; // 0 --> +, 1 --> -
     int coeff = 0;
     int exp = 0;
+    // loop through each char of inputted string
     for(int i = 0, j = 0; s[i] != 0; i++){
         if(s[i] == ' ')
-            continue;
-        if(s[i] == '+' || s[i] == '-'){
-            if(!coeff){
+            continue; // skip whitespaces
+        if(s[i] == '+' || s[i] == '-'){ // on encountering signs, means last elements is finito
+            if(!coeff){ // if coefficient is zero, no need to update array
                 if(s[i] == '+')
-                    sign = 0;
+                    sign = 0; // updates sign for next element
                 else sign = 1;
-                continue;
+                continue; 
             }
-            if(flag == 1 && exp == 0)
+            if(flag == 1 && exp == 0) // eg. 4x
                 exp = 1;
-            if(sign)
+            if(sign) // if sign is -, subtract coefficient from that index of array
                 p[exp] -= coeff;
             else p[exp] += coeff;
-            coeff = flag = exp = 0;
+            coeff = flag = exp = 0; // reset all variables for next element
             if(s[i] == '+')
-                sign = 0;
+                sign = 0; // updates sign for next element
             else sign = 1;
         }
         else if(s[i] == 'x')
-            flag = 1;
+            flag = 1; // switches write mode from coeff to exp on encountering 'x'
         else{
-            if(!flag){
+            if(!flag){ // updates coeff
                 coeff *= 10;
                 coeff += s[i] - '0';
             }
-            else{
+            else{ // updates exp
                 exp *= 10;
                 exp += s[i] - '0';
             }
         }
     }
-    if(!coeff);
-    else if(flag == 1 && exp == 0)
+    // for the last element to be inserted into array
+    if(!coeff); // if coefficient is zero, no need to update array
+    else if(flag == 1 && exp == 0) // eg. 4x
         exp = 1;
     if(sign)
         p[exp] -= coeff;
