@@ -265,6 +265,21 @@ int isIdentical(Tree t1, Tree t2){
 	return isIdentical(t1 -> left, t2 -> left) && isIdentical(t1 -> right, t2 -> right);
 }
 
+int isIdenticalAlternate(Tree t1, Tree t2){
+	if (t1 == t2) return 1;
+	if (
+		(t1 == NULL && t2 != NULL)
+		||
+		(t1 != NULL && t2 == NULL)
+	) return 0;
+	return
+		(t1->key == t2->key)
+		&&
+		isIdenticalAlternate(t1->left, t2->left)
+		&&
+		isIdenticalAlternate(t1->right, t2->right);
+}
+
 Tree clone(Tree tree){
 	if (!tree) return NULL;
 	Tree left = clone(tree -> left);
@@ -273,6 +288,25 @@ Tree clone(Tree tree){
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
+}
+
+Tree mirror(Tree tree){
+	if (!tree) return NULL;
+	Tree right = mirror(tree -> left);
+	Tree left = mirror(tree -> right);
+	Tree t = newTree(tree -> key, left, tree, NULL);
+	if (left) left -> parent = t;
+	if (right) right -> parent = t;
+	return t;
+}
+
+Tree findTree(Tree tree, int key) {
+	if (!tree) return NULL;
+	if (key == tree->key) return tree;
+	Tree foundLeft = findTree(tree->left, key);
+	if (foundLeft)
+		return foundLeft;
+	return findTree(tree->right, key);
 }
 
 int main() {
