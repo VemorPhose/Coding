@@ -44,7 +44,7 @@ Tree insertIntoBST(Tree tree, int key, Tree parent){
 
 // 2
 Tree insertIntoBSTIterative(Tree tree, int key){
-	if (!tree) return newTree(key, NULL, NULL, NULL);
+	if (!tree) return newTree(NULL, key, NULL, NULL);
 	Tree current = tree;
 	Tree parent = tree -> parent;
 	while(current){
@@ -55,9 +55,9 @@ Tree insertIntoBSTIterative(Tree tree, int key){
 			current = current -> right;
 	}
 	if (key < parent -> key)
-		parent -> left = newTree(key, NULL, parent, NULL);
+		parent -> left = newTree(parent, key, NULL, NULL);
 	else
-		parent -> right = newTree(key, NULL, parent, NULL);
+		parent -> right = newTree(parent, key, NULL, NULL);
 	return tree;
 }
 
@@ -148,40 +148,40 @@ void printPostOrder(Tree tree){
 }
 
 // 10
-int minKey(Tree tree){
-	if (!tree) return 0;
-	if (tree -> left == NULL && tree -> right == NULL)
-		return tree -> key;
-	if (!tree -> left)
-		return min(tree -> key, minKey(tree -> right));
-	if (!tree -> right)
-		return min(tree -> key, minKey(tree -> left));
-	int minLeftRight = min(minKey(tree -> left), minKey(tree -> right));
-	return min(tree -> key, minLeftRight);
-	//OR return min(tree -> key, min(minKey(tree -> left), minKey(tree -> right)));
+Tree findMinNode(Tree tree) {
+    if (tree == NULL)
+        return NULL;
+    Tree minLeft = findMinNode(tree->left);
+    Tree minRight = findMinNode(tree->right);
+    Tree min = tree;
+    if (minLeft != NULL && minLeft->key < min->key)
+        min = minLeft;
+    if (minRight != NULL && minRight->key < min->key)
+        min = minRight;
+    return min;
 }
 
 // 11
-int maxKey(Tree tree){
-	if (!tree) return 0;
-	if (tree -> left == NULL && tree -> right == NULL)
-		return tree -> key;
-	if (!tree -> left)
-		return max(tree -> key, maxKey(tree -> right));
-	if (!tree -> right)
-		return max(tree -> key, maxKey(tree -> left));
-	int maxLeftRight = max(maxKey(tree -> left), maxKey(tree -> right));
-	return max(tree -> key, maxLeftRight);
-	//OR return max(tree -> key, max(maxKey(tree -> left), maxKey(tree -> right)));
+Tree findMaxNode(Tree tree) {
+    if (tree == NULL)
+        return NULL;
+    Tree maxLeft = findMaxNode(tree->left);
+    Tree maxRight = findMaxNode(tree->right);
+    Tree max = tree;
+    if (maxLeft != NULL && maxLeft->key > max->key)
+        max = maxLeft;
+    if (maxRight != NULL && maxRight->key > max->key)
+        max = maxRight;
+    return max;
 }
 
 // 12
 int isBST(Tree tree){
 	if (!tree) return 1;
 	if (tree -> left)
-		if (tree -> key < maxKey(tree -> left)) return 0;
+		if (tree -> key < findMaxNode(tree -> left)->key) return 0;
 	if (tree -> right)
-		if (tree -> key > minKey(tree -> right)) return 0;
+		if (tree -> key > findMinNode(tree -> right)->key) return 0;
 
 	int x = isBST(tree -> left);
 	int y = isBST(tree -> right);
@@ -204,11 +204,89 @@ void printTree(Tree tree){
 int main (){
     int keys[] = {144, 150, 148, 99, 163, 119, 167, 141, 136, 155};
     int n = sizeof(keys)/sizeof(keys[0]);
-    Tree bst = NULL;
+    Tree tree = NULL, out = NULL;
     for(int i = 0; i < n; i++){
-        bst = insertIntoBST(bst, keys[i], NULL);
-        printTree(bst);
-        printf("\n");
+        tree = insertIntoBST(tree, keys[i], NULL);
     }
+	printTree(tree);
+    printf("\n");
+	int f = 1, key = 0;
+	while (f){
+		printf("0. exit\n");		
+		printf("1. insert into bst recursive\n");
+		printf("2. insert into bst iterative\n");
+		printf("3. min key in bst\n");
+		printf("4. max key in bst\n");
+		printf("5. find node by key in bst\n");
+		printf("6. delete node by key in bst\n");
+		printf("7. print inorder\n");
+		printf("8. print preorder\n");
+		printf("9. print postorder\n");
+		printf("10. min key node in binary tree\n");
+		printf("11. max key node in binary tree\n");
+		printf("12. check if bst\n");
+		printf("13. print tree\n\n");
+
+		printf("enter choice: ");
+		scanf("%d", &f);
+		switch (f)
+		{
+		case 1:
+			printf("enter key: ");
+			scanf("%d", &key);
+			insertIntoBST(tree, key, NULL);
+			break;
+		case 2:
+			printf("enter key: ");
+			scanf("%d", &key);
+			insertIntoBSTIterative(tree, key);
+			break;
+		case 3:
+			out = findMinTreeInBST(tree);
+			printTree(out);
+			break;
+		case 4:
+			out = findMaxTreeInBST(tree);
+			printTree(out);
+			break;
+		case 5:
+			printf("enter key: ");
+			scanf("%d", &key);
+			out = findTreeInBST(tree, key);
+			printTree(out);
+			break;
+		case 6:
+			printf("enter key: ");
+			scanf("%d", &key);
+			tree = deleteTreeFromBST(tree, key);
+			break;
+		case 7:
+			printInOrder(tree);
+			break;
+		case 8:
+			printPreOrder(tree);
+			break;
+		case 9:
+			printPostOrder(tree);
+			break;
+		case 10:
+			out = findMinNode(tree);
+			printTree(tree);
+		case 11:
+			out = findMaxNode(tree);
+			printTree(tree);
+		case 12:
+			key = isBST(tree);
+			if (key) printf("yes\n");
+			else printf("no\n");
+			break;
+		case 13:
+			printTree(tree);
+			break;
+		
+		default:
+			break;
+		}
+	}
     return 0;
 }
