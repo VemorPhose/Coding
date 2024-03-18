@@ -91,6 +91,7 @@ Tree findMaxNode(Tree tree) {
     return max;
 }
 
+// 1
 Tree findNode(Tree tree, Type key) {
     if (tree == NULL)
         return NULL;
@@ -105,6 +106,7 @@ Tree findNode(Tree tree, Type key) {
     return foundRight;
 }
 
+// 2
 int height(Tree tree){
 	if (!tree) return 0;
 	int heightLeft = height(tree -> left);
@@ -113,6 +115,7 @@ int height(Tree tree){
 	return max(heightLeft, heightRight) + 1;
 }
 
+// 3
 int depth(Tree tree){
 	int depth = 0;
 	for (; tree -> parent; tree = tree -> parent)
@@ -120,6 +123,7 @@ int depth(Tree tree){
 	return depth;
 }
 
+// 4
 Tree mirror(Tree tree){
 	if (!tree) return NULL;
 	Tree right = mirror(tree -> left);
@@ -130,6 +134,7 @@ Tree mirror(Tree tree){
 	return t;
 }
 
+// 5
 Tree clone(Tree tree){
 	if (!tree) return NULL;
 	Tree left = clone(tree -> left);
@@ -140,6 +145,7 @@ Tree clone(Tree tree){
 	return t;
 }
 
+// 6
 int isIdentical(Tree t1, Tree t2){
 	if (!t1 && !t2) return 1;
 	if ((!t1 && t2) || (t1 && !t2)) return 0;
@@ -147,7 +153,97 @@ int isIdentical(Tree t1, Tree t2){
 	return isIdentical(t1 -> left, t2 -> left) && isIdentical(t1 -> right, t2 -> right);
 }
 
+// 7
+Tree deleteBinaryTree(Tree tree){
+    if (!tree) return NULL;
+    if (tree->left)
+        tree->left = deleteBinaryTree(tree->left);
+    if (tree->right)
+        tree->right = deleteBinaryTree(tree->right);
+    tree->parent = NULL;
+    free(tree);
+    return NULL;
+}
 
+Tree findMinTreeInBST(Tree tree){
+	for (; tree -> left; tree = tree -> left) ;
+	return tree;
+}
+
+Tree findMaxTreeInBST(Tree tree){
+	for (; tree -> right; tree = tree -> right) ;
+	return tree;
+}
+
+// 8
+Tree findPredecessor(Tree tree){
+	if (!tree ) return NULL;
+	if (tree -> left)
+		return findMaxTreeInBST(tree -> left);
+	Tree predecessor = tree -> parent;
+	// while (predecessor && tree == predecessor -> left){
+	while (predecessor && tree -> key < predecessor -> key){
+		tree = predecessor;
+		predecessor = predecessor -> parent;
+	}
+	return predecessor;
+}
+
+// 9
+Tree findSuccessor(Tree tree){
+	if (!tree ) return NULL;
+	if (tree -> right)
+		return findMinTreeInBST(tree -> right);
+	Tree successor = tree -> parent;
+	// while (successor && tree == successor -> right){
+	while (successor && tree -> key > successor -> key){
+		tree = successor;
+		successor = successor -> parent;
+	}
+	return successor;
+}
+
+// 10
+void countLeafNodes(Tree tree, int *cnt){
+    if (tree->left)
+        countLeafNodes(tree->left, cnt);
+    if (tree->right)
+        countLeafNodes(tree->right, cnt);
+    if (!tree->left && !tree->right)
+        (*cnt) += 1;
+    return;
+}
+
+// 11
+void countNonLeafNodes(Tree tree, int *cnt){
+    if (tree->left)
+        countNonLeafNodes(tree->left, cnt);
+    if (tree->right)
+        countNonLeafNodes(tree->right, cnt);
+    if (tree->left || tree->right)
+        (*cnt) += 1;
+    return;
+}
+
+// 12
+void printLeafInOrder(Tree tree){
+    if(!tree)
+        return;
+    printLeafInOrder(tree->left);
+    if (!tree->left && !tree->right)
+        printf("%d ", tree->key);
+    printLeafInOrder(tree->right);
+}
+
+// 13
+void printNonLeafInOrder(Tree tree){
+    if(!tree)
+        return;
+    printNonLeafInOrder(tree->left);
+    if (tree->left || tree->right)
+        printf("%d ", tree->key);
+    printNonLeafInOrder(tree->right);
+}
 
 void printTree(Tree tree){
     printf("PreOrder: ");
