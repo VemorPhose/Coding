@@ -266,6 +266,86 @@ int main (){
     }
 	printTree(tree);
     printf("\n");
-    
+    int f = 1, key = 0, cnt = 0;
+    while (f){
+        printf("0. exit\n");
+        printf("1. find node in tree\n");
+        printf("2. height\n");
+        printf("3. depth\n");
+        printf("4. mirror\n");
+        printf("5. clone\n");
+        printf("6. isIdentical\n");
+        printf("7. delete tree\n");
+        printf("8. find predecessor\n");
+        printf("9. find successor\n");
+        printf("10. count leaf nodes\n");
+        printf("11. count non leaf nodes\n");
+        printf("12. print leaf nodes inorder\n");
+        printf("13. print non leaf nodes inorder\n");
+        printf("14. print tree\n\n");
+
+        printf("enter choice: ");
+        scanf("%d", &f);
+
+        switch (f)
+        {
+        case 1:
+            printf("enter key: ");
+            scanf("%d", &key);
+            out = findNode(tree, key);
+            printTree(out);
+            break;
+        case 2:
+            key = height(tree);
+            printf("%d\n", key);
+            break;
+        case 3:
+            key = depth(tree);
+            printf("%d\n", key);
+            break;
+        case 4:
+            out = mirror(tree);
+            printTree(out);
+            break;
+        case 5:
+            out = clone(tree);
+            printTree(out);
+            break;
+        case 6:
+            key = isIdentical(tree, out);
+            printf("%d\n", key);
+            break;
+        case 7:
+            deleteBinaryTree(tree);
+            break;
+        case 8:
+            out = findSuccessor(tree);
+            printTree(out);
+            break;
+        case 9:
+            out = findPredecessor(tree);
+            printTree(out);
+            break;
+        case 10:
+            countLeafNodes(tree, &cnt);
+            printf("%d\n", cnt);
+            break;
+        case 11:
+            countNonLeafNodes(tree, &cnt);
+            printf("%d\n", cnt);
+            break;
+        case 12:
+            printLeafInOrder(tree);
+            break;
+        case 13:
+            printNonLeafInOrder(tree);
+            break;
+        case 14:
+            printTree(tree);
+            break;
+        default:
+            break;
+        }
+    }
     return 0;
 }
