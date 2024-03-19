@@ -128,7 +128,7 @@ Tree mirror(Tree tree){
 	if (!tree) return NULL;
 	Tree right = mirror(tree -> left);
 	Tree left = mirror(tree -> right);
-	Tree t = newTree(tree -> key, left, tree, NULL);
+	Tree t = newTree(tree->parent, tree->key, left, right);
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
@@ -139,7 +139,7 @@ Tree clone(Tree tree){
 	if (!tree) return NULL;
 	Tree left = clone(tree -> left);
 	Tree right = clone(tree -> right);
-	Tree t = newTree(tree -> key, left, tree, NULL);
+	Tree t = newTree(tree->parent, tree->key, left, right);
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
@@ -204,25 +204,19 @@ Tree findSuccessor(Tree tree){
 }
 
 // 10
-void countLeafNodes(Tree tree, int *cnt){
-    if (tree->left)
-        countLeafNodes(tree->left, cnt);
-    if (tree->right)
-        countLeafNodes(tree->right, cnt);
-    if (!tree->left && !tree->right)
-        (*cnt) += 1;
-    return;
+int countLeafNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 1;
+	return countLeafNodes(tree->left) + countLeafNodes(tree->right);
 }
 
 // 11
-void countNonLeafNodes(Tree tree, int *cnt){
-    if (tree->left)
-        countNonLeafNodes(tree->left, cnt);
-    if (tree->right)
-        countNonLeafNodes(tree->right, cnt);
-    if (tree->left || tree->right)
-        (*cnt) += 1;
-    return;
+int countNonLeafNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 0;
+	return 1+ countNonLeafNodes(tree->left) + countNonLeafNodes(tree->right);
 }
 
 // 12
@@ -327,11 +321,11 @@ int main (){
             printTree(out);
             break;
         case 10:
-            countLeafNodes(tree, &cnt);
+            cnt = countLeafNodes(tree);
             printf("%d\n", cnt);
             break;
         case 11:
-            countNonLeafNodes(tree, &cnt);
+            cnt = countNonLeafNodes(tree);
             printf("%d\n", cnt);
             break;
         case 12:
