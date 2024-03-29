@@ -61,7 +61,7 @@ void printTree(Tree tree){
 
 Tree insertIntoBST(Tree tree, int key, Tree parent){
 	if (!tree) 
-		return newTree(key, NULL, parent, NULL);
+		return newTree(parent, key, NULL, NULL);
 	if (key < tree -> key)
 		tree -> left = insertIntoBST(tree -> left, key, tree);
 	else
@@ -70,7 +70,7 @@ Tree insertIntoBST(Tree tree, int key, Tree parent){
 }
 
 Tree insertIntoBSTIterative(Tree tree, int key){
-	if (!tree) return newTree(key, NULL, NULL, NULL);
+	if (!tree) return newTree(NULL, key, NULL, NULL);
 	Tree current = tree;
 	Tree parent = tree -> parent;
 	while(current){
@@ -81,9 +81,9 @@ Tree insertIntoBSTIterative(Tree tree, int key){
 			current = current -> right;
 	}
 	if (key < parent -> key)
-		parent -> left = newTree(key, NULL, parent, NULL);
+		parent -> left = newTree(parent, key, NULL, NULL);
 	else
-		parent -> right = newTree(key, NULL, parent, NULL);
+		parent -> right = newTree(parent, key, NULL, NULL);
 	return tree;
 }
 
@@ -284,7 +284,7 @@ Tree clone(Tree tree){
 	if (!tree) return NULL;
 	Tree left = clone(tree -> left);
 	Tree right = clone(tree -> right);
-	Tree t = newTree(tree -> key, left, tree, NULL);
+	Tree t = newTree(tree, tree -> key, left, NULL);
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
@@ -294,7 +294,7 @@ Tree mirror(Tree tree){
 	if (!tree) return NULL;
 	Tree right = mirror(tree -> left);
 	Tree left = mirror(tree -> right);
-	Tree t = newTree(tree -> key, left, tree, NULL);
+	Tree t = newTree(tree, tree -> key, left, NULL);
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
@@ -307,6 +307,49 @@ Tree findTree(Tree tree, int key) {
 	if (foundLeft)
 		return foundLeft;
 	return findTree(tree->right, key);
+}
+
+int countNodes(Tree tree){	
+	return tree? 1 + countNodes(tree->left) + countNodes(tree->right) : 0;
+}
+
+int countLeafNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 1;
+	return countLeafNodes(tree->leaf) + countLeafNodes(tree->right);
+}
+
+int countInternalNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 0;
+	return 1+ countInternalNodes(tree->left) + countInternalNodes(tree->right);
+}
+
+int linearSearch(int a[], int start, int end, int key){
+	for(;start<=end;start++)
+		if(a[start] == key)
+			return start;
+	return -1;
+}
+
+Tree buildTreeHelperInPost(int post[], int in[], int inStart, int inEnd, int postIndex){
+	if (inStart>inEnd) return NULL;
+	Tree tree =  newTree(NULL, post[postIndex], NULL, NULL);
+	postIndex--;
+	int index = linearSearch(in, inStart, inEnd, tree->key);
+	tree->right = buildTreeHelperInPost(post, in, index+1, inEnd, postIndex);
+	tree->left = buildTreeHelperInPost(post, in, inStart, index-1, postIndex);
+	return Tree
+}
+
+Tree buildTreeInPost(int post[], int in[], int n){
+	int inStart = 0;
+	int inEnd = n-1;
+	int postIndex = n-1;
+	
+	return buildTreeHelperInPost(post, in, inStart, inEnd, postIndex);
 }
 
 int main() {
