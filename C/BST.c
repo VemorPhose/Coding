@@ -334,22 +334,42 @@ int linearSearch(int a[], int start, int end, int key){
 	return -1;
 }
 
-Tree buildTreeHelperInPost(int post[], int in[], int inStart, int inEnd, int postIndex){
+Tree buildTreeHelperInPost(int post[], int in[], int inStart, int inEnd, int *postIndex){
 	if (inStart>inEnd) return NULL;
-	Tree tree =  newTree(NULL, post[postIndex], NULL, NULL);
-	postIndex--;
+	Tree tree =  newTree(NULL, post[*postIndex], NULL, NULL);
+	(*postIndex)--;
 	int index = linearSearch(in, inStart, inEnd, tree->key);
+	// right called before left coz postIndex being decremented that way
 	tree->right = buildTreeHelperInPost(post, in, index+1, inEnd, postIndex);
 	tree->left = buildTreeHelperInPost(post, in, inStart, index-1, postIndex);
-	return Tree
+	return tree;
 }
 
 Tree buildTreeInPost(int post[], int in[], int n){
 	int inStart = 0;
 	int inEnd = n-1;
 	int postIndex = n-1;
-	
-	return buildTreeHelperInPost(post, in, inStart, inEnd, postIndex);
+	// postIndex passed by reference to not lose decrement progress through recursion
+	return buildTreeHelperInPost(post, in, inStart, inEnd, &postIndex);
+}
+
+Tree buildTreeHelperInPre(int pre[], int in[], int inStart, int inEnd, int *preIndex){
+	if (inStart>inEnd) return NULL;
+	Tree tree =  newTree(NULL, pre[*preIndex], NULL, NULL);
+	(*preIndex)++;
+	int index = linearSearch(in, inStart, inEnd, tree->key);
+	// left called before right coz preIndex being incremented that way
+	tree->left = buildTreeHelperInPre(pre, in, inStart, index-1, preIndex);
+	tree->right = buildTreeHelperInPre(pre, in, index+1, inEnd, preIndex);
+	return tree;
+}
+
+Tree buildTreeInPre(int pre[], int in[], int n){
+	int inStart = 0;
+	int inEnd = n-1;
+	int preIndex = 0;
+	// preIndex passed by reference to not lose increment progress through recursion
+	return buildTreeHelperInPre(pre, in, inStart, inEnd, &preIndex);
 }
 
 int main() {
@@ -358,9 +378,24 @@ int main() {
     Tree bst = NULL;
     for(int i = 0; i < n; i++){
         bst = insertIntoBST(bst, keys[i], NULL);
-        printTree(bst);
-        printf("\n");
     }
+    printTree(bst);
+    printf("\n");
+
+	Tree newBst = NULL;
+	int pre[] = {144, 99, 119, 141, 136, 150, 148, 163, 155, 167};
+	int in[] = {99, 119, 136, 141, 144, 148, 150, 155, 163, 167};
+	int post[] = {136, 141, 119, 99, 148, 155, 167, 163, 150, 144};
+
+	newBst = buildTreeInPost(post, in, n);
+	printf("rebuilding from post & in: \n");
+	printTree(newBst);
+    printf("\n");
+
+	newBst = buildTreeInPre(pre, in, n);
+	printf("rebuilding from pre & in: \n");
+	printTree(newBst);
+    printf("\n");
 
     return 0;
 }
