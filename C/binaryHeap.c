@@ -24,8 +24,8 @@ typedef struct heap_t *Heap;
 // max-heap: Every node is larger than its child nodes
 // min-heap: Every node is smaller than its child nodes.
 
-// A.length --> length of each Node element
-// A.heap_size --> size of heap
+// A.length --> total no. of elements
+// A.heap_size --> no. of elements from front of Heap satisfying max/min-heap condition
 
 // max-heapify --> For a node, if left and right subtree are max-heaps, checks and max-heapifies given node
 //             --> checks max{node, left, right} and if left or right is max, swaps node with it.
@@ -46,26 +46,48 @@ int right(int i){
 void maxHeapify(Heap heap, int i){
     int l = left(i);
     int r = right(i);
+
     int largest = i;
     if (l <= heap->heap_size && heap->A[l] > heap->A[r])
         largest = l;
     if (l <= heap->heap_size && heap->A[r] > heap->A[largest])
         largest = r;
+    
+    if (largest != i){
+        int temp = heap->A[i];
+        heap->A[i] = heap->A[largest];
+        heap->A[largest] = heap->A[i];
+        maxHeapify(heap, largest);
+    }
 }
+
+void buildMaxHeap(Heap heap){
+    heap->heap_size = heap->length;
+    for (int i = heap->length / 2; i > 0; i--)
+        maxHeapify(heap, i);
+}
+
+void heapSort(Heap heap){
+    for(int i = heap->length; i >= 2; i--){
+        int temp = heap->A[i];
+        heap->A[i] = heap->A[1];
+        heap->A[1] = heap->A[i];
+
+        heap->heap_size -= 1;
+        maxHeapify(heap, 0);
+    }
+}
+
+// Time Complexity: Worst Case --> O(nlogn)
 
 int main (){
     Heap heap = (Heap) calloc (1, sizeof(struct heap_t));
     int cin;
     printf("enter no. of elements in heap: ");
     scanf("%d", &cin);
-    heap->heap_size = cin;
-    int cnt = 0;
-    while(cin){
-        cnt++;
-        cin /= 2;
-    }
-    heap->length =  (int) pow(2, cnt) - 1;
-    heap->A = (int*) calloc (heap->length, sizeof(int));
+    heap->length = cin;
+    heap->A = (int*) calloc (heap->length + 1, sizeof(int));
+    // Note array is 1-indexed.
 
     return 0;
 }
