@@ -109,28 +109,14 @@ Tree findTreeInBSTIterative(Tree tree, int key){
 	return NULL;
 }
 
-int isBST(Tree tree){
-	if (!tree) return 1;
-	if (tree -> left)	
-		if (tree -> key < maxKey(tree -> left)) return 0;
-	if (tree -> right)
-		if (tree -> key > minKey(tree -> right)) return 0;
-
-	int x = isBST(tree -> left);
-	int y = isBST(tree -> right);
-	printf("At %d, got: %d & %d\n", tree -> key, x, y);
-	return x && y;
-}
-
 int max(int a, int b){
 	return a > b ? a : b;
 }
 
 int height(Tree tree){
-	if (!tree) return 0;
+	if (!tree) return -1;
 	int heightLeft = height(tree -> left);
 	int heightRight = height(tree -> right);
-	printf("At %3d, Left: %3d, Right: %3d\n", tree -> key, heightLeft, heightRight);
 	return max(heightLeft, heightRight) + 1;
 }
 
@@ -179,6 +165,18 @@ int minKey(Tree tree){
 	int minLeftRight = min(minKey(tree -> left), minKey(tree -> right));
 	return min(tree -> key, minLeftRight);
 	//OR return min(tree -> key, min(minKey(tree -> left), minKey(tree -> right)));
+}
+
+int isBST(Tree tree){
+	if (!tree) return 1;
+	if (tree -> left)	
+		if (tree -> key < maxKey(tree -> left)) return 0;
+	if (tree -> right)
+		if (tree -> key > minKey(tree -> right)) return 0;
+
+	int x = isBST(tree -> left);
+	int y = isBST(tree -> right);
+	return x && y;
 }
 
 /*
@@ -317,7 +315,7 @@ int countLeafNodes(Tree tree){
 	if(!tree) return 0;
 	if(tree->left == NULL && tree->right == NULL)
 		return 1;
-	return countLeafNodes(tree->leaf) + countLeafNodes(tree->right);
+	return countLeafNodes(tree->left) + countLeafNodes(tree->right);
 }
 
 int countInternalNodes(Tree tree){
