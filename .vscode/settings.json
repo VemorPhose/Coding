@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "type_traits": "cpp",
-        "assert.h": "c"
+        "assert.h": "c",
+        "random": "cpp",
+        "iostream": "cpp"
     }
 }

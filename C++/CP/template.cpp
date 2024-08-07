@@ -24,13 +24,6 @@ using namespace std;
 #define ULL_MAX         ULLONG_MAX
 #define endl            "\n"
 
-// general
-#define fastio()        ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
-#define arrIn(arr, n)   for(ll i = 0; i < n; i++) cin >> arr[i]
-#define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
-#define coutN           cout << "NO" << endl
-#define coutY           cout << "YES" << endl
-
 // binary operations
 #define swap(a,b)       a=a^b; b=b^a; a=a^b
 #define setibit(n,i)    (n | (1<<i))
@@ -60,6 +53,26 @@ using namespace std;
 #define F0R(i, a)       FOR(i, 0, a)
 #define ROF(i, a, b)    for (int i = (b)-1; i >= (a); --i)
 #define R0F(i, a)       ROF(i, 0, a)
+
+// general
+#define fastio()        ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)
+#define arrIn(arr, n)   for(ll i = 0; i < n; i++) cin >> arr[i]
+#define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
+#define coutN           cout << "NO" << endl
+#define coutY           cout << "YES" << endl
+
+int binarySearch(int *A, int lo, int hi, int key){
+    if(hi == lo){
+        if(A[lo] == key)
+            return lo;
+        return -1;
+    }
+    int mid = (lo+hi)/2;
+    if(A[mid] >= key)
+        return binarySearch(A, lo, mid, key);
+    else
+        return binarySearch(A, mid+1, hi, key);
+}
 
 int main(){
     fastio();
@@ -114,13 +127,6 @@ int main(){
 "#define ULL_MAX         ULLONG_MAX",
 "#define endl            \"\\n\"",
 "",
-"// general",
-"#define fastio()        ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)",
-"#define arrIn(arr, n)   for(ll i = 0; i < n; i++) cin >> arr[i]",
-"#define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }",
-"#define coutN           cout << \"NO\" << endl",
-"#define coutY           cout << \"YES\" << endl",
-"",
 "// binary operations",
 "#define swap(a,b)       a=a^b; b=b^a; a=a^b",
 "#define setibit(n,i)    (n | (1<<i))",
@@ -150,6 +156,26 @@ int main(){
 "#define F0R(i, a)       FOR(i, 0, a)",
 "#define ROF(i, a, b)    for (int i = (b)-1; i >= (a); --i)",
 "#define R0F(i, a)       ROF(i, 0, a)",
+"",
+"// general",
+"#define fastio()        ios::sync_with_stdio(0); cin.tie(0); cout.tie(0)",
+"#define arrIn(arr, n)   for(ll i = 0; i < n; i++) cin >> arr[i]",
+"#define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }",
+"#define coutN           cout << \"NO\" << endl",
+"#define coutY           cout << \"YES\" << endl",
+"",
+"int binarySearch(int *A, int lo, int hi, int key){",
+"    if(hi == lo){",
+"        if(A[lo] == key)",
+"            return lo;",
+"        return -1;",
+"    }",
+"    int mid = (lo+hi)/2;",
+"    if(A[mid] >= key)",
+"        return binarySearch(A, lo, mid, key);",
+"    else",
+"       return binarySearch(A, mid+1, hi, key);",
+"}",
 "",
 "int main(){",
 "\tfastio();",
