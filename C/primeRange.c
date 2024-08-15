@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 
-int primeCheck(int n){
-    if(n <= 1) return 0;
-    int counter, flag = 1;
-    for(counter = 2; counter < n; counter++){
-        if(n%counter == 0){
+int isPrime(int n){
+    if (n <= 1) return 0;
+    int flag = 1;
+    for (int i = 2; i * i <= n; i++) {
+        if (n%i == 0) {
             flag = 0;
             break;
         }
@@ -14,9 +14,9 @@ int primeCheck(int n){
 }
 
 void primeRange(int a, int b){
-    int counter;
-    for(counter = a; counter <= b; counter++){
-        if(primeCheck(counter)) printf("%d\n", counter);
+    int i;
+    for(i = a; i <= b; i++){
+        if(isPrime(i)) printf("%d\n", i);
     }
 }
 
