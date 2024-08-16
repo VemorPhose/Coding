@@ -61,27 +61,17 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-int binarySearch(int *A, int lo, int hi, int key){
-    if(hi == lo){
-        if(A[lo] == key)
-            return lo;
-        return -1;
-    }
-    int mid = (lo+hi)/2;
-    if(A[mid] >= key)
-        return binarySearch(A, lo, mid, key);
-    else
-       return binarySearch(A, mid+1, hi, key);
-}
-
 int main(){
     fastio();
     int n; cin >> n;
-    int arr[n]; arrIn(arr, n);
-    sort(arr, arr+n);
+    vector<int> v; vIn(v, n);
+    sort(all(v));
     ll cnt = 0;
-    ROF (i, 0, n) {
-        
+    ROF (i, 1, n) {
+        int ind = (upper_bound(v.begin(), v.begin()+i, (v[i]-1)/2) - v.begin());
+        if (ind == i+1) continue;
+        else cnt += ind;
     }
+    cout << cnt << endl;
     return 0;
 }
