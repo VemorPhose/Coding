@@ -49,9 +49,9 @@ using namespace std;
 #define all(x)          (x).begin(), (x).end()
 
 // looping
-#define FOR(i, a, b)    for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b)    for (ll i = (a); i < (b); ++i)
 #define F0R(i, a)       FOR(i, 0, a)
-#define ROF(i, a, b)    for (int i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b)    for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a)       ROF(i, 0, a)
 
 // general
@@ -61,50 +61,31 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
+ll solve(vector<ll> A, int lo, int hi){
+    if(hi == lo)
+        return A[lo];
+    ll mid = (lo+hi)/2;
+    ll sl = solve(A, lo, mid);
+    ll sr = solve(A, mid+1, hi);
+
+    ll maxl = LL_MIN, curl = 0;
+    ROF (i, lo, mid+1) {
+        curl += A[i];
+        if (curl > maxl) maxl = curl;
+    }
+    ll maxr = LL_MIN, curr = 0;
+    FOR (i, mid+1, hi+1) {
+        curr += A[i];
+        if (curr > maxr) maxr = curr;
+    }
+
+    return max(max(sl, sr), maxl+maxr);
+}
+
 int main(){
-    fastio();
-    int n; cin >> n;
-    int arr[n]; arrIn(arr, n);
-
-    int LISatIndex[n]; FOR (i, 0, n) LISatIndex[i] = 1;
-    bool isCandidate[n];
-
-    FOR (i, 1, n) {
-        memset(isCandidate, 0, n*sizeof(bool));
-        FOR (j, 0, i) {
-            if (arr[j] < arr[i]) isCandidate[j] = 1;
-        }
-        int LISmaxInPrefix = 0;
-        FOR (j, 0, i) {
-            if (isCandidate[j] && (LISatIndex[j] > LISmaxInPrefix)) LISmaxInPrefix = LISatIndex[j];
-        }
-        LISatIndex[i] = LISmaxInPrefix + 1;
-    }
-
-    int LISmax = 1;
-    FOR (i, 0, n) {
-        if (LISatIndex[i] > LISmax) LISmax = LISatIndex[i];
-    }
-
-    cout << LISmax << endl;
-    // FOR (i, 0, n) cout << LISatIndex[i] << " ";
-    // cout << endl;
-
+    ll n; cin >> n;
+    vi nums; vIn(nums, n);
+    cout << solve(nums, 0, sz(nums)-1) << endl;
+    
     return 0;
 }
-
-/* DP approach
-time complexity: O(n^2)
-
-dp[0] = 1;
-for( int i = 1; i < len; i++ ) {
-   dp[i] = 1;
-   for( int j = 0; j < i; j++ ) {
-      if( array[i] > array[j] ) {
-         if( dp[i] < dp[j]+1 ) {
-            dp[i] = dp[j]+1;
-         }
-      }
-   }
-}
-*/

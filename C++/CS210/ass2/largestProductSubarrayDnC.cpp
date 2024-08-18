@@ -49,9 +49,9 @@ using namespace std;
 #define all(x)          (x).begin(), (x).end()
 
 // looping
-#define FOR(i, a, b)    for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b)    for (ll i = (a); i < (b); ++i)
 #define F0R(i, a)       FOR(i, 0, a)
-#define ROF(i, a, b)    for (int i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b)    for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a)       ROF(i, 0, a)
 
 // general
@@ -61,19 +61,33 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-int main(){
-    int n; cin >> n;
-    int nums[n]; arrIn(nums, n);
-    ll dp[n][n];
-    memset(dp, 0, n * n * sizeof(ll));
-    FOR (i, 0, n-1) dp[i][0] = nums[i];
-    ll maxprod = INT_MIN;
-    FOR (i, 1, n) {
-        FOR (j, 1, i+1) {
-            dp[i][j] = nums[i] * dp[i-1][j-1];
-            if (dp[i][j] > maxprod) maxprod = dp[i][j];
-        }
+ll solve(vector<ll> A, int lo, int hi){
+    if(hi == lo)
+        return A[lo];
+    ll mid = (lo+hi)/2;
+    ll pl = solve(A, lo, mid);
+    ll pr = solve(A, mid+1, hi);
+
+    ll maxl = LL_MIN, minl = LL_MAX, curl = 1;
+    ROF (i, lo, mid+1) {
+        curl *= A[i];
+        if (curl > maxl) maxl = curl;
+        if (curl < minl) minl = curl;
     }
-    cout << maxprod << endl;
+    ll maxr = LL_MIN, minr = LL_MAX, curr = 1;
+    FOR (i, mid+1, hi+1) {
+        curr *= A[i];
+        if (curr > maxr) maxr = curr;
+        if (curr < minr) minr = curr;
+    }
+
+    return max(max(pl, pr), max(maxl*maxr, minl*minr));
+}
+
+int main(){
+    ll n; cin >> n;
+    vi nums; vIn(nums, n);
+    cout << solve(nums, 0, sz(nums)-1) << endl;
+    
     return 0;
 }
