@@ -4,6 +4,10 @@
         "assert.h": "c",
         "random": "cpp",
         "iostream": "cpp",
-        "cstdlib": "cpp"
+        "cstdlib": "cpp",
+        "array": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "vector": "cpp"
     }
 }
