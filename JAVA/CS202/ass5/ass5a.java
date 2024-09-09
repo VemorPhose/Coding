@@ -99,7 +99,6 @@ public class ass5a {
         double cgpa;
         Faculty facultyAdvisor = null;
         int tempind = -1;
-        String collegeID;
 
         do {
             System.out.println("1. Add Student");
