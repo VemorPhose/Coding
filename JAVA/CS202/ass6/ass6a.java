@@ -22,8 +22,7 @@ public class ass6a {
 
         void getDetails () {
             System.out.println("empID: " + empID);
-            System.out.println("name: " + name);
-            System.out.println("age: " + age);
+            super.getDetails();
         }
     }
 
@@ -44,8 +43,7 @@ public class ass6a {
         }
 
         void getDetails () {
-            System.out.println("name: " + name);
-            System.out.println("age: " + age);
+            super.getDetails();
             System.out.println("rollNo: " + rollNo);
             System.out.println("cgpa: " + cgpa);
             System.out.println("advisor: " + (facultyAdvisor == null ? null : facultyAdvisor.toStr()));

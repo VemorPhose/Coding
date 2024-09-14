@@ -1,6 +1,13 @@
-#pragma GCC optimize ("O3")
+#pragma GCC optimize ("O3", "unroll-loops", "strict-overflow")
+#pragma GCC optimize ("trapv")
+#pragma GCC target ("avx2", "abm", "bmi", "bmi2", "popcnt", "lzcnt")
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 // typedefs
 #define ll              int64_t
@@ -49,9 +56,9 @@ using namespace std;
 #define all(x)          (x).begin(), (x).end()
 
 // looping
-#define FOR(i, a, b)    for (int i = (a); i < (b); ++i)
+#define FOR(i, a, b)    for (ll i = (a); i < (b); ++i)
 #define F0R(i, a)       FOR(i, 0, a)
-#define ROF(i, a, b)    for (int i = (b)-1; i >= (a); --i)
+#define ROF(i, a, b)    for (ll i = (b)-1; i >= (a); --i)
 #define R0F(i, a)       ROF(i, 0, a)
 
 // general
@@ -61,35 +68,17 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-ll dp[101][100001];
-
 int main(){
     fastio();
-    ll n, w; cin >> n >> w;
-    ll weights[n], values[n];
-    FOR (i, 0, n) cin >> weights[i] >> values[i];
-
-    memset(dp, 0, 101 * 100001 * sizeof(ll));
-    dp[1][values[0]] = weights[0];
-    FOR (i, 1, n) {
-        FOR (j, 1, 100001) {
-            if (dp[i][j]) {
-                if (!dp[i+1][j]) dp[i+1][j] = dp[i][j];
-                else {
-                    dp[i+1][j] = min(dp[i+1][j], dp[i][j]);
-                }
-                if (!dp[i+1][j+values[i]]) 
-                    dp[i+1][j+values[i]] = (dp[i][j] + weights[i] > w ? dp[i+1][j+values[i]] : dp[i][j] + weights[i]);
-                else {
-                    dp[i+1][j+values[i]] = (dp[i][j] + weights[i] > w ? dp[i+1][j+values[i]] : min(dp[i][j] + weights[i], dp[i+1][j+values[i]]));
-                }
+    ll ti, tj;
+    F0R (i, 5) {
+        F0R (j, 5) {
+            ll temp; cin >> temp;
+            if (temp == 1) {
+                ti = i; tj = j;
             }
         }
     }
-    ll valmax = 0;
-    FOR (i, 1, 100001) {
-        if (dp[n][i]) valmax = i;
-    }
-    cout << valmax << endl;
+    cout << abs(2 - ti) + abs(2 - tj) << endl;
     return 0;
 }
