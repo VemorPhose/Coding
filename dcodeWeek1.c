@@ -1,36 +1,34 @@
-#include<stdio.h>
-main()
+#include <stdio.h>
+#include <math.h>
+int main()
 {
-    int m,n,i,a,b,j,f=1,k=0,c,l;
-    // printf("m:");
-    scanf("%d",&m);
-    // printf("n:");
-    scanf("%d",&n);
-    if (m<=n)
-    {
-        if (n<=100000)
-        {
-            for(i=m;i<=n;i++)
-            {
-                for(l=m;l>0;l=l/10)
-                {
-                    c=l%10;
-                    f=f*c;
-                    k=k+c;
-                }
-                a=f+k;
-                for(j=a;j>0;j=j/10)
-                {
-                    b=j%10;
-                }
-                if(b==a)
-                    printf("%d \n",i);
-            }
-        }
-        else
-            printf("Invalid Input.");
+    // printf("Enter two number m and n \n");
+    int m,n;
+    scanf("%d %d",&m,&n);
 
+    for(int i=m;i<=n;i++)
+    {
+        int s=0,p=1;int c=0;
+        for(int j=i;j>0;j/=10)
+        {
+            int k=j%10;
+            s+=k;
+            p*=k;
+        }
+        int x=s+p;
+        int rev=0;
+        for(int j=x;j>0;j/=10)
+        c++;
+        c--;
+        for(int j=x;j>0;j/=10)
+        {
+            int k=j%10;
+            rev=rev+(k*pow(10,c));
+            c=c-1;
+        }
+        if(rev==x)
+        {
+        printf("%d \n",i);
+        }
     }
-    else
-        printf("Invalid Input.");
 }
