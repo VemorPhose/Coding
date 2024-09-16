@@ -1,6 +1,4 @@
-#pragma GCC optimize ("O3", "unroll-loops", "strict-overflow")
-#pragma GCC optimize ("trapv")
-#pragma GCC target ("avx2", "abm", "bmi", "bmi2", "popcnt", "lzcnt")
+#pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -68,61 +66,15 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-ll solve (vector<pair<float, float>> &vx, vector<pair<float, float>> &vy, ll l, ll r) {
-    if (r-l < 1) return 0;
-    ll mid = (l + r) / 2;
-    ll linter = solve(vx, vy, l, mid);
-    ll rinter = solve(vx, vy, mid + 1, r);
 
-    vector<pair<float, float>> left, right;
-    FOR (i, l, mid+1) left.pub(vy[i]);
-    FOR (i, mid+1, r+1) right.pub(vy[i]);
-
-    ll i = 0, j = 0, ret = 0;
-    while (i < sz(left) || j < sz(right)) {
-        if (i < sz(left) && j < sz(right)) {
-            if (left[i].ss < right[j].ss) {
-                vy[l+i+j] = left[i];
-                i++;
-            }
-            else {
-                vy[l+i+j] = right[j];
-                j++;
-                ret += sz(left) - i;
-            }
-        }
-        else if (i < sz(left)) {
-            vy[l+i+j] = left[i];
-            i++;
-        }
-        else {
-            vy[l+i+j] = right[j];
-            j++;
-            ret += sz(left) - i;
-        }
-    }
-
-    return linter + rinter + ret;
-}
 
 int main(){
     fastio();
-    ll t; cin >> t;
-    while(t--){
-        ll n; cin >> n;
-        vector<pair<float, float>> vx, vy;
-        F0R (i, n) {
-            float temp; cin >> temp;
-            vx.pub(mp(i+1, temp));
-        }
-        float f = 1.0 / n;
-        F0R (i, n) {
-            vx[i].ss += (n-1-i);
-            vy.pub(vx[i]);
-        }
-        
-        ll total = solve(vx, vy, 0, n-1);
-        cout << total << endl;
-    }
+    
+    ll n; cin >> n;
+    vi v; vIn(v, n);
+
+    
+
     return 0;
 }

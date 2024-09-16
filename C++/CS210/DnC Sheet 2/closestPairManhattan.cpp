@@ -65,7 +65,7 @@ bool cmp(pii a, pii b) {
     return a.ss < b.ss;
 }
 
-pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r) {
+pair<ll, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r) {
     if (r-l < 1) return mp(-1, mp(mp(0, 0), mp(0, 0)));
     if (r-l == 1) {
         ll a = vx[l].ff - vx[r].ff;
@@ -75,7 +75,7 @@ pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r)
             vy[l] = vy[r];
             vy[r] = temp;
         }
-        return mp(sqrt(a*a + b*b), mp(vx[l], vx[r]));
+        return mp(abs(a) + abs(b), mp(vx[l], vx[r]));
     }
 
     ll mid = (l+r)/2;
@@ -136,7 +136,7 @@ pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r)
             if (j == 0 || i + j < 0 || i + j >= sz(slice)) continue;
             ll a = slice[i].ff - slice[i+j].ff;
             ll b = slice[i].ss - slice[i+j].ss;
-            float temp = sqrt(a*a + b*b);
+            float temp = abs(a) + abs(b);
             if (temp < dis.ff)
                 dis = mp(temp, mp(slice[i], slice[i+j]));
         }
@@ -168,7 +168,7 @@ int main(){
     }
     
     auto dis = solve(vx, vy, 0, n-1);
-    cout << fixed << setprecision(2) << dis.ff << endl;
+    cout << dis.ff << endl;
     cout << dis.ss.ff.ff << " " << dis.ss.ff.ss << " , " << dis.ss.ss.ff << " " << dis.ss.ss.ss << endl;
 
     return 0;

@@ -1,6 +1,11 @@
 #pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+template <typename T>
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 // typedefs
 #define ll              int64_t
@@ -61,50 +66,18 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-bool cmp(pii a, pii b) {
-    return a.ss < b.ss;
-}
-
-pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r) {
-    if (r-l < 1) return mp(-1, mp(mp(0, 0), mp(0, 0)));
-    if (r-l == 1) {
-        ll a = vx[l].ff - vx[r].ff;
-        ll b = vx[l].ss - vx[r].ss;
-        if (vy[l].ss > vy[r].ss) {
-            auto temp = vy[l];
-            vy[l] = vy[r];
-            vy[r] = temp;
-        }
-        return mp(sqrt(a*a + b*b), mp(vx[l], vx[r]));
-    }
-
-    ll mid = (l+r)/2;
-    auto ldis = solve(vx, vy, l, mid);
-    auto rdis = solve(vx, vy, mid+1, r); 
-    auto dis = ldis.ff < rdis.ff ? ldis : rdis;
-    if (ldis.ff == -1) dis = rdis;
-    if (rdis.ff == -1) dis = ldis;
-    float meanx = (vx[mid].ff + vx[mid+1].ff)/2.0;
-    float leftx = meanx - dis.ff, rightx = meanx + dis.ff;
+ll solve (vector<pii> &vx, vector<pii> &vy, ll l, ll r) {
+    if (r-l < 1) return 0;
+    ll mid = (l + r) / 2;
+    ll linter = solve(vx, vy, l, mid);
+    ll rinter = solve(vx, vy, mid + 1, r);
 
     vector<pii> left, right;
-    FOR (i, l, mid+1) {
-        left.pub(vy[i]);
-    }
-    FOR (i, mid+1, r+1) {
-        right.pub(vy[i]);
-    }
-    // for (auto x: left) {
-    //     cout << x.ff << " " << x.ss << endl;
-    // }
-    // cout << sz(left) << endl;
-    // for (auto x: right) {
-    //     cout << x.ff << " " << x.ss << endl;
-    // }
-    // cout << sz(right) << endl;
-    ll i = 0, j = 0;
+    FOR (i, l, mid+1) left.pub(vy[i]);
+    FOR (i, mid+1, r+1) right.pub(vy[i]);
+
+    ll i = 0, j = 0, ret = 0;
     while (i < sz(left) || j < sz(right)) {
-        // cout << "a " << i << " " << j << endl;
         if (i < sz(left) && j < sz(right)) {
             if (left[i].ss < right[j].ss) {
                 vy[l+i+j] = left[i];
@@ -113,6 +86,7 @@ pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r)
             else {
                 vy[l+i+j] = right[j];
                 j++;
+                ret += sz(left) - i;
             }
         }
         else if (i < sz(left)) {
@@ -122,54 +96,29 @@ pair<float, pair<pii, pii>> solve (vector<pii>& vx, vector<pii>& vy, ll l, ll r)
         else {
             vy[l+i+j] = right[j];
             j++;
+            ret += sz(left) - i;
         }
     }
 
-    vector<pii> slice;
-    FOR (i, l, r+1) {
-        if (vy[i].ff >= leftx && vy[i].ff <= rightx) {
-            slice.pub(vy[i]);
-        }
-    }
-    FOR (i, 0, sz(slice)) {
-        FOR (j, 0, 8) {
-            if (j == 0 || i + j < 0 || i + j >= sz(slice)) continue;
-            ll a = slice[i].ff - slice[i+j].ff;
-            ll b = slice[i].ss - slice[i+j].ss;
-            float temp = sqrt(a*a + b*b);
-            if (temp < dis.ff)
-                dis = mp(temp, mp(slice[i], slice[i+j]));
-        }
-    }
-
-    // FOR (i, l, r+1) {
-    //     cout << vy[i].ff << " " << vy[i].ss << endl;
-    // }
-    // cout << fixed << setprecision(2) << ldis.ff << endl;
-    // cout << ldis.ss.ff.ff << " " << ldis.ss.ff.ss << " , " << ldis.ss.ss.ff << " " << ldis.ss.ss.ss << endl;
-    // cout << fixed << setprecision(2) << rdis.ff << endl;
-    // cout << rdis.ss.ff.ff << " " << rdis.ss.ff.ss << " , " << rdis.ss.ss.ff << " " << rdis.ss.ss.ss << endl;
-    // cout << endl;
-    return dis;
+    return linter + rinter + ret;
 }
 
 int main(){
-    // fastio();
-    int n; cin >> n;
-    vector<pii> vx, vy;
+    fastio();
+    ll n; cin >> n;
+    vector<pii> vx;
     FOR (i, 0, n) {
-        int x, y; cin >> x >> y;
-        vx.pub(mp(x, y));
+        ll a, b; cin >> a >> b;
+        vx.pub(mp(a, b));
+    }
+    sort(all(vx));
+    vector<pii> vy;
+    for (auto x: vx) {
+        vy.pub(x);
     }
 
-    sort(all(vx));
-    FOR (i, 0, n) {
-        vy.pub(vx[i]);
-    }
-    
-    auto dis = solve(vx, vy, 0, n-1);
-    cout << fixed << setprecision(2) << dis.ff << endl;
-    cout << dis.ss.ff.ff << " " << dis.ss.ff.ss << " , " << dis.ss.ss.ff << " " << dis.ss.ss.ss << endl;
+    ll ans = solve(vx, vy, 0, n-1);
+    cout << ans << endl;
 
     return 0;
 }
