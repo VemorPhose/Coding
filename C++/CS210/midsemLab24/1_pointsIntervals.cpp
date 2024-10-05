@@ -65,49 +65,52 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
-// prasoonjoshi1284@gmail.com
-
-pii solve (vi *v, ll target, pii l, pii r) {
-    if (l.ff > r.ff || l.ss > r.ss) return mp(-1, -1);
-    else if (l.ff == r.ff && l.ss == r.ss) {
-        if (v[l.ff][l.ss] == target) return mp(l.ff, l.ss);
-        else return mp(-1, -1);
-    }
-
-    pii trav = l;
-    while (trav.ff < r.ff && trav.ss < r.ss) {
-        if (v[trav.ff][trav.ss] < target) {
-            trav.ff++;
-            trav.ss++;
-        }
-        else break;
-    }
-
-    if (v[trav.ff][trav.ss] == target) return trav;
-    else if (v[trav.ff][trav.ss] > target) {
-        pii up = solve(v, target, mp(l.ff, trav.ss), mp(trav.ff - 1, r.ss));
-        pii down = solve(v, target, mp(trav.ff, l.ss), mp(r.ss, trav.ss - 1));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
-    else {
-        pii up = solve(v, target, mp(l.ff, trav.ss + 1), mp(trav.ff, r.ss));
-        pii down = solve(v, target, mp(trav.ff + 1, l.ss), mp(r.ss, trav.ss));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
-}
 
 int main(){
     fastio();
-    ll n, q; cin >> n >> q;
-    vi v[n];
-    FOR (i, 0, n) vIn(v[i], n);
-    while (q--) {
-        ll target; cin >> target;
-        pii ans = solve(v, target, mp(0, 0), mp(n - 1, n - 1));
-        if (ans.ff == -1 && ans.ss == -1) cout << -1 << endl;
-        else cout << ans.ff + 1 << " " << ans.ss + 1 << endl;
+    ll n; cin >> n;
+    vi points; vIn(points, n);
+    ll m; cin >> m;
+    vector<pii> intervals;
+    FOR (i, 0, m) {
+        ll a, b; cin >> a >> b;
+        intervals.pub(mp(a, b));
     }
+    sort(all(intervals));
+
+    ll ind = 0;
+    while (ind < n && (intervals[0].ff > points[ind] || intervals[0].ss < points[ind])) ind++;
+    if (ind == n) {
+        cout << "ERROR" << endl;
+        return 1;
+    }
+    vi out;
+    priority_queue<ll, vi, greater<int> > q;
+    FOR (i, 0, m) {
+        if (intervals[i].ff <= points[ind] && intervals[i].ss >= points[ind]) {
+            q.push(intervals[i].ss);
+        }
+        else if (intervals[i].ss >= points[ind]) {
+            if (ind != n-1) {
+                if (points[ind+1] <= q.top()) {
+                    ind += 1;
+                    i -= 1;
+                }
+                else {
+                    if (!q.empty()) {
+                        out.pub(points[ind]);
+                        while (!q.empty()) q.pop();
+                    }
+                    ind++;
+                    i--;
+                }
+            }
+        }
+    }
+    out.pub(points[ind]);
+    cout << sz(out) << endl;
+    for (auto x: out) cout << x << " ";
+    cout << endl;
+
     return 0;
 }

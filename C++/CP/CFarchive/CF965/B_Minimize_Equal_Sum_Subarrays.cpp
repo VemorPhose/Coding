@@ -65,49 +65,18 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
-// prasoonjoshi1284@gmail.com
-
-pii solve (vi *v, ll target, pii l, pii r) {
-    if (l.ff > r.ff || l.ss > r.ss) return mp(-1, -1);
-    else if (l.ff == r.ff && l.ss == r.ss) {
-        if (v[l.ff][l.ss] == target) return mp(l.ff, l.ss);
-        else return mp(-1, -1);
-    }
-
-    pii trav = l;
-    while (trav.ff < r.ff && trav.ss < r.ss) {
-        if (v[trav.ff][trav.ss] < target) {
-            trav.ff++;
-            trav.ss++;
-        }
-        else break;
-    }
-
-    if (v[trav.ff][trav.ss] == target) return trav;
-    else if (v[trav.ff][trav.ss] > target) {
-        pii up = solve(v, target, mp(l.ff, trav.ss), mp(trav.ff - 1, r.ss));
-        pii down = solve(v, target, mp(trav.ff, l.ss), mp(r.ss, trav.ss - 1));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
-    else {
-        pii up = solve(v, target, mp(l.ff, trav.ss + 1), mp(trav.ff, r.ss));
-        pii down = solve(v, target, mp(trav.ff + 1, l.ss), mp(r.ss, trav.ss));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
-}
 
 int main(){
     fastio();
-    ll n, q; cin >> n >> q;
-    vi v[n];
-    FOR (i, 0, n) vIn(v[i], n);
-    while (q--) {
-        ll target; cin >> target;
-        pii ans = solve(v, target, mp(0, 0), mp(n - 1, n - 1));
-        if (ans.ff == -1 && ans.ss == -1) cout << -1 << endl;
-        else cout << ans.ff + 1 << " " << ans.ss + 1 << endl;
+    ll t; cin >> t;
+    while(t--){
+        int n; cin >> n;
+        vi v; vIn(v, n);
+        FOR (i, 0, n) {
+            v[i] = (v[i] % n) + 1;
+        }
+        for (auto x: v) cout << x << " ";
+        cout << endl;
     }
     return 0;
 }

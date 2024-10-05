@@ -65,49 +65,63 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
-// prasoonjoshi1284@gmail.com
 
-pii solve (vi *v, ll target, pii l, pii r) {
-    if (l.ff > r.ff || l.ss > r.ss) return mp(-1, -1);
-    else if (l.ff == r.ff && l.ss == r.ss) {
-        if (v[l.ff][l.ss] == target) return mp(l.ff, l.ss);
-        else return mp(-1, -1);
-    }
+pair<ll, ll> solve (vi nums, ll l, ll r) {
+    if (r < l) return mp(LL_MIN, 0);
+    if (r == l) return mp(nums[l], 0);
 
-    pii trav = l;
-    while (trav.ff < r.ff && trav.ss < r.ss) {
-        if (v[trav.ff][trav.ss] < target) {
-            trav.ff++;
-            trav.ss++;
+    ll mid = (l + r)/2;
+    pair<ll, ll> left = solve (nums, l, mid);
+    pair<ll, ll> right = solve (nums, mid+1, r);
+    if (left.ff == LL_MIN) left = right;
+    else if (right.ff == LL_MIN) right = left;
+
+    ll preleft[sz(nums)], preright[sz(nums)], minleft[sz(nums)], minright[sz(nums)];
+    ll maxleft = mid, maxright = mid+1;
+    for (int i = mid; i >= l; i--) {
+        if (i == mid) {
+            preleft[i] = nums[i];
+            minleft[i] = nums[i];
         }
-        else break;
+        else {
+            preleft[i] = preleft[i+1] + nums[i];
+            minleft[i] = min(minleft[i+1], nums[i]);
+            maxleft = preleft[i] >= preleft[maxleft] ? i : maxleft;
+        }
     }
-
-    if (v[trav.ff][trav.ss] == target) return trav;
-    else if (v[trav.ff][trav.ss] > target) {
-        pii up = solve(v, target, mp(l.ff, trav.ss), mp(trav.ff - 1, r.ss));
-        pii down = solve(v, target, mp(trav.ff, l.ss), mp(r.ss, trav.ss - 1));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
+    ll maxleftval = preleft[maxleft], maxleftrem = maxleftval - minleft[maxleft];
+    for (int i = mid+1; i <= r; i++) {
+        if (i == mid+1) {
+            preright[i] = nums[i];
+            minright[i] = nums[i];
+        }
+        else {
+            preright[i] = preright[i-1] + nums[i];
+            minright[i] = min(minright[i-1], nums[i]);
+            maxright = preright[i] >= preright[maxright] ? i : maxright;
+        }
+    }
+    ll maxrightval = preright[maxright], maxrightrem = maxrightval - minright[maxright];
+    
+    ll temp = max(maxleftval + maxrightrem, maxrightval + maxleftrem);
+    auto ptemp = left.ff > right.ff ? left : right;
+    pair<ll, ll> p;
+    if (temp > maxrightval + maxleftval) {
+        p = mp(temp, 1);
     }
     else {
-        pii up = solve(v, target, mp(l.ff, trav.ss + 1), mp(trav.ff, r.ss));
-        pii down = solve(v, target, mp(trav.ff + 1, l.ss), mp(r.ss, trav.ss));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
+        p = mp(maxleftval+maxrightval, 0);
     }
+    // cout << left.ff << " " << right.ff << " " << p.ff << " " << ptemp.ff << endl;
+    return ptemp.ff > p.ff ? ptemp : p;
 }
 
 int main(){
     fastio();
-    ll n, q; cin >> n >> q;
-    vi v[n];
-    FOR (i, 0, n) vIn(v[i], n);
-    while (q--) {
-        ll target; cin >> target;
-        pii ans = solve(v, target, mp(0, 0), mp(n - 1, n - 1));
-        if (ans.ff == -1 && ans.ss == -1) cout << -1 << endl;
-        else cout << ans.ff + 1 << " " << ans.ss + 1 << endl;
-    }
+    ll n; cin >> n;
+    vi nums; vIn(nums, n);
+
+    auto ans = solve(nums, 0, n-1);
+    cout << ans.ff << endl;
     return 0;
 }

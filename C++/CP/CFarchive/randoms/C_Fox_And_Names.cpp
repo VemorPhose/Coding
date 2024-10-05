@@ -65,49 +65,68 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 #define vIn(v, n)       for(ll i = 0; i < n; i++) { ll temp; cin >> temp; v.pub(temp); }
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
-// prasoonjoshi1284@gmail.com
 
-pii solve (vi *v, ll target, pii l, pii r) {
-    if (l.ff > r.ff || l.ss > r.ss) return mp(-1, -1);
-    else if (l.ff == r.ff && l.ss == r.ss) {
-        if (v[l.ff][l.ss] == target) return mp(l.ff, l.ss);
-        else return mp(-1, -1);
-    }
+const int N = 27;
+vector<int> g[N];
+bool vis[N];
+bool ancestor[N];
 
-    pii trav = l;
-    while (trav.ff < r.ff && trav.ss < r.ss) {
-        if (v[trav.ff][trav.ss] < target) {
-            trav.ff++;
-            trav.ss++;
-        }
-        else break;
+bool cycle(int vertex, int parent) {
+    // Take action on vertex after entering the vertex
+    vis[vertex] = 1;
+    ancestor[vertex] = 1;
+    bool cycleInChildren = false;
+    for (int child: g[vertex]) {
+        if (ancestor[child] && child != parent) return true;
+        if (vis[child]) continue;
+        // Take action on child before entering the child node
+        cycleInChildren |= cycle(child, vertex);
+        // Take action on child after exiting the child node
     }
+    // Take action on vertex before exiting the vertex
+    ancestor[vertex] = false;
+    return cycleInChildren;
+}
 
-    if (v[trav.ff][trav.ss] == target) return trav;
-    else if (v[trav.ff][trav.ss] > target) {
-        pii up = solve(v, target, mp(l.ff, trav.ss), mp(trav.ff - 1, r.ss));
-        pii down = solve(v, target, mp(trav.ff, l.ss), mp(r.ss, trav.ss - 1));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
-    else {
-        pii up = solve(v, target, mp(l.ff, trav.ss + 1), mp(trav.ff, r.ss));
-        pii down = solve(v, target, mp(trav.ff + 1, l.ss), mp(r.ss, trav.ss));
-        if (up.ff == -1 && up.ss == -1) return down;
-        else return up;
-    }
+int getID(char c) {
+    if (c == ' ') return 0;
+    return c - 'a' + 1;
 }
 
 int main(){
     fastio();
-    ll n, q; cin >> n >> q;
-    vi v[n];
-    FOR (i, 0, n) vIn(v[i], n);
-    while (q--) {
-        ll target; cin >> target;
-        pii ans = solve(v, target, mp(0, 0), mp(n - 1, n - 1));
-        if (ans.ff == -1 && ans.ss == -1) cout << -1 << endl;
-        else cout << ans.ff + 1 << " " << ans.ss + 1 << endl;
+    ll n; cin >> n;
+    vector<string> v;
+    FOR (i, 0, n) {
+        string temp; cin >> temp; temp.pub(' ');
+        v.pub(temp);
     }
+
+    bool imflag = false;
+    FOR (i, 1, n) {
+        string s1 = v[i-1];
+        string s2 = v[i];
+        ll ind = 0;
+        while (ind < sz(s1) && ind < sz(s2) && s1[ind] == s2[ind]) ++ind;
+        if (ind == sz(s1) || ind == sz(s2)) continue;
+        ll id1 = getID(s1[ind]);
+        ll id2 = getID(s2[ind]);
+        if (id2 == 0) {
+            imflag = true;
+            break;
+        }
+        else if (id1 == 0) continue;
+        g[id1].pub(id2);
+    }
+
+    // FOR (i, 0, N) {
+    //     for (auto x: g[i]) {
+    //         cout << x << " ";
+    //     }
+    //     cout << endl;
+    // }
+
+    bool containsCycle = cycle()
+
     return 0;
 }
