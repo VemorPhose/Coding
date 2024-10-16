@@ -1,11 +1,6 @@
 #pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
-// #include <ext/pb_ds/assoc_container.hpp>
-// #include <ext/pb_ds/tree_policy.hpp>
-// using namespace __gnu_pbds;
 using namespace std;
-// template <typename T>
-// using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 // typedefs
 #define ll              int64_t
@@ -66,51 +61,35 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
+int alternatingSubsquence(int arr[], int n)
+{
+    int up[n], down[n];
+    F0R (i, n) {
+        up[i] = 1; down[i] = 1;
+    }
+ 
+    FOR (i, 0, n) {
+        FOR (j, 0, i) {
+            if (arr[i]>arr[j])
+                up[i] = max(up[i],down[j]+1);
+            else
+                down[i] = max(down[i],up[j]+1);
+        }
+    }
+    int maxDown=0;
+    int maxUp=0;
+ 
+    F0R (i, n) 
+        maxDown = max(maxDown, down[i]);
+    F0R (i, n)
+        maxUp = max(maxUp, up[i]);
+    return max(maxUp, maxDown);
+}
+
 int main(){
     fastio();
-    ll n; cin >> n;
-    vi points; vIn(points, n);
-    ll m; cin >> m;
-    vector<pii> intervals;
-    FOR (i, 0, m) {
-        ll a, b; cin >> a >> b;
-        intervals.pub(mp(a, b));
-    }
-    sort(all(intervals));
-
-    ll ind = 0;
-    while (ind < n && (intervals[0].ff > points[ind] || intervals[0].ss < points[ind])) ind++;
-    if (ind == n) {
-        cout << "ERROR" << endl;
-        return 1;
-    }
-    vi out;
-    priority_queue<ll, vi, greater<int> > q;
-    FOR (i, 0, m) {
-        if (intervals[i].ff <= points[ind] && intervals[i].ss >= points[ind]) {
-            q.push(intervals[i].ss);
-        }
-        else if (intervals[i].ss >= points[ind]) {
-            if (ind != n-1) {
-                if (points[ind+1] <= q.top()) {
-                    ind += 1;
-                    i -= 1;
-                }
-                else {
-                    if (!q.empty()) {
-                        out.pub(points[ind]);
-                        while (!q.empty()) q.pop();
-                    }
-                    ind++;
-                    i--;
-                }
-            }
-        }
-    }
-    out.pub(points[ind]);
-    // cout << sz(out) << endl;
-    for (auto x: out) cout << x << " ";
-    cout << endl;
-
+    int n; cin >> n;
+    int arr[n]; arrIn(arr, n);
+    cout << alternatingSubsquence (arr, n) << endl;
     return 0;
 }
