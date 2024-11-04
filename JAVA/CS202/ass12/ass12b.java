@@ -3,16 +3,20 @@ import java.util.*;
 public class ass12b {
     public static int cnt = 0;
 
-    public static class CounterIncrementer implements Runnable {
+    public static class CounterIncrementer extends Thread {
         public void run() {
-            cnt += 5000;
+            for (int i = 0; i < 5000; i++) {
+                cnt++;
+            }
             System.out.println("Inside Incrementer: " + cnt);
         }
     }
 
-    public static class CounterDecrementer implements Runnable {
+    public static class CounterDecrementer extends Thread {
         public void run() {
-            cnt -= 3000;
+            for (int i = 0; i < 3000; i++) {
+                cnt--;
+            }
             System.out.println("Inside Decrementer: " + cnt);
         }
     }
@@ -32,7 +36,7 @@ public class ass12b {
         } catch (InterruptedException e) {
             System.out.println("Exception Caught: " + e);
         }
-        
+
         System.out.println("t1 Finished: " + cnt);
         t2.start();
         

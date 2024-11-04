@@ -5,14 +5,18 @@ public class ass12c {
 
     public static class CounterIncrementer extends Thread {
         public void run() {
-            cnt += 5000;
+            for (int i = 0; i < 5000; i++) {
+                cnt++;
+            }
             System.out.println("Inside Incrementer: " + cnt);
         }
     }
 
     public static class CounterDecrementer extends Thread {
         public void run() {
-            cnt -= 3000;
+            for (int i = 0; i < 3000; i++) {
+                cnt--;
+            }
             System.out.println("Inside Decrementer: " + cnt);
         }
     }
