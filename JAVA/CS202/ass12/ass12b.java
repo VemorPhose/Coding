@@ -3,7 +3,7 @@ import java.util.*;
 public class ass12b {
     public static int cnt = 0;
 
-    public static class CounterIncrementer extends Thread {
+    public static class CounterIncrementer implements Runnable {
         public void run() {
             for (int i = 0; i < 5000; i++) {
                 cnt++;
@@ -12,7 +12,7 @@ public class ass12b {
         }
     }
 
-    public static class CounterDecrementer extends Thread {
+    public static class CounterDecrementer implements Runnable {
         public void run() {
             for (int i = 0; i < 3000; i++) {
                 cnt--;

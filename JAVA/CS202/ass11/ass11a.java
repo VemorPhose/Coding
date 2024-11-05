@@ -115,29 +115,28 @@ public class ass11a {
     }
 
     public static void main(String[] args) {
-        try {
-            Student student = new Student("John", "Doe", "ABC123456", 123456, "john#doe@example.com", "stud12345");
-        } catch (InvalidEmailException e) {
-            System.out.println("Invalid email");
-        } catch (InvalidPINException e) {
-            System.out.println("Invalid PIN");
-        } catch (InvalidRollNumberException e) {
-            System.out.println("Invalid roll number");
-        }
+        // try {
+        //     Student student = new Student("John", "Doe", "ABC123456", 123456, "john#doe@example.com", "stud12345");
+        // } catch (InvalidEmailException e) {
+        //     System.out.println("Invalid email");
+        // } catch (InvalidPINException e) {
+        //     System.out.println("Invalid PIN");
+        // } catch (InvalidRollNumberException e) {
+        //     System.out.println("Invalid roll number");
+        // }
+
+        // try {
+        //     Employee employee = new Employee("Jane", "Smith", "DEF789101", 789101, "janes&mith@example.com", "emp789");
+        // } catch (InvalidEmailException e) {
+        //     System.out.println("Invalid email");
+        // } catch (InvalidPINException e) {
+        //     System.out.println("Invalid PIN");
+        // } catch (InvalidEmployeeIDException e) {
+        //     System.out.println("Invalid employee ID");
+        // }
 
         try {
-            Employee employee = new Employee("Jane", "Smith", "DEF789101", 789101, "janes&mith@example.com", "emp789");
-        } catch (InvalidEmailException e) {
-            System.out.println("Invalid email");
-        } catch (InvalidPINException e) {
-            System.out.println("Invalid PIN");
-        } catch (InvalidEmployeeIDException e) {
-            System.out.println("Invalid employee ID");
-        }
-
-        // Test with invalid inputs
-        try {
-            Student student2 = new Student("John", "Doe", "ABC123456", 12345, "john@doe@example.com", "stud1234");
+            Student student2 = new Student("John", "Doe", "ABC123456", 123456, "pratapaditya@chander23b@iiitgin", "stud12345");
         } catch (InvalidEmailException e) {
             System.out.println("Invalid email");
         } catch (InvalidPINException e) {
