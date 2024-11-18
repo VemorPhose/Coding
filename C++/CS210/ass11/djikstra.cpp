@@ -73,52 +73,51 @@ struct Comparator {
     }
 };
 
-// FIX THIS SHIT
-
 int main(){
     fastio();
     int n, m; cin >> n >> m;
+    int vertex; cin >> vertex;
     FOR (i, 0, m) {
         int u, v, w; cin >> u >> v >> w;
         g[u].pub(mp(v, w));
         g[v].pub(mp(u, w));
     }
-
-    // Prim's algorithm
+    
+    // Djikstra Algorithm
     priority_queue<pair<int, int>, vector<pair<int, int> >, Comparator> q;
-
-    vector<pair<pair<int, int>, int> > MSTedges;
-    int szMSTedges = 0;
-
-    vis[0] = true;
-    FOR (i, 1, n) key[i] = INT_MAX;
-    for (auto x: g[0]) {
-        if (key[0] + x.ss <= key[x.ff]) {
-            key[x.ff] = x.ss;
-            parent[x.ff] = 0;
+    vis[vertex] = true;
+    int shortestPath[n];
+    shortestPath[vertex] = 0;
+    FOR (i, 0, n) {
+        if (i == vertex) continue;
+        key[i] = INT_MAX;
+    }
+    for (auto x: g[vertex]) {
+        if (key[vertex] + x.ss <= key[x.ff]) {
+            key[x.ff] = key[vertex] + x.ss;
+            parent[x.ff] = vertex;
             q.push(mp(x.ff, key[x.ff]));
         }
     }
 
-    while (!q.empty() && szMSTedges < n-1) {
+    int numVis = 1;
+    while (!q.empty() && numVis < n) {
         auto x = q.top(); q.pop();
         if (vis[x.ff]) continue;
-        vis[x.ff] = true;
-        MSTedges.pub(mp(mp(parent[x.ff], x.ff), x.ss));
-        ans[parent[x.ff]].pub(mp(x.ff, x.ss - key[parent[x.ss]]));
-        szMSTedges++;
+        vis[x.ff] = true; numVis++;
+        ans[parent[x.ff]].pub(mp(x.ff, x.ss - key[parent[x.ff]]));
+        shortestPath[x.ff] = x.ss;
         for (auto y: g[x.ff]) {
-            if (!vis[y.ff] && key[y.ff] > y.ss) {
-                key[y.ff] = y.ss;
+            if (!vis[y.ff] && key[y.ff] > key[x.ff] + y.ss) {
+                key[y.ff] = key[x.ff] + y.ss;
                 parent[y.ff] = x.ff;
                 q.push(mp(y.ff, key[y.ff]));
             }
         }
     }
 
-    for (auto p: MSTedges) {
-        cout << p.ff.ff << " " << p.ff.ss << " " << p.ss << endl;
-    }
+    for (auto x: shortestPath) cout << x << " ";
+    cout << endl;
 
     return 0;
 }

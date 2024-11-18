@@ -61,64 +61,39 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-const int N = 1e7 + 10;
-vector<pair<int, int> > g[N], ans[N]; // MST
-bool vis[N];
-int key[N];
-int parent[N];
-
-struct Comparator {
-    bool operator() (pair<int, int> a, pair<int, int> b) {
-        return a.ss > b.ss;
-    }
-};
-
-// FIX THIS SHIT
-
 int main(){
     fastio();
-    int n, m; cin >> n >> m;
-    FOR (i, 0, m) {
-        int u, v, w; cin >> u >> v >> w;
-        g[u].pub(mp(v, w));
-        g[v].pub(mp(u, w));
-    }
+    string s, t; cin >> s >> t;
+    int n = s.size(), m = t.size();
+    int dp[n+1][m+1];
+    FOR (i, 0, n+1) dp[i][0] = 0;
+    FOR (i, 0, m+1) dp[0][i] = 0;
 
-    // Prim's algorithm
-    priority_queue<pair<int, int>, vector<pair<int, int> >, Comparator> q;
-
-    vector<pair<pair<int, int>, int> > MSTedges;
-    int szMSTedges = 0;
-
-    vis[0] = true;
-    FOR (i, 1, n) key[i] = INT_MAX;
-    for (auto x: g[0]) {
-        if (key[0] + x.ss <= key[x.ff]) {
-            key[x.ff] = x.ss;
-            parent[x.ff] = 0;
-            q.push(mp(x.ff, key[x.ff]));
+    FOR (i, 1, n+1) {
+        FOR (j, 1, m+1) {
+            if (s[i-1] == t[j-1]) dp[i][j] = max(max(dp[i-1][j], dp[i][j-1]), dp[i-1][j-1] + 1);
+            else dp[i][j] = max(dp[i-1][j], dp[i][j-1]);
         }
     }
+    // FOR (j, 0, m+1) {
+    //     FOR (i, 0, n+1) {
+    //         cout << dp[i][j] << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << dp[n][m] << endl;
 
-    while (!q.empty() && szMSTedges < n-1) {
-        auto x = q.top(); q.pop();
-        if (vis[x.ff]) continue;
-        vis[x.ff] = true;
-        MSTedges.pub(mp(mp(parent[x.ff], x.ff), x.ss));
-        ans[parent[x.ff]].pub(mp(x.ff, x.ss - key[parent[x.ss]]));
-        szMSTedges++;
-        for (auto y: g[x.ff]) {
-            if (!vis[y.ff] && key[y.ff] > y.ss) {
-                key[y.ff] = y.ss;
-                parent[y.ff] = x.ff;
-                q.push(mp(y.ff, key[y.ff]));
-            }
-        }
+    string ans = "";
+    int i = n, j = m;
+    while (i > 0 && j > 0) {
+        if (s[i-1] == t[j-1]) {
+            ans = s[i-1] + ans;
+            i--; j--;
+        } else if (dp[i-1][j] > dp[i][j-1]) i--;
+        else j--;
     }
-
-    for (auto p: MSTedges) {
-        cout << p.ff.ff << " " << p.ff.ss << " " << p.ss << endl;
-    }
+    // reverse(all(ans));
+    cout << ans << endl;
 
     return 0;
 }

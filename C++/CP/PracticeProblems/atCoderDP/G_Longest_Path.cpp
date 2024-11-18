@@ -61,64 +61,8 @@ using namespace std;
 #define coutN           cout << "NO" << endl
 #define coutY           cout << "YES" << endl
 
-const int N = 1e7 + 10;
-vector<pair<int, int> > g[N], ans[N]; // MST
-bool vis[N];
-int key[N];
-int parent[N];
-
-struct Comparator {
-    bool operator() (pair<int, int> a, pair<int, int> b) {
-        return a.ss > b.ss;
-    }
-};
-
-// FIX THIS SHIT
-
 int main(){
     fastio();
-    int n, m; cin >> n >> m;
-    FOR (i, 0, m) {
-        int u, v, w; cin >> u >> v >> w;
-        g[u].pub(mp(v, w));
-        g[v].pub(mp(u, w));
-    }
-
-    // Prim's algorithm
-    priority_queue<pair<int, int>, vector<pair<int, int> >, Comparator> q;
-
-    vector<pair<pair<int, int>, int> > MSTedges;
-    int szMSTedges = 0;
-
-    vis[0] = true;
-    FOR (i, 1, n) key[i] = INT_MAX;
-    for (auto x: g[0]) {
-        if (key[0] + x.ss <= key[x.ff]) {
-            key[x.ff] = x.ss;
-            parent[x.ff] = 0;
-            q.push(mp(x.ff, key[x.ff]));
-        }
-    }
-
-    while (!q.empty() && szMSTedges < n-1) {
-        auto x = q.top(); q.pop();
-        if (vis[x.ff]) continue;
-        vis[x.ff] = true;
-        MSTedges.pub(mp(mp(parent[x.ff], x.ff), x.ss));
-        ans[parent[x.ff]].pub(mp(x.ff, x.ss - key[parent[x.ss]]));
-        szMSTedges++;
-        for (auto y: g[x.ff]) {
-            if (!vis[y.ff] && key[y.ff] > y.ss) {
-                key[y.ff] = y.ss;
-                parent[y.ff] = x.ff;
-                q.push(mp(y.ff, key[y.ff]));
-            }
-        }
-    }
-
-    for (auto p: MSTedges) {
-        cout << p.ff.ff << " " << p.ff.ss << " " << p.ss << endl;
-    }
-
+    
     return 0;
 }
