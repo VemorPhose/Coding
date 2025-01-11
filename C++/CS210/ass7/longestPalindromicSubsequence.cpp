@@ -1,70 +1,47 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
-#define p(i) pair<i,i>
-#define ff first
-#define pb push_back
-#define ss second
-#define v(i) vector<i>
- 
-int len_odd_palindrome(int arr[],int n, int x)
-{
-    int len = 1;
-    int i = 0;
-    int j = 0;
-    while(x-i>0 && x+j<n-1)
-    {
-        if(arr[x-i]==arr[x+j])
-        {
-            len+=2;
+
+int longestPalindromeSubseq(string s) {
+    int n = s.length();
+    vector<vector<int>> dp(n, vector<int>(n, 0));
+    
+    // Base case: single characters are palindromes of length 1
+    for(int i = 0; i < n; i++) {
+        dp[i][i] = 1;
+    }
+    
+    // Fill the dp table
+    for(int len = 2; len <= n; len++) {
+        for(int i = 0; i < n - len + 1; i++) {
+            int j = i + len - 1;
             
+            if(s[i] == s[j] && len == 2) {
+                dp[i][j] = 2;
+            }
+            else if(s[i] == s[j]) {
+                dp[i][j] = dp[i+1][j-1] + 2;
+            }
+            else {
+                dp[i][j] = max(dp[i+1][j], dp[i][j-1]);
+            }
         }
-        i++;
-        j++;
-        //else break;
     }
-    return len;
+    
+    return dp[0][n-1];
 }
-int len_even_palindrome(int arr[],int n,int x)
-{
-    if(arr[x]!=arr[x+1])
-        return 1;
-    int len = 2;
-    int i = 1;
-    int j = 2;
-    while(x-i>0 && x+j<n-1)
-    {
-        if(arr[x-i]==arr[x+j])
-        {
-            len+=2;
-            
-        }
-        i++;
-        j++;
-        //else break;
-    }
-    return len;
-}
-int max_len_palindrome(int arr[],int n)
-{
-    int len =1;
-    for(int i=1;i<n-1;i++)
-    {
-        int odd = len_odd_palindrome(arr,n,i);
-        int even = len_even_palindrome(arr,n,i);
- 
-        len = max(len,odd);
-        len = max(len,even);
-    }
-    return len;
-}
-int main()
-{
-    int n;
-    cin>>n;
-    int arr[n];
-    for(int i=0;i<n;i++)
-    {
-        cin>>arr[i];
-    }
-    cout<<max_len_palindrome(arr,n);
+
+int main() {
+    string test = "bbbab";
+    cout << "String: " << test << endl;
+    cout << "Length of Longest Palindromic Subsequence: " 
+         << longestPalindromeSubseq(test) << endl;
+    
+    test = "cbbd";
+    cout << "String: " << test << endl;
+    cout << "Length of Longest Palindromic Subsequence: " 
+         << longestPalindromeSubseq(test) << endl;
+    
+    return 0;
 }
