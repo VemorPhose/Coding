@@ -1,0 +1,1 @@
+{"name":"Local: maxsum","url":"c:\\Users\\anony\\Desktop\\Coding\\C++\\CP\\ICPC\\practice2\\maxsum.cpp","tests":[{"id":1731587942898,"input":"1\n4\n1 -3 2 -3\n","output":"9"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\anony\\Desktop\\Coding\\C++\\CP\\ICPC\\practice2\\maxsum.cpp","group":"local","local":true}
