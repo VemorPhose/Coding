@@ -203,6 +203,7 @@ Tree findSuccessor(Tree tree){
 	return successor;
 }
 
+<<<<<<< HEAD
 // 10
 int countLeafNodes(Tree tree){
 	if(!tree) return 0;
@@ -218,6 +219,23 @@ int countNonLeafNodes(Tree tree){
 		return 0;
 	return 1+ countNonLeafNodes(tree->left) + countNonLeafNodes(tree->right);
 }
+=======
+// 10
+int countLeafNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 1;
+	return countLeafNodes(tree->left) + countLeafNodes(tree->right);
+}
+
+// 11
+int countNonLeafNodes(Tree tree){
+	if(!tree) return 0;
+	if(tree->left == NULL && tree->right == NULL)
+		return 0;
+	return 1+ countNonLeafNodes(tree->left) + countNonLeafNodes(tree->right);
+}
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2
 
 // 12
 void printLeafInOrder(Tree tree){

@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 WHAT IS GOING ON
+=======
+WHAT IS GOING ON
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2

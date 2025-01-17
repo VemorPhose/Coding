@@ -1,9 +1,18 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <assert.h>
 
+=======
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+#include <stdbool.h>
+#include <assert.h>
+
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2
 typedef struct tree_t *Tree;
 typedef int Type;
 
@@ -58,7 +67,11 @@ void printTree(Tree tree){
     printPostOrder(tree);
     printf("\n");
 }
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2
 Tree clone(Tree tree){
 	if (!tree) return NULL;
 	Tree left = clone(tree -> left);
@@ -67,7 +80,11 @@ Tree clone(Tree tree){
 	if (left) left -> parent = t;
 	if (right) right -> parent = t;
 	return t;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2
 
 Tree insertIntoBST(Tree tree, int key, Tree parent){
 	if (!tree)
@@ -77,6 +94,7 @@ Tree insertIntoBST(Tree tree, int key, Tree parent){
 	else
 		tree -> right = insertIntoBST(tree -> right, key, tree);
 	return tree;
+<<<<<<< HEAD
 }
 
 int subTreeSumTree(Tree tree) {
@@ -127,3 +145,55 @@ int main() {
 
     return 0;
 }
+=======
+}
+
+int subTreeSumTree(Tree tree) {
+    if (!tree)
+        return 0;
+    int sTreeSumLeft = subTreeSumTree(tree->left);
+    int sTreeSumRight = subTreeSumTree(tree->right);
+    tree->key += sTreeSumLeft + sTreeSumRight;
+    return tree->key;
+}
+
+Tree findTreeInBST(Tree tree, int key, Tree sTreeSum){
+	if (!tree)
+		return NULL;
+	if (key == tree -> key)
+		return sTreeSum;
+	if (key < tree -> key)
+		return findTreeInBST(tree -> left, key, sTreeSum->left);
+	return findTreeInBST(tree -> right, key, sTreeSum->right);
+}
+
+int main() {
+    Tree tree = NULL;
+    int n = 0, key = 0;
+    printf("enter number of nodes: ");
+    scanf("%d", &n);
+    printf("enter node keys: ");
+    for (int i = 0; i < n; i++){
+        scanf("%d", &key);
+        tree = insertIntoBST(tree, key, NULL);
+    }
+    printTree(tree);
+    Tree sTreeSum = clone(tree);
+    subTreeSumTree(sTreeSum);
+    printTree(sTreeSum);
+
+    Tree out = NULL;
+    printf("enter number of queries: ");
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++){
+        printf("enter key to find: ");
+        scanf("%d", &key);
+        out = findTreeInBST(tree, key, sTreeSum);
+        if (!out)
+            printf("key not found!\n");
+        else printf("subTreeSum at node is %d\n", out->key);
+    }
+
+    return 0;
+}
+>>>>>>> af5ab5c21af8834a5b6272908ee927bc90df4ac2
