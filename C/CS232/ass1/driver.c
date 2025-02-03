@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         close(pipefd[1]);
         close(file1);
         close(file2);
-        execl("./2", "2", NULL);
+        execl("./count", "count", NULL);
         perror("execl 2");
         exit(1);
     }
@@ -53,8 +53,8 @@ int main(int argc, char *argv[]) {
         close(pipefd[0]);
         close(file1);
         close(file2);
-        execl("./3", "3", NULL);
-        perror("execl 3");
+        execl("./convert", "convert", NULL);
+        perror("execl convert");
         exit(1);
     }
 
