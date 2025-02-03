@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
         close(file1);
         close(file2);
         execl("./count", "count", NULL);
-        perror("execl 2");
+        perror("execl count");
         exit(1);
     }
 
