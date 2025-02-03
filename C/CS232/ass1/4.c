@@ -1,4 +1,3 @@
-c
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -39,8 +38,8 @@ int main(int argc, char *argv[]) {
         close(pipefd[1]);
         close(file1);
         close(file2);
-        execl("./count", "count", NULL);
-        perror("execl count");
+        execl("./2", "2", NULL);
+        perror("execl 2");
         exit(1);
     }
 
@@ -54,8 +53,8 @@ int main(int argc, char *argv[]) {
         close(pipefd[0]);
         close(file1);
         close(file2);
-        execl("./convert", "convert", NULL);
-        perror("execl convert");
+        execl("./3", "3", NULL);
+        perror("execl 3");
         exit(1);
     }
 
