@@ -48,4 +48,3 @@ int main() {
     printf("Back to main thread\n");
     return 0;
 }
-
