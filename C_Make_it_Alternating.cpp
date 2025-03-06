@@ -65,7 +65,40 @@ int main(){
     fastio();
     ll t; cin >> t;
     while(t--){
-        
+        string s; cin >> s;
+        ll n = sz(s);
+        vi clusters;
+        ll cluster = 1;
+        FOR(i, 1, n){
+            if(s[i] == s[i-1]) cluster++;
+            else{
+                clusters.pub(cluster);
+                cluster = 1;
+            }
+        }
+        clusters.pub(cluster);
+        ll moves = 0;
+        ll perms = 1;
+        ll num = 0;
+        for (ll x: clusters) {
+            if (x > 1) {
+                num++;
+                moves += x - 1;
+                while (x > 0) {
+                    perms *= x;
+                    x--;
+                    perms %= mod;
+                }
+                perms %= mod;
+            }
+        }
+        if (num > 1) {
+            perms *= moves;
+            perms %= mod;
+            perms *= num - 1;
+            perms %= mod;
+        }
+        cout << moves << " " << perms << endl;
     }
     return 0;
 }

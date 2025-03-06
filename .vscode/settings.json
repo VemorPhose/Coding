@@ -69,5 +69,8 @@
         "typeindex": "cpp",
         "typeinfo": "cpp",
         "valarray": "cpp"
-    }
+    },
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ]
 }
