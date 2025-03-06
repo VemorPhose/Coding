@@ -6,6 +6,7 @@
 
 #define NUM_READERS 5
 #define NUM_WRITERS 3
+#define NUM_OPERATIONS 5
 
 int readcount = 0; // Number of active readers
 pthread_mutex_t mutex; // Mutex for readcount access
@@ -15,7 +16,7 @@ sem_t wrt; // Semaphore for writer priority
 void *reader(void *arg) {
     int id = *((int *)arg);
     free(arg);
-    while (1) {
+    for (int i = 0; i < NUM_OPERATIONS; i++) {
         pthread_mutex_lock(&mutex); // Lock readcount access
         readcount++;
         if (readcount == 1) {
@@ -42,7 +43,7 @@ void *reader(void *arg) {
 void *writer(void *arg) {
     int id = *((int *)arg);
     free(arg);
-    while (1) {
+    for (int i = 0; i < NUM_OPERATIONS; i++) {
         sem_wait(&wrt); // Writers get exclusive access
 
         // Writing (Critical Section for Writers)

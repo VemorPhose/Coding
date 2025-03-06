@@ -6,6 +6,7 @@
 
 #define NUM_READERS 5
 #define NUM_WRITERS 3
+#define NUM_OPERATIONS 5
 
 int readcount = 0;
 pthread_mutex_t mutex;
@@ -14,7 +15,7 @@ sem_t wrt;
 void *reader(void *arg) {
     int id = *((int *)arg);
     free(arg);
-    while (1) {
+    for (int i = 0; i < NUM_OPERATIONS; i++) {
         pthread_mutex_lock(&mutex);
         readcount++;
         if (readcount == 1) {
@@ -39,7 +40,7 @@ void *reader(void *arg) {
 void *writer(void *arg) {
     int id = *((int *)arg);
     free(arg);
-    while (1) {
+    for (int i = 0; i < NUM_OPERATIONS; i++) {
         sem_wait(&wrt);
 
         printf("Writer %d is writing\n", id);
