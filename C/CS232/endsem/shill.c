@@ -40,15 +40,9 @@ void *woman_wants_to_enter(void *arg) {
         women_waiting--;
     }
 
-    if (count == 0) {
-        printf("Restroom occupied by women.\n\n");
-        current_gender = 1;
-    }
-
     count++;
-    printf("Woman %d enters.\n", id);
-    printf("Women inside: %d.\n", count);
-
+    current_gender = 1;
+    printf("Woman %d enters. Women inside: %d. (Men waiting: %d)\n", id, count, men_waiting);
 
     if (women_waiting > 0) {
         sem_post(&women_sem);
@@ -89,14 +83,9 @@ void *man_wants_to_enter(void *arg) {
         men_waiting--;
     }
 
-    if (count == 0) {
-        printf("Restroom occupied by men.\n\n");
-        current_gender = 0;
-    }
-
     count++;
-    printf("Man %d enters.\n", id);
-    printf("Men inside: %d.\n", count);
+    current_gender = 0;
+    printf("Man %d enters. Men inside: %d. (Women waiting: %d)\n", id, count, women_waiting);
 
     if (men_waiting > 0) {
         sem_post(&men_sem);
@@ -124,13 +113,12 @@ void *woman_leaves(void *arg) {
 
     pthread_mutex_lock(&mutex);
     count--;
-    printf("Woman %d leaves.\n", id);
-    printf("Women inside: %d.\n", count);
+    printf("Woman %d leaves. Women inside: %d.\n", id, count);
 
     bool signal_men = false;
 
     if (count == 0) {
-        printf("Restroom empty.\n\n");
+        printf("Restroom empty.\n");
         current_gender = -1;
         if (men_waiting > 0) {
             signal_men = true;
@@ -152,13 +140,12 @@ void *man_leaves(void *arg) {
 
     pthread_mutex_lock(&mutex);
     count--;
-    printf("Man %d leaves.\n", id);
-    printf("Men inside: %d.\n", count);
+    printf("Man %d leaves. Men inside: %d.\n", id, count);
 
     bool signal_women = false;
 
     if (count == 0) {
-        printf("Restroom empty.\n\n");
+        printf("Restroom empty.\n");
         current_gender = -1;
         if (women_waiting > 0) {
              signal_women = true;
@@ -182,6 +169,8 @@ int main() {
     sem_init(&men_sem, 0, 0);
     sem_init(&women_sem, 0, 0);
 
+    printf("Simulation starting...\n");
+
     for (int i = 0; i < queue_size; i++) {
         int *id = malloc(sizeof(int));
          if (!id) { perror("Failed to allocate memory for thread ID"); exit(EXIT_FAILURE); }
@@ -197,7 +186,8 @@ int main() {
     for (int i = 0; i < queue_size; i++) {
         pthread_join(threads[i], NULL);
     }
-    sleep(2);
+
+    printf("\nSimulation finished (all initial 'wants_to_enter' threads joined).\n");
 
     pthread_mutex_destroy(&mutex);
     sem_destroy(&men_sem);
