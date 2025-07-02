@@ -1,4 +1,5 @@
 // ----------------boilerplate----------------------- //
+// 雪雁不浴自白，人亦无为而自成。
 #pragma GCC optimize ("O3")
 #include <bits/stdc++.h>
 using namespace std;
