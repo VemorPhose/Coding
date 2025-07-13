@@ -1,0 +1,1 @@
+{"name":"Local: tres","url":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\tres.java","tests":[{"id":1752390412705,"input":"3\n1 2 3\n3 2 2","output":"3"},{"id":1752390441828,"input":"5\n2 3 0 1 4\n3 3 2 3 1","output":"10"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\tres.java","group":"local","local":true}
