@@ -1,0 +1,1 @@
+{"name":"Local: huh","url":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\huh.cpp","tests":[{"id":1754212675119,"input":"4\n7 4 2 1\n3","output":"11"},{"id":1754212694616,"input":"3\n1 10 10\n1","output":"5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\huh.cpp","group":"local","local":true}
