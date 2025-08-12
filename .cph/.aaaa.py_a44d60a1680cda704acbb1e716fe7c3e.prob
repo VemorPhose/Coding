@@ -1,0 +1,1 @@
+{"name":"Local: aaaa","url":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\aaaa.py","tests":[{"id":1754593861035,"input":"1 1 1\nCLOSURE 1\nPACKAGE\nCLOSURE 0\nPACKAGE","output":"2"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Vemor\\Desktop\\Projects\\Coding\\aaaa.py","group":"local","local":true}
