@@ -77,3 +77,5 @@ if __name__ == "__main__":
     print(f"Framed:    {frame}")
     print(f"Recovered: {recovered}")
     print(f"Correct?   {recovered == payload}")
+    char_overhead = (len(frame) - len(payload)) / len(payload) if payload else 0.0
+    print(f"Overhead:  {char_overhead:.2%}")
