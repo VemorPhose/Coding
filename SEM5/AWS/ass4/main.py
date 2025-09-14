@@ -2,6 +2,7 @@ import boto3
 import base64
 import time
 import sys
+import requests # Used to get your public IP
 
 # --- Configuration ---
 AMI_ID = "ami-0861f4e788f5069dd"
@@ -91,19 +92,32 @@ def main():
     cleanup_resources(ec2_client, asg_client, cw_client)
     print("\n--- Starting Deployment ---\n")
 
-    # 1. Create Security Group
+    # 1. Create Security Group with HTTP and SSH rules
     try:
+        # Get your current public IP for the SSH rule
+        my_ip = requests.get('https://checkip.amazonaws.com').text.strip()
+        my_ip_cidr = f"{my_ip}/32"
+        print(f"Will allow SSH access from your current IP: {my_ip_cidr}")
+        
         sg = ec2.create_security_group(
             GroupName=SG_NAME,
-            Description="Allow HTTP traffic"
+            Description="Allow HTTP and SSH traffic"
         )
         sg.authorize_ingress(
-            IpPermissions=[{
-                "IpProtocol": "tcp",
-                "FromPort": 80,
-                "ToPort": 80,
-                "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
-            }]
+            IpPermissions=[
+                { # Rule for HTTP
+                    "IpProtocol": "tcp",
+                    "FromPort": 80,
+                    "ToPort": 80,
+                    "IpRanges": [{"CidrIp": "0.0.0.0/0"}]
+                },
+                { # Rule for SSH
+                    "IpProtocol": "tcp",
+                    "FromPort": 22,
+                    "ToPort": 22,
+                    "IpRanges": [{"CidrIp": my_ip_cidr}]
+                }
+            ]
         )
         print(f"Created Security Group: {sg.id}")
     except ec2_client.exceptions.ClientError as e:
@@ -114,15 +128,21 @@ def main():
             print(f"Using existing Security Group: {sg.id}")
         else:
             raise e
+    except requests.exceptions.RequestException as e:
+        print(f"Could not get your public IP. Defaulting SSH rule to 0.0.0.0/0. Error: {e}")
+        # This part is just a fallback if the IP check fails
+        sg.authorize_ingress(IpPermissions=[{"IpProtocol": "tcp", "FromPort": 22, "ToPort": 22, "IpRanges": [{"CidrIp": "0.0.0.0/0"}]}])
+
 
     # 2. Define User Data Script and Create Launch Template
+    # **FIXED THE BUG IN THE SED COMMAND HERE**
     user_data_script = """#!/bin/bash
 yum update -y
 yum install -y httpd aws-cli
 systemctl start httpd
 systemctl enable httpd
 aws s3 cp s3://ungabunga69/ass2/ /var/www/html/ --recursive
-INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
+INSTANCE_ID=$(curl -s http://169.254.169.254/latest-meta-data/instance-id)
 INDEX_FILE="/var/www/html/index.html"
 sed -i "s//${INSTANCE_ID}/g" $INDEX_FILE
 """
@@ -164,7 +184,6 @@ sed -i "s//${INSTANCE_ID}/g" $INDEX_FILE
         ScalingAdjustment=1,
         Cooldown=120
     )
-    
     scale_in_policy = asg_client.put_scaling_policy(
         AutoScalingGroupName=ASG_NAME,
         PolicyName="scale-in-policy",
@@ -188,7 +207,6 @@ sed -i "s//${INSTANCE_ID}/g" $INDEX_FILE
         AlarmActions=[scale_out_policy["PolicyARN"]],
         Dimensions=[{"Name": "AutoScalingGroupName", "Value": ASG_NAME}],
     )
-
     cw_client.put_metric_alarm(
         AlarmName="cpu-scale-in-alarm",
         MetricName="CPUUtilization",
@@ -219,19 +237,18 @@ sed -i "s//${INSTANCE_ID}/g" $INDEX_FILE
     print(f"Instance {instance_id} is being created. Waiting for it to pass status checks...")
     print("(This will take a minute or two...)")
 
-    # WAITER
     waiter = ec2_client.get_waiter('instance_status_ok')
     waiter.wait(InstanceIds=[instance_id])
     
     print("Instance passed status checks! The web server should now be ready.")
 
-    # Public DNS
     instance_description = ec2_client.describe_instances(InstanceIds=[instance_id])
     public_dns = instance_description['Reservations'][0]['Instances'][0]['PublicDnsName']
     
     print("\n--- Verification Info ---")
     print(f"Instance ID: {instance_id}")
     print(f"Public DNS Name: http://{public_dns}")
+    print(f"SSH Command: ssh -i \"{KEY_NAME}.pem\" ec2-user@{public_dns}")
     print("\nTest your website by opening the Public DNS link in a browser. It should now be accessible.")
 
 
@@ -242,4 +259,10 @@ if __name__ == "__main__":
         cw_c = boto3.client("cloudwatch", region_name=REGION)
         cleanup_resources(ec2_c, asg_c, cw_c)
     else:
+        # Before running, we need the 'requests' library to find your IP
+        try:
+            import requests
+        except ImportError:
+            print("The 'requests' library is not installed. Please run: pip install requests")
+            sys.exit(1)
         main()
