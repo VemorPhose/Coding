@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print(f"Overhead: {measure_overhead(t, s):.2%}")
 
     print("\n=== Character Stuffing ===")
-    payload = b"HELLO" + DLE + b"WORLD"
+    payload = b"HELLO" +DLE + STX+ b"ABC"+ DLE +DLE+ ETX+ b"WORLD"
     frame = char_stuff(payload)
     recovered = char_destuff(frame)
     print(f"Payload:   {payload}")
