@@ -137,13 +137,22 @@ def main():
     # 2. Define User Data Script and Create Launch Template
     user_data_script = """#!/bin/bash
 yum update -y
-yum install -y httpd aws-cli
+yum install -y httpd aws-cli -y
 systemctl start httpd
 systemctl enable httpd
 aws s3 cp s3://ungabunga69/ass2/ /var/www/html/ --recursive
-INSTANCE_ID=$(curl -s http://169.254.169.254/latest-meta-data/instance-id)
-INDEX_FILE="/var/www/html/index.html"
-sed -i "s//${INSTANCE_ID}/g" $INDEX_FILE
+
+# Get IMDSv2 token
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+       -H "X-aws-ec2-metadata-token-ttl-seconds: 21600" -s)
+
+# Fetch instance ID using token
+INSTANCE_ID=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" \
+    http://169.254.169.254/latest/meta-data/instance-id)
+
+# Inject instance ID into the homepage
+echo "<p>EC2 Instance ID: ${INSTANCE_ID}</p>" >> /var/www/html/index.html
+
 """
     
     user_data_b64 = base64.b64encode(user_data_script.encode("utf-8")).decode("utf-8")
