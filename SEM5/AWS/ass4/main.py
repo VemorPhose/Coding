@@ -2,7 +2,7 @@ import boto3
 import base64
 import time
 import sys
-import requests # Used to get your public IP
+import requests 
 
 # --- Configuration ---
 AMI_ID = "ami-0861f4e788f5069dd"
@@ -94,7 +94,7 @@ def main():
 
     # 1. Create Security Group with HTTP and SSH rules
     try:
-        # Get your current public IP for the SSH rule
+        # Get current public IP for the SSH rule
         my_ip = requests.get('https://checkip.amazonaws.com').text.strip()
         my_ip_cidr = f"{my_ip}/32"
         print(f"Will allow SSH access from your current IP: {my_ip_cidr}")
@@ -135,7 +135,6 @@ def main():
 
 
     # 2. Define User Data Script and Create Launch Template
-    # **FIXED THE BUG IN THE SED COMMAND HERE**
     user_data_script = """#!/bin/bash
 yum update -y
 yum install -y httpd aws-cli
@@ -259,7 +258,6 @@ if __name__ == "__main__":
         cw_c = boto3.client("cloudwatch", region_name=REGION)
         cleanup_resources(ec2_c, asg_c, cw_c)
     else:
-        # Before running, we need the 'requests' library to find your IP
         try:
             import requests
         except ImportError:
