@@ -5,14 +5,15 @@ from botocore.exceptions import ClientError
 import time
 
 # --- Configuration ---
+REGION_NAME = 'ap-south-1' # Specify the AWS region
 DB_INSTANCE_IDENTIFIER_BASE = 'feedback-db'
 DB_INSTANCE_CLASS = 'db.t3.micro'
 MASTER_USERNAME = 'admin'
 RDS_SG_NAME = 'feedback-rds-sg'
 WEB_SG_NAME = 'feedback-web-server-sg' # Must match the name in launch_ec2.py
 
-rds_client = boto3.client('rds')
-ec2_client = boto3.client('ec2')
+rds_client = boto3.client('rds', region_name=REGION_NAME)
+ec2_client = boto3.client('ec2', region_name=REGION_NAME)
 
 def get_or_create_rds_sg():
     """Creates the RDS security group if it doesn't exist."""
@@ -128,3 +129,7 @@ if __name__ == '__main__':
         cleanup_rds(args.db_identifier)
     else:
         create_rds_instance()
+
+# DB Identifier: feedback-db-1759684949
+# Endpoint: feedback-db-1759684949.cpswsa0444dm.ap-south-1.rds.amazonaws.com
+# EC2 Public DNS: ec2-65-0-139-8.ap-south-1.compute.amazonaws.com

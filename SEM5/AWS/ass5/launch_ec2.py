@@ -4,13 +4,15 @@ from botocore.exceptions import ClientError
 import time
 
 # --- Configuration ---
+REGION_NAME = 'ap-south-1' # Specify the AWS region
 AMI_ID = 'ami-0f9708d1cd2cfee41'  # Amazon Linux 2 AMI (ap-south-1)
-INSTANCE_TYPE = 't2.micro'
+INSTANCE_TYPE = 't3.micro' # Updated to a Free Tier eligible instance type
+KEY_NAME = 'test' # Hardcoded key pair name
 SG_NAME = 'feedback-web-server-sg'
 TAG_KEY = 'Name'
 TAG_VALUE = 'FeedbackAppServer'
 
-ec2_client = boto3.client('ec2')
+ec2_client = boto3.client('ec2', region_name=REGION_NAME)
 
 def get_or_create_security_group():
     """Checks for a security group by name and creates it if it doesn't exist."""
@@ -40,12 +42,8 @@ def get_or_create_security_group():
         else:
             raise e
 
-def launch_instance(key_name):
+def launch_instance():
     """Launches the EC2 instance."""
-    if not key_name:
-        print("Key pair name is required to launch an instance. Use --key-name YOUR_KEY_NAME")
-        return
-
     print("Ensuring security group exists...")
     sg_id = get_or_create_security_group()
 
@@ -53,7 +51,7 @@ def launch_instance(key_name):
     instance = ec2_client.run_instances(
         ImageId=AMI_ID,
         InstanceType=INSTANCE_TYPE,
-        KeyName=key_name,
+        KeyName=KEY_NAME,
         SecurityGroupIds=[sg_id],
         TagSpecifications=[{'ResourceType': 'instance', 'Tags': [{'Key': TAG_KEY, 'Value': TAG_VALUE}]}],
         MinCount=1,
@@ -72,7 +70,7 @@ def launch_instance(key_name):
 
     print("\n--- EC2 INSTANCE LAUNCHED ---")
     print(f"Instance ID: {instance_id}")
-    print(f"Key Pair: {key_name}")
+    print(f"Key Pair: {KEY_NAME}")
     print(f"Public DNS: {public_dns}")
     print("---------------------------------")
 
@@ -119,10 +117,10 @@ def cleanup():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Launch or clean up the EC2 feedback server.")
     parser.add_argument('--cleanup', action='store_true', help="Terminate all tagged instances and delete resources.")
-    parser.add_argument('--key-name', type=str, help="The name of the EC2 key pair to use for launching.")
     args = parser.parse_args()
 
     if args.cleanup:
         cleanup()
     else:
-        launch_instance(args.key_name)
+        launch_instance()
+

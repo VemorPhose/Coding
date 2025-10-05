@@ -6,9 +6,11 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, TIMESTAMP
 from sqlalchemy.orm import sessionmaker, Session, declarative_base
 from sqlalchemy.sql import func
 import time
+from typing import Optional
+from datetime import datetime # Import the datetime class
 
 # Wait a moment for network/DNS resolution after startup
-time.sleep(10) 
+time.sleep(10)
 load_dotenv()
 
 # --- Database Configuration & SQLAlchemy Setup ---
@@ -31,12 +33,12 @@ class Feedback(Base):
 
 class FeedbackBase(BaseModel): # Used for creating feedback
     name: str
-    email: EmailStr | None = None
+    email: Optional[EmailStr] = None
     comment: str
 
 class FeedbackResponse(FeedbackBase): # Used for returning feedback
     id: int
-    created_at: str
+    created_at: datetime # FIX: Change type from str to datetime
     class Config: from_attributes = True
 
 # --- FastAPI App ---
