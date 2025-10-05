@@ -65,7 +65,6 @@ def launch_instance(key_name):
     waiter = ec2_client.get_waiter('instance_running')
     waiter.wait(InstanceIds=[instance_id])
     
-    # Allow some time for public DNS to be assigned
     time.sleep(5) 
     
     response = ec2_client.describe_instances(InstanceIds=[instance_id])
@@ -78,23 +77,33 @@ def launch_instance(key_name):
     print("---------------------------------")
 
 
-def cleanup(instance_id):
-    """Terminates the EC2 instance and deletes the security group."""
-    if not instance_id:
-        print("Instance ID is required for cleanup. Use --instance-id i-xxxxxxxxxxxxxxxxx")
-        return
-
+def cleanup():
+    """Finds all tagged instances, terminates them, and deletes the security group."""
     try:
-        print(f"Terminating instance {instance_id}...")
-        ec2_client.terminate_instances(InstanceIds=[instance_id])
-        waiter = ec2_client.get_waiter('instance_terminated')
-        waiter.wait(InstanceIds=[instance_id])
-        print("Instance terminated.")
+        # Find instances by tag
+        response = ec2_client.describe_instances(
+            Filters=[{'Name': f'tag:{TAG_KEY}', 'Values': [TAG_VALUE]}]
+        )
+        
+        instance_ids = []
+        for reservation in response['Reservations']:
+            for instance in reservation['Instances']:
+                # Ensure we only terminate running or pending instances
+                if instance['State']['Name'] in ['pending', 'running']:
+                    instance_ids.append(instance['InstanceId'])
 
-        # Give AWS time to detach the SG from the terminated instance's network interface
-        print("Waiting for network interfaces to detach before deleting security group...")
-        time.sleep(30)
+        if not instance_ids:
+            print("No running instances found with the specified tag. Checking for SG to delete...")
+        else:
+            print(f"Terminating {len(instance_ids)} instance(s): {', '.join(instance_ids)}...")
+            ec2_client.terminate_instances(InstanceIds=instance_ids)
+            waiter = ec2_client.get_waiter('instance_terminated')
+            waiter.wait(InstanceIds=instance_ids)
+            print("Instance(s) terminated.")
+            print("Waiting for network interfaces to detach before deleting security group...")
+            time.sleep(30)
 
+        # Delete the security group regardless of whether instances were found
         print(f"Deleting security group '{SG_NAME}'...")
         sg_response = ec2_client.describe_security_groups(GroupNames=[SG_NAME])
         sg_id = sg_response['SecurityGroups'][0]['GroupId']
@@ -102,17 +111,18 @@ def cleanup(instance_id):
         print("Security group deleted.")
 
     except ClientError as e:
-        print(f"Error during cleanup: {e}")
+        if e.response['Error']['Code'] == 'InvalidGroup.NotFound':
+             print(f"Security group '{SG_NAME}' not found. Nothing to delete.")
+        else:
+            print(f"Error during cleanup: {e}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Launch or clean up the EC2 feedback server.")
-    parser.add_argument('--cleanup', action='store_true', help="Terminate the instance and delete its resources.")
-    parser.add_argument('--instance-id', type=str, help="The ID of the instance to clean up.")
+    parser.add_argument('--cleanup', action='store_true', help="Terminate all tagged instances and delete resources.")
     parser.add_argument('--key-name', type=str, help="The name of the EC2 key pair to use for launching.")
     args = parser.parse_args()
 
     if args.cleanup:
-        cleanup(args.instance_id)
+        cleanup()
     else:
         launch_instance(args.key_name)
-
