@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker, Session, declarative_base
 from sqlalchemy.sql import func
 import time
 from typing import Optional
-from datetime import datetime # Import the datetime class
+from datetime import datetime
 
 # Wait a moment for network/DNS resolution after startup
 time.sleep(10)
@@ -38,7 +38,7 @@ class FeedbackBase(BaseModel): # Used for creating feedback
 
 class FeedbackResponse(FeedbackBase): # Used for returning feedback
     id: int
-    created_at: datetime # FIX: Change type from str to datetime
+    created_at: datetime
     class Config: from_attributes = True
 
 # --- FastAPI App ---
