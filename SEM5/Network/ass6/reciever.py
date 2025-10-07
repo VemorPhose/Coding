@@ -1,106 +1,82 @@
-# receiver.py
 import socket
 import pickle
-import hashlib
+import filecmp
 
 # --- Configuration ---
-HOST = 'localhost'
+HOST = '127.0.0.1'
 PORT = 8080
-OUTPUT_FILENAME = 'destination.txt'
-SOURCE_FILENAME = 'source.txt' # For final comparison
-
-def compare_files(file1, file2):
-    """Compares two files and returns True if identical, False otherwise."""
-    try:
-        with open(file1, 'rb') as f1, open(file2, 'rb') as f2:
-            return hashlib.md5(f1.read()).hexdigest() == hashlib.md5(f2.read()).hexdigest()
-    except FileNotFoundError:
-        print(f"Error: One of the files for comparison not found.")
-        return False
+OUTPUT_FILE = 'output.txt'
+# CHANGED: Use a list to specify which ACKs to drop.
+# This list will drop the first Frame 1 it sees, and the second Frame 0.
+FRAMES_TO_DROP_ACK_FOR = [1, 0]
 
 def main():
-    print("--- Receiver (Client) ---")
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    
-    try:
-        client_socket.connect((HOST, PORT))
-        print(f"Connected to sender at {HOST}:{PORT}")
-    except ConnectionRefusedError:
-        print("Connection refused. Is the sender running?")
-        return
-    
-    # --- User Input for Simulation Scenario ---
-    lost_ack_num = -1 # Default to no lost ACKs
-    mode = input("Choose scenario:\n1. Normal operation\n2. Simulate Lost ACK\nEnter choice (1 or 2): ")
-    if mode == '2':
-        try:
-            lost_ack_num = int(input("Enter the sequence number of the ACK to 'lose': "))
-        except ValueError:
-            print("Invalid number. Proceeding with normal operation.")
+    # Create a default input file for verification if it doesn't exist
+    if not filecmp.os.path.exists('input.txt'):
+        with open('input.txt', 'w') as f:
+            f.write("This is a test of the Stop-and-Wait ARQ protocol.\n")
+            f.write("It uses alternating 0/1 sequence numbers to ensure\n")
+            f.write("that data is transferred reliably even if packets\n")
+            f.write("or their acknowledgements are lost in transit.\n")
 
-    expected_seq_num = 0
-    
-    with open(OUTPUT_FILENAME, 'wb') as f:
-        while True:
-            try:
-                frame_data = client_socket.recv(4096)
-                if not frame_data:
-                    break
-                
-                frame = pickle.loads(frame_data)
-                
-                # Check for the end signal
-                if frame.get('seq') == -1:
-                    print("End signal received. Transfer complete.")
-                    break
-                
-                seq_num = frame.get('seq')
-                data = frame.get('data')
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        print(f"Receiver connected to {HOST}:{PORT}")
+        
+        expected_seq = 0
+        
+        # Clear the output file before starting
+        with open(OUTPUT_FILE, 'wb') as f:
+            pass 
 
-                print(f"Received FRAME {seq_num}.")
-                
-                # If this is the frame we were expecting
-                if seq_num == expected_seq_num:
-                    # Write data to the file
-                    f.write(data)
-                    print(f"  -> Wrote data from FRAME {seq_num} to file.")
+        with open(OUTPUT_FILE, 'ab') as f:
+            while True:
+                try:
+                    data = s.recv(4096)
+                    if not data: break
                     
-                    # --- Lost ACK Simulation Logic ---
-                    if seq_num == lost_ack_num:
-                        print(f"  -> SIMULATING LOST ACK for FRAME {seq_num}. Not sending ACK.")
-                        lost_ack_num = -1 # Only lose it once
+                    recv_frame = pickle.loads(data)
+                    
+                    if recv_frame.get('type') == 'eof':
+                        print("Receiver: Received EOF. Closing.")
+                        break
+                        
+                    recv_seq = recv_frame['seq']
+                    
+                    # Check if the received frame is the one we are expecting
+                    if recv_seq == expected_seq:
+                        print(f"Receiver: Received expected Frame {recv_seq}.")
+                        f.write(recv_frame['data'])
+                        
+                        ack_to_send = 1 - expected_seq
+                        expected_seq = 1 - expected_seq
+
+                        # CHANGED: Logic to handle a list of frames to drop
+                        if recv_seq in FRAMES_TO_DROP_ACK_FOR:
+                            print(f"Receiver: (Simulating lost ACK for Frame {recv_seq})")
+                            FRAMES_TO_DROP_ACK_FOR.remove(recv_seq) # Drop only the first matching occurrence
+                            continue
+
+                        # Send the ACK
+                        ack_frame = {'ack': ack_to_send}
+                        s.sendall(pickle.dumps(ack_frame))
+                        print(f"Receiver: Sent ACK {ack_to_send}.")
+
                     else:
-                        ack_frame = {'ack': seq_num}
-                        client_socket.sendall(pickle.dumps(ack_frame))
-                        print(f"  -> Sent ACK {seq_num}.")
-                    
-                    # Move to the next expected frame
-                    expected_seq_num += 1
-                
-                # If this is a duplicate frame (because our previous ACK was lost)
-                elif seq_num < expected_seq_num:
-                    print(f"  -> Received DUPLICATE FRAME {seq_num}. Discarding data.")
-                    # Re-send the ACK for this duplicate frame
-                    ack_frame = {'ack': seq_num}
-                    client_socket.sendall(pickle.dumps(ack_frame))
-                    print(f"  -> Re-sent ACK {seq_num}.")
-                    
-            except (pickle.UnpicklingError, EOFError):
-                print("Error receiving data or connection closed.")
-                break
-            except (ConnectionResetError, BrokenPipeError):
-                print("Sender has disconnected.")
-                break
+                        # The logic for duplicates remains the same
+                        ack_to_send = expected_seq
+                        print(f"Receiver: Received duplicate Frame {recv_seq}. Discarding. Resending ACK {ack_to_send}.")
+                        ack_frame = {'ack': ack_to_send}
+                        s.sendall(pickle.dumps(ack_frame))
 
-    print("Closing connection.")
-    client_socket.close()
-
-    # --- Final Verification ---
+                except (ConnectionError, EOFError, pickle.UnpicklingError):
+                    break
+    
     print("\n--- Verification ---")
-    if compare_files(SOURCE_FILENAME, OUTPUT_FILENAME):
-        print("SUCCESS: The sent and received files are identical.")
+    if filecmp.cmp('input.txt', OUTPUT_FILE, shallow=False):
+        print("File transfer successful: output.txt is identical to input.txt.")
     else:
-        print("FAILURE: The files are different.")
+        print("File transfer failed: files differ.")
 
 if __name__ == "__main__":
     main()

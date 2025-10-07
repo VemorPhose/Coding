@@ -1,0 +1,6 @@
+Stop-and-Wait ARQ is a simple but effective protocol.
+It is a type of automatic repeat request (ARQ) protocol.
+The sender sends one frame at a time and waits for an acknowledgement.
+If the ACK is not received within a timeout period, the frame is retransmitted.
+This process continues until the entire file is sent.
+This is the end of the test file.
