@@ -4,10 +4,10 @@ from botocore.exceptions import ClientError
 import time
 
 # --- Configuration ---
-REGION_NAME = 'ap-south-1' # Specify the AWS region
-AMI_ID = 'ami-0f9708d1cd2cfee41'  # Amazon Linux 2 AMI (ap-south-1)
-INSTANCE_TYPE = 't3.micro' # Updated to a Free Tier eligible instance type
-KEY_NAME = 'test' # Hardcoded key pair name
+REGION_NAME = 'ap-south-1'
+AMI_ID = 'ami-0f9708d1cd2cfee41'
+INSTANCE_TYPE = 't3.micro'
+KEY_NAME = 'test'
 SG_NAME = 'feedback-web-server-sg'
 TAG_KEY = 'Name'
 TAG_VALUE = 'FeedbackAppServer'

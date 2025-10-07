@@ -5,7 +5,7 @@ from botocore.exceptions import ClientError
 import time
 
 # --- Configuration ---
-REGION_NAME = 'ap-south-1' # Specify the AWS region
+REGION_NAME = 'ap-south-1'
 DB_INSTANCE_IDENTIFIER_BASE = 'feedback-db'
 DB_INSTANCE_CLASS = 'db.t3.micro'
 MASTER_USERNAME = 'admin'
