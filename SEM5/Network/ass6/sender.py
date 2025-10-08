@@ -4,7 +4,7 @@ import pickle
 # --- Configuration ---
 HOST = '127.0.0.1'
 PORT = 8080
-PACKET_SIZE = 50   # TUNABLE: Change this value to alter the size of each data chunk.
+PACKET_SIZE = 50 
 TIMEOUT_SEC = 3
 INPUT_FILE = 'input.txt'
 
@@ -14,7 +14,7 @@ def main():
         s.listen()
         print(f"Sender listening on {HOST}:{PORT}")
         conn, addr = s.accept()
-        conn.settimeout(TIMEOUT_SEC) # Set a timeout for all recv operations
+        conn.settimeout(TIMEOUT_SEC) 
 
         with conn:
             print(f"Receiver connected from {addr}")
@@ -30,10 +30,8 @@ def main():
                         print("Sender: EOF frame sent.")
                         break
 
-                    # Frame contains data and a sequence number (0 or 1)
                     frame = {'seq': seq_to_send, 'data': data_chunk}
                     
-                    # This loop handles retransmissions
                     while True:
                         try:
                             conn.sendall(pickle.dumps(frame))
@@ -43,19 +41,16 @@ def main():
                             ack_data = conn.recv(1024)
                             ack_frame = pickle.loads(ack_data)
                             
-                            # Theory: "ACK 1 acknowledges Frame 0". So, ACK number
-                            # should be the opposite of the sequence number sent.
                             if ack_frame.get('ack') == (1 - seq_to_send):
                                 print(f" Received ACK {ack_frame.get('ack')}.")
-                                break # Exit retransmission loop
+                                break 
                             else:
-                                # This can happen if an old ACK arrives late
                                 print(f" Received wrong ACK {ack_frame.get('ack')}. Ignoring.")
 
                         except socket.timeout:
                             print(f"\nSender: TIMEOUT. Resending Frame {seq_to_send}.")
             
-                    # Toggle sequence number for the next frame
+                    # Toggle sequence number 
                     seq_to_send = 1 - seq_to_send
                     
     print("Sender: Connection closed.")

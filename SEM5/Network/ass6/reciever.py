@@ -6,26 +6,15 @@ import filecmp
 HOST = '127.0.0.1'
 PORT = 8080
 OUTPUT_FILE = 'output.txt'
-# CHANGED: Use a list to specify which ACKs to drop.
-# This list will drop the first Frame 1 it sees, and the second Frame 0.
 FRAMES_TO_DROP_ACK_FOR = [1, 0]
 
 def main():
-    # Create a default input file for verification if it doesn't exist
-    if not filecmp.os.path.exists('input.txt'):
-        with open('input.txt', 'w') as f:
-            f.write("This is a test of the Stop-and-Wait ARQ protocol.\n")
-            f.write("It uses alternating 0/1 sequence numbers to ensure\n")
-            f.write("that data is transferred reliably even if packets\n")
-            f.write("or their acknowledgements are lost in transit.\n")
-
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
         print(f"Receiver connected to {HOST}:{PORT}")
         
         expected_seq = 0
         
-        # Clear the output file before starting
         with open(OUTPUT_FILE, 'wb') as f:
             pass 
 
@@ -51,10 +40,9 @@ def main():
                         ack_to_send = 1 - expected_seq
                         expected_seq = 1 - expected_seq
 
-                        # CHANGED: Logic to handle a list of frames to drop
                         if recv_seq in FRAMES_TO_DROP_ACK_FOR:
                             print(f"Receiver: (Simulating lost ACK for Frame {recv_seq})")
-                            FRAMES_TO_DROP_ACK_FOR.remove(recv_seq) # Drop only the first matching occurrence
+                            FRAMES_TO_DROP_ACK_FOR.remove(recv_seq) # Remove only the first matching occurrence
                             continue
 
                         # Send the ACK
@@ -63,7 +51,7 @@ def main():
                         print(f"Receiver: Sent ACK {ack_to_send}.")
 
                     else:
-                        # The logic for duplicates remains the same
+                        # Logic for duplicates
                         ack_to_send = expected_seq
                         print(f"Receiver: Received duplicate Frame {recv_seq}. Discarding. Resending ACK {ack_to_send}.")
                         ack_frame = {'ack': ack_to_send}
