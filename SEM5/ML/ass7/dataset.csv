@@ -1,0 +1,924 @@
+id,age,income,occupation,region,education_level,satisfaction
+1,34,52345.67,Engineer,North,Master,High
+2,27,31234.89,Teacher,South,Bachelor,Medium
+3,45,67890.12,Doctor,West,PhD,Very High
+4,19,24567.34,Student,East,High School,Low
+5,52,78901.45,Manager,North,Bachelor,Medium
+6,38,45678.9,Engineer,South,Master,High
+7,29,33456.78,Teacher,West,Bachelor,Low
+8,41,61234.56,Doctor,East,PhD,Very High
+9,25,29876.54,Student,North,High School,Medium
+10,36,54321.98,Manager,South,Bachelor,High
+11,48,87654.32,Engineer,West,Master,Very High
+12,31,45678.23,Teacher,East,Bachelor,Medium
+13,22,23456.78,Student,North,High School,Low
+14,39,67890.45,Doctor,South,PhD,High
+15,50,78901.23,Manager,West,Bachelor,Medium
+16,28,34567.89,Engineer,East,Master,Low
+17,43,56789.01,Teacher,North,Bachelor,High
+18,35,45678.12,Student,South,High School,Medium
+19,47,89012.34,Doctor,West,PhD,Very High
+20,30,41234.56,Manager,East,Bachelor,Low
+21,26,29876.45,Engineer,North,Master,Medium
+22,44,67890.67,Teacher,South,Bachelor,High
+23,37,54321.89,Doctor,West,PhD,Very High
+24,24,26789.01,Student,East,High School,Low
+25,51,78901.12,Manager,North,Bachelor,Medium
+26,33,45678.34,Engineer,South,Master,High
+27,40,61234.78,Teacher,West,Bachelor,Low
+28,29,34567.9,Student,East,High School,Medium
+29,46,87654.01,Doctor,North,PhD,Very High
+30,32,52345.23,Manager,South,Bachelor,High
+31,27,31234.45,Engineer,West,Master,Medium
+32,45,67890.56,Teacher,East,Bachelor,Low
+33,38,45678.67,Student,North,High School,High
+34,50,78901.89,Doctor,South,PhD,Very High
+35,34,54321.01,Manager,West,Bachelor,Medium
+36,28,29876.12,Engineer,East,Master,Low
+37,42,61234.34,Teacher,North,Bachelor,High
+38,31,45678.56,Student,South,High School,Medium
+39,49,89012.78,Doctor,West,PhD,Very High
+40,25,34567.9,Manager,East,Bachelor,Low
+41,37,52345.12,Engineer,North,Master,High
+42,44,67890.34,Teacher,South,Bachelor,Medium
+43,29,31234.56,Student,West,High School,Low
+44,46,78901.67,Doctor,East,PhD,Very High
+45,33,45678.89,Manager,North,Bachelor,High
+46,27,29876.01,Engineer,South,Master,Medium
+47,41,61234.23,Teacher,West,Bachelor,Low
+48,35,54321.45,Student,East,High School,High
+49,50,87654.67,Doctor,North,PhD,Very High
+50,30,45678.9,Manager,South,Bachelor,Medium
+51,26,31234.12,Engineer,West,Master,Low
+52,43,67890.34,Teacher,East,Bachelor,High
+53,38,52345.56,Student,North,High School,Medium
+54,47,78901.78,Doctor,South,PhD,Very High
+55,32,45678.9,Manager,West,Bachelor,Low
+56,28,29876.23,Engineer,East,Master,High
+57,45,61234.45,Teacher,North,Bachelor,Medium
+58,34,54321.67,Student,South,High School,Low
+59,49,87654.89,Doctor,West,PhD,Very High
+60,31,45678.01,Manager,East,Bachelor,High
+61,27,31234.34,Engineer,North,Master,Medium
+62,42,67890.56,Teacher,South,Bachelor,Low
+63,36,52345.78,Student,West,High School,High
+64,50,78901.9,Doctor,East,PhD,Very High
+65,29,45678.12,Manager,North,Bachelor,Medium
+66,25,29876.34,Engineer,South,Master,Low
+67,44,61234.56,Teacher,West,Bachelor,High
+68,38,54321.78,Student,East,High School,Medium
+69,47,87654.01,Doctor,North,PhD,Very High
+70,33,45678.23,Manager,South,Bachelor,Low
+71,28,31234.45,Engineer,West,Master,High
+72,45,67890.67,Teacher,East,Bachelor,Medium
+73,34,52345.89,Student,North,High School,Low
+74,49,78901.01,Doctor,South,PhD,Very High
+75,31,45678.34,Manager,West,Bachelor,High
+76,27,29876.56,Engineer,East,Master,Medium
+77,42,61234.78,Teacher,North,Bachelor,Low
+78,36,54321.9,Student,South,High School,High
+79,50,87654.12,Doctor,West,PhD,Very High
+80,29,45678.45,Manager,East,Bachelor,Medium
+81,25,31234.67,Engineer,North,Master,Low
+82,44,67890.89,Teacher,South,Bachelor,High
+83,38,52345.01,Student,West,High School,Medium
+84,47,78901.23,Doctor,East,PhD,Very High
+85,33,45678.34,Manager,North,Bachelor,Low
+86,28,29876.56,Engineer,South,Master,High
+87,45,61234.78,Teacher,West,Bachelor,Medium
+88,34,54321.9,Student,East,High School,Low
+89,49,87654.12,Doctor,North,PhD,Very High
+90,31,45678.45,Manager,South,Bachelor,High
+91,27,31234.67,Engineer,West,Master,Medium
+92,42,67890.89,Teacher,East,Bachelor,Low
+93,36,52345.01,Student,North,High School,High
+94,50,78901.23,Doctor,South,PhD,Very High
+95,29,45678.34,Manager,West,Bachelor,Medium
+96,25,29876.56,Engineer,East,Master,Low
+97,44,61234.78,Teacher,North,Bachelor,High
+98,38,54321.9,Student,South,High School,Medium
+99,47,78901.12,Doctor,West,PhD,Very High
+100,33,45678.45,Manager,East,Bachelor,Low
+101,28,31234.67,Engineer,North,Master,High
+102,45,67890.89,Teacher,South,Bachelor,Medium
+103,34,52345.01,Student,West,High School,Low
+104,49,87654.23,Doctor,East,PhD,Very High
+105,31,45678.34,Manager,North,Bachelor,High
+106,27,29876.56,Engineer,South,Master,Medium
+107,42,61234.78,Teacher,West,Bachelor,Low
+108,36,54321.9,Student,East,High School,High
+109,50,78901.12,Doctor,North,PhD,Very High
+110,29,45678.45,Manager,South,Bachelor,Medium
+111,25,31234.67,Engineer,West,Master,Low
+112,44,67890.89,Teacher,East,Bachelor,High
+113,38,52345.01,Student,North,High School,Medium
+114,47,78901.23,Doctor,South,PhD,Very High
+115,33,45678.34,Manager,West,Bachelor,Low
+116,28,29876.56,Engineer,East,Master,High
+117,45,61234.78,Teacher,North,Bachelor,Medium
+118,34,54321.9,Student,South,High School,Low
+119,49,87654.12,Doctor,West,PhD,Very High
+120,31,45678.45,Manager,East,Bachelor,High
+121,27,31234.67,Engineer,North,Master,Medium
+122,42,67890.89,Teacher,South,Bachelor,Low
+123,36,52345.01,Student,West,High School,High
+124,50,78901.23,Doctor,East,PhD,Very High
+125,29,45678.34,Manager,North,Bachelor,Medium
+126,25,31234.56,Engineer,South,Master,Low
+127,44,61234.78,Teacher,West,Bachelor,High
+128,38,54321.9,Student,East,High School,Medium
+129,47,78901.12,Doctor,North,PhD,Very High
+130,33,45678.45,Manager,South,Bachelor,Low
+131,28,29876.67,Engineer,West,Master,High
+132,45,67890.89,Teacher,East,Bachelor,Medium
+133,34,52345.01,Student,North,High School,Low
+134,49,87654.23,Doctor,South,PhD,Very High
+135,31,45678.34,Manager,West,Bachelor,High
+136,27,31234.56,Engineer,East,Master,Medium
+137,42,61234.78,Teacher,North,Bachelor,Low
+138,36,54321.9,Student,South,High School,High
+139,50,78901.12,Doctor,West,PhD,Very High
+140,29,45678.45,Manager,East,Bachelor,Medium
+141,25,31234.67,Engineer,North,Master,Low
+142,44,67890.89,Teacher,South,Bachelor,High
+143,38,52345.01,Student,West,High School,Medium
+144,47,78901.23,Doctor,East,PhD,Very High
+145,33,45678.34,Manager,North,Bachelor,Low
+146,28,29876.56,Engineer,South,Master,High
+147,45,61234.78,Teacher,West,Bachelor,Medium
+148,34,54321.9,Student,East,High School,Low
+149,49,87654.12,Doctor,North,PhD,Very High
+150,31,45678.45,Manager,South,Bachelor,High
+151,27,31234.67,Engineer,West,Master,Medium
+152,42,67890.89,Teacher,East,Bachelor,Low
+153,36,52345.01,Student,North,High School,High
+154,50,78901.23,Doctor,South,PhD,Very High
+155,29,45678.34,Manager,West,Bachelor,Medium
+156,25,31234.56,Engineer,East,Master,Low
+157,44,61234.78,Teacher,North,Bachelor,High
+158,38,54321.9,Student,South,High School,Medium
+159,47,78901.12,Doctor,West,PhD,Very High
+160,33,45678.45,Manager,East,Bachelor,Low
+161,28,29876.67,Engineer,North,Master,High
+162,45,67890.89,Teacher,South,Bachelor,Medium
+163,34,52345.01,Student,West,High School,Low
+164,49,87654.23,Doctor,East,PhD,Very High
+165,31,45678.34,Manager,North,Bachelor,High
+166,27,31234.56,Engineer,South,Master,Medium
+167,42,61234.78,Teacher,West,Bachelor,Low
+168,36,54321.9,Student,East,High School,High
+169,50,78901.12,Doctor,North,PhD,Very High
+170,29,45678.45,Manager,South,Bachelor,Medium
+171,25,31234.67,Engineer,West,Master,Low
+172,44,67890.89,Teacher,East,Bachelor,High
+173,38,52345.01,Student,North,High School,Medium
+174,47,78901.23,Doctor,South,PhD,Very High
+175,33,45678.34,Manager,West,Bachelor,Low
+176,28,29876.56,Engineer,East,Master,High
+177,45,61234.78,Teacher,North,Bachelor,Medium
+178,34,54321.9,Student,South,High School,Low
+179,49,87654.12,Doctor,West,PhD,Very High
+180,31,45678.45,Manager,East,Bachelor,High
+181,27,31234.67,Engineer,North,Master,Medium
+182,42,67890.89,Teacher,South,Bachelor,Low
+183,36,52345.01,Student,West,High School,High
+184,50,78901.23,Doctor,East,PhD,Very High
+185,29,45678.34,Manager,North,Bachelor,Medium
+186,25,31234.56,Engineer,South,Master,Low
+187,44,61234.78,Teacher,West,Bachelor,High
+188,38,54321.9,Student,East,High School,Medium
+189,47,78901.12,Doctor,North,PhD,Very High
+190,33,45678.45,Manager,South,Bachelor,Low
+191,28,29876.67,Engineer,West,Master,High
+192,45,67890.89,Teacher,East,Bachelor,Medium
+193,34,52345.01,Student,North,High School,Low
+194,49,87654.23,Doctor,South,PhD,Very High
+195,31,45678.34,Manager,West,Bachelor,High
+196,27,31234.56,Engineer,East,Master,Medium
+197,42,61234.78,Teacher,North,Bachelor,Low
+198,36,54321.9,Student,South,High School,High
+199,50,78901.12,Doctor,West,PhD,Very High
+200,29,45678.45,Manager,East,Bachelor,Medium
+201,25,31234.67,Engineer,North,Master,Low
+202,44,67890.89,Teacher,South,Bachelor,High
+203,38,52345.01,Student,West,High School,Medium
+204,47,78901.23,Doctor,East,PhD,Very High
+205,33,45678.34,Manager,North,Bachelor,Low
+206,28,29876.56,Engineer,South,Master,High
+207,45,61234.78,Teacher,West,Bachelor,Medium
+208,34,54321.9,Student,East,High School,Low
+209,49,87654.12,Doctor,North,PhD,Very High
+210,31,45678.45,Manager,South,Bachelor,High
+211,27,31234.67,Engineer,West,Master,Medium
+212,42,67890.89,Teacher,East,Bachelor,Low
+213,36,52345.01,Student,North,High School,High
+214,50,78901.23,Doctor,South,PhD,Very High
+215,29,45678.34,Manager,West,Bachelor,Medium
+216,25,31234.56,Engineer,East,Master,Low
+217,44,61234.78,Teacher,North,Bachelor,High
+218,38,54321.9,Student,South,High School,Medium
+219,47,78901.12,Doctor,West,PhD,Very High
+220,33,45678.45,Manager,East,Bachelor,Low
+221,28,29876.67,Engineer,North,Master,High
+222,45,67890.89,Teacher,South,Bachelor,Medium
+223,34,52345.01,Student,West,High School,Low
+224,49,87654.23,Doctor,East,PhD,Very High
+225,31,45678.34,Manager,North,Bachelor,High
+226,27,31234.56,Engineer,South,Master,Medium
+227,42,61234.78,Teacher,West,Bachelor,Low
+228,36,54321.9,Student,East,High School,High
+229,50,78901.12,Doctor,North,PhD,Very High
+230,29,45678.45,Manager,South,Bachelor,Medium
+231,25,31234.67,Engineer,West,Master,Low
+232,44,67890.89,Teacher,East,Bachelor,High
+233,38,52345.01,Student,North,High School,Medium
+234,47,78901.23,Doctor,South,PhD,Very High
+235,33,45678.34,Manager,West,Bachelor,Low
+236,28,29876.56,Engineer,East,Master,High
+237,45,61234.78,Teacher,North,Bachelor,Medium
+238,34,54321.9,Student,South,High School,Low
+239,49,87654.12,Doctor,West,PhD,Very High
+240,31,45678.45,Manager,East,Bachelor,High
+241,27,31234.67,Engineer,North,Master,Medium
+242,42,67890.89,Teacher,South,Bachelor,Low
+243,36,52345.01,Student,West,High School,High
+244,50,78901.23,Doctor,East,PhD,Very High
+245,29,45678.34,Manager,North,Bachelor,Medium
+246,25,31234.56,Engineer,South,Master,Low
+247,44,61234.78,Teacher,West,Bachelor,High
+248,38,54321.9,Student,East,High School,Medium
+249,47,78901.12,Doctor,North,PhD,Very High
+250,33,45678.45,Manager,South,Bachelor,Low
+251,28,29876.67,Engineer,West,Master,High
+252,45,67890.89,Teacher,East,Bachelor,Medium
+253,34,52345.01,Student,North,High School,Low
+254,49,87654.23,Doctor,South,PhD,Very High
+255,31,45678.34,Manager,West,Bachelor,High
+256,27,31234.56,Engineer,East,Master,Medium
+257,42,61234.78,Teacher,North,Bachelor,Low
+258,36,54321.9,Student,South,High School,High
+259,50,78901.12,Doctor,West,PhD,Very High
+260,29,45678.45,Manager,East,Bachelor,Medium
+261,25,31234.67,Engineer,North,Master,Low
+262,44,67890.89,Teacher,South,Bachelor,High
+263,38,52345.01,Student,West,High School,Medium
+264,47,78901.23,Doctor,East,PhD,Very High
+265,33,45678.34,Manager,North,Bachelor,Low
+266,28,29876.56,Engineer,South,Master,High
+267,45,61234.78,Teacher,West,Bachelor,Medium
+268,34,54321.9,Student,East,High School,Low
+269,49,87654.12,Doctor,North,PhD,Very High
+270,31,45678.45,Manager,South,Bachelor,High
+271,27,31234.67,Engineer,West,Master,Medium
+272,42,67890.89,Teacher,East,Bachelor,Low
+273,36,52345.01,Student,North,High School,High
+274,50,78901.23,Doctor,South,PhD,Very High
+275,29,45678.34,Manager,West,Bachelor,Medium
+276,25,31234.56,Engineer,East,Master,Low
+277,44,61234.78,Teacher,North,Bachelor,High
+278,38,54321.9,Student,South,High School,Medium
+279,47,78901.12,Doctor,West,PhD,Very High
+280,33,45678.45,Manager,East,Bachelor,Low
+281,28,29876.67,Engineer,North,Master,High
+282,45,67890.89,Teacher,South,Bachelor,Medium
+283,34,52345.01,Student,West,High School,Low
+284,49,87654.23,Doctor,East,PhD,Very High
+285,31,45678.34,Manager,North,Bachelor,High
+286,27,31234.56,Engineer,South,Master,Medium
+287,42,61234.78,Teacher,West,Bachelor,Low
+288,36,52345.01,Student,East,High School,High
+289,50,78901.23,Doctor,North,PhD,Very High
+290,29,45678.34,Manager,South,Bachelor,Medium
+291,25,31234.56,Engineer,West,Master,Low
+292,44,67890.89,Teacher,East,Bachelor,High
+293,38,54321.9,Student,North,High School,Medium
+294,47,78901.12,Doctor,South,PhD,Very High
+295,33,45678.45,Manager,West,Bachelor,Low
+296,28,29876.67,Engineer,East,Master,High
+297,45,61234.78,Teacher,North,Bachelor,Medium
+298,34,52345.01,Student,South,High School,Low
+299,49,87654.23,Doctor,West,PhD,Very High
+300,31,45678.34,Manager,East,Bachelor,High
+301,27,31234.56,Engineer,North,Master,Medium
+302,42,67890.89,Teacher,South,Bachelor,Low
+303,36,52345.01,Student,West,High School,High
+304,50,78901.23,Doctor,East,PhD,Very High
+305,29,45678.34,Manager,North,Bachelor,Medium
+306,25,31234.56,Engineer,South,Master,Low
+307,44,61234.78,Teacher,West,Bachelor,High
+308,38,54321.9,Student,East,High School,Medium
+309,47,78901.12,Doctor,North,PhD,Very High
+310,33,45678.45,Manager,South,Bachelor,Low
+311,28,29876.67,Engineer,West,Master,High
+312,45,67890.89,Teacher,East,Bachelor,Medium
+313,34,52345.01,Student,North,High School,Low
+314,49,87654.23,Doctor,South,PhD,Very High
+315,31,45678.34,Manager,West,Bachelor,High
+316,27,31234.56,Engineer,East,Master,Medium
+317,42,67890.89,Teacher,North,Bachelor,Low
+318,36,52345.01,Student,South,High School,High
+319,50,78901.23,Doctor,West,PhD,Very High
+320,29,45678.34,Manager,East,Bachelor,Medium
+321,25,31234.56,Engineer,North,Master,Low
+322,44,61234.78,Teacher,South,Bachelor,High
+323,38,54321.9,Student,West,High School,Medium
+324,47,78901.12,Doctor,East,PhD,Very High
+325,33,45678.45,Manager,North,Bachelor,Low
+326,28,29876.67,Engineer,South,Master,High
+327,45,61234.78,Teacher,West,Bachelor,Medium
+328,34,52345.01,Student,East,High School,Low
+329,49,87654.23,Doctor,North,PhD,Very High
+330,31,45678.34,Manager,South,Bachelor,High
+331,27,31234.56,Engineer,West,Master,Medium
+332,42,67890.89,Teacher,East,Bachelor,Low
+333,36,52345.01,Student,North,High School,High
+334,50,78901.23,Doctor,South,PhD,Very High
+335,29,45678.34,Manager,West,Bachelor,Medium
+336,25,31234.56,Engineer,East,Master,Low
+337,44,61234.78,Teacher,North,Bachelor,High
+338,38,54321.9,Student,South,High School,Medium
+339,47,78901.12,Doctor,West,PhD,Very High
+340,33,45678.45,Manager,East,Bachelor,Low
+341,28,29876.67,Engineer,North,Master,High
+342,45,61234.78,Teacher,South,Bachelor,Medium
+343,34,52345.01,Student,West,High School,Low
+344,49,87654.23,Doctor,East,PhD,Very High
+345,31,45678.34,Manager,North,Bachelor,High
+346,27,31234.56,Engineer,South,Master,Medium
+347,42,67890.89,Teacher,West,Bachelor,Low
+348,36,52345.01,Student,East,High School,High
+349,50,78901.23,Doctor,North,PhD,Very High
+350,29,45678.34,Manager,South,Bachelor,Medium
+351,25,31234.56,Engineer,West,Master,Low
+352,44,61234.78,Teacher,East,Bachelor,High
+353,38,54321.9,Student,North,High School,Medium
+354,47,78901.12,Doctor,South,PhD,Very High
+355,33,45678.45,Manager,West,Bachelor,Low
+356,28,29876.67,Engineer,East,Master,High
+357,45,61234.78,Teacher,North,Bachelor,Medium
+358,34,52345.01,Student,South,High School,Low
+359,49,87654.23,Doctor,West,PhD,Very High
+360,31,45678.34,Manager,East,Bachelor,High
+361,27,31234.56,Engineer,North,Master,Medium
+362,42,67890.89,Teacher,South,Bachelor,Low
+363,36,52345.01,Student,West,High School,High
+364,50,78901.23,Doctor,East,PhD,Very High
+365,29,45678.34,Manager,North,Bachelor,Medium
+366,25,31234.56,Engineer,South,Master,Low
+367,44,61234.78,Teacher,West,Bachelor,High
+368,38,54321.9,Student,East,High School,Medium
+369,47,78901.12,Doctor,North,PhD,Very High
+370,33,45678.45,Manager,South,Bachelor,Low
+371,28,29876.67,Engineer,West,Master,High
+372,45,61234.78,Teacher,East,Bachelor,Medium
+373,34,52345.01,Student,North,High School,Low
+374,49,87654.23,Doctor,South,PhD,Very High
+375,31,45678.34,Manager,West,Bachelor,High
+376,27,31234.56,Engineer,East,Master,Medium
+377,42,67890.89,Teacher,North,Bachelor,Low
+378,36,52345.01,Student,South,High School,High
+379,50,78901.23,Doctor,West,PhD,Very High
+380,29,45678.34,Manager,East,Bachelor,Medium
+381,25,31234.56,Engineer,North,Master,Low
+382,44,61234.78,Teacher,South,Bachelor,High
+383,38,54321.9,Student,West,High School,Medium
+384,47,78901.12,Doctor,East,PhD,Very High
+385,33,45678.45,Manager,North,Bachelor,Low
+386,28,29876.67,Engineer,South,Master,High
+387,45,61234.78,Teacher,West,Bachelor,Medium
+388,34,52345.01,Student,East,High School,Low
+389,49,87654.23,Doctor,North,PhD,Very High
+390,31,45678.34,Manager,South,Bachelor,High
+391,27,31234.56,Engineer,West,Master,Medium
+392,42,67890.89,Teacher,East,Bachelor,Low
+393,36,52345.01,Student,North,High School,High
+394,50,78901.23,Doctor,South,PhD,Very High
+395,29,45678.34,Manager,West,Bachelor,Medium
+396,25,31234.56,Engineer,East,Master,Low
+397,44,61234.78,Teacher,North,Bachelor,High
+398,38,54321.9,Student,South,High School,Medium
+399,47,78901.12,Doctor,West,PhD,Very High
+400,33,45678.45,Manager,East,Bachelor,Low
+401,28,29876.67,Engineer,North,Master,High
+402,45,61234.78,Teacher,South,Bachelor,Medium
+403,34,52345.01,Student,West,High School,Low
+404,49,87654.23,Doctor,East,PhD,Very High
+405,31,45678.34,Manager,North,Bachelor,High
+406,27,31234.56,Engineer,South,Master,Medium
+407,42,67890.89,Teacher,West,Bachelor,Low
+408,36,52345.01,Student,East,High School,High
+409,50,78901.23,Doctor,North,PhD,Very High
+410,29,45678.34,Manager,South,Bachelor,Medium
+411,25,31234.56,Engineer,West,Master,Low
+412,44,61234.78,Teacher,East,Bachelor,High
+413,38,54321.9,Student,North,High School,Medium
+414,47,78901.12,Doctor,South,PhD,Very High
+415,33,45678.45,Manager,West,Bachelor,Low
+416,28,29876.67,Engineer,East,Master,High
+417,45,61234.78,Teacher,North,Bachelor,Medium
+418,34,52345.01,Student,South,High School,Low
+419,49,87654.23,Doctor,West,PhD,Very High
+420,31,45678.34,Manager,East,Bachelor,High
+421,27,31234.56,Engineer,North,Master,Medium
+422,42,67890.89,Teacher,South,Bachelor,Low
+423,36,52345.01,Student,West,High School,High
+424,50,78901.23,Doctor,East,PhD,Very High
+425,29,45678.34,Manager,North,Bachelor,Medium
+426,25,31234.56,Engineer,South,Master,Low
+427,44,61234.78,Teacher,West,Bachelor,High
+428,38,54321.9,Student,East,High School,Medium
+429,47,78901.12,Doctor,North,PhD,Very High
+430,33,45678.45,Manager,South,Bachelor,Low
+431,28,29876.67,Engineer,West,Master,High
+432,45,61234.78,Teacher,East,Bachelor,Medium
+433,34,52345.01,Student,North,High School,Low
+434,49,87654.23,Doctor,South,PhD,Very High
+435,31,45678.34,Manager,West,Bachelor,High
+436,27,31234.56,Engineer,East,Master,Medium
+437,42,67890.89,Teacher,North,Bachelor,Low
+438,36,52345.01,Student,South,High School,High
+439,50,78901.23,Doctor,West,PhD,Very High
+440,29,45678.34,Manager,East,Bachelor,Medium
+441,25,31234.56,Engineer,North,Master,Low
+442,44,61234.78,Teacher,South,Bachelor,High
+443,38,54321.9,Student,West,High School,Medium
+444,47,78901.12,Doctor,East,PhD,Very High
+445,33,45678.45,Manager,North,Bachelor,Low
+446,28,29876.67,Engineer,South,Master,High
+447,45,61234.78,Teacher,West,Bachelor,Medium
+448,34,52345.01,Student,East,High School,Low
+449,49,87654.23,Doctor,North,PhD,Very High
+450,31,45678.34,Manager,South,Bachelor,High
+451,27,31234.56,Engineer,West,Master,Medium
+452,42,67890.89,Teacher,East,Bachelor,Low
+453,36,52345.01,Student,North,High School,High
+454,50,78901.23,Doctor,South,PhD,Very High
+455,29,45678.34,Manager,West,Bachelor,Medium
+456,25,31234.56,Engineer,East,Master,Low
+457,44,61234.78,Teacher,North,Bachelor,High
+458,38,54321.9,Student,South,High School,Medium
+459,47,78901.12,Doctor,West,PhD,Very High
+460,33,45678.45,Manager,East,Bachelor,Low
+461,28,29876.67,Engineer,North,Master,High
+462,45,61234.78,Teacher,South,Bachelor,Medium
+463,34,52345.01,Student,West,High School,Low
+464,49,87654.23,Doctor,East,PhD,Very High
+465,31,45678.34,Manager,North,Bachelor,High
+466,27,31234.56,Engineer,South,Master,Medium
+467,42,67890.89,Teacher,West,Bachelor,Low
+468,36,52345.01,Student,East,High School,High
+469,50,78901.23,Doctor,North,PhD,Very High
+470,29,45678.34,Manager,South,Bachelor,Medium
+471,25,31234.56,Engineer,West,Master,Low
+472,44,61234.78,Teacher,East,Bachelor,High
+473,38,54321.9,Student,North,High School,Medium
+474,47,78901.12,Doctor,South,PhD,Very High
+475,33,45678.45,Manager,West,Bachelor,Low
+476,28,29876.67,Engineer,East,Master,High
+477,45,61234.78,Teacher,North,Bachelor,Medium
+478,34,52345.01,Student,South,High School,Low
+479,49,87654.23,Doctor,West,PhD,Very High
+480,31,45678.34,Manager,East,Bachelor,High
+481,27,31234.56,Engineer,North,Master,Medium
+482,42,67890.89,Teacher,South,Bachelor,Low
+483,36,52345.01,Student,West,High School,High
+484,50,78901.23,Doctor,East,PhD,Very High
+485,29,45678.34,Manager,North,Bachelor,Medium
+486,25,31234.56,Engineer,South,Master,Low
+487,44,61234.78,Teacher,West,Bachelor,High
+488,38,54321.9,Student,East,High School,Medium
+489,47,78901.12,Doctor,North,PhD,Very High
+490,33,45678.45,Manager,South,Bachelor,Low
+491,28,29876.67,Engineer,West,Master,High
+492,45,61234.78,Teacher,East,Bachelor,Medium
+493,34,52345.01,Student,North,High School,Low
+494,49,87654.23,Doctor,South,PhD,Very High
+495,31,45678.34,Manager,West,Bachelor,High
+496,27,31234.56,Engineer,East,Master,Medium
+497,42,67890.89,Teacher,North,Bachelor,Low
+498,36,52345.01,Student,South,High School,High
+499,50,78901.23,Doctor,West,PhD,Very High
+500,29,45678.34,Manager,East,Bachelor,Medium
+501,25,31234.56,Engineer,North,Master,Low
+502,44,61234.78,Teacher,South,Bachelor,High
+503,38,54321.9,Student,West,High School,Medium
+504,47,78901.12,Doctor,East,PhD,Very High
+505,33,45678.45,Manager,North,Bachelor,Low
+506,28,29876.67,Engineer,South,Master,High
+507,45,61234.78,Teacher,West,Bachelor,Medium
+508,34,52345.01,Student,East,High School,Low
+509,49,87654.23,Doctor,North,PhD,Very High
+510,31,45678.34,Manager,South,Bachelor,High
+511,27,31234.56,Engineer,West,Master,Medium
+512,42,67890.89,Teacher,East,Bachelor,Low
+513,36,52345.01,Student,North,High School,High
+514,50,78901.23,Doctor,South,PhD,Very High
+515,29,45678.34,Manager,West,Bachelor,Medium
+516,25,31234.56,Engineer,East,Master,Low
+517,44,61234.78,Teacher,North,Bachelor,High
+518,38,54321.9,Student,South,High School,Medium
+519,47,78901.12,Doctor,West,PhD,Very High
+520,33,45678.45,Manager,East,Bachelor,Low
+521,28,29876.67,Engineer,North,Master,High
+522,45,61234.78,Teacher,South,Bachelor,Medium
+523,34,52345.01,Student,West,High School,Low
+524,49,87654.23,Doctor,East,PhD,Very High
+525,31,45678.34,Manager,North,Bachelor,High
+526,27,31234.56,Engineer,South,Master,Medium
+527,42,67890.89,Teacher,West,Bachelor,Low
+528,36,52345.01,Student,East,High School,High
+529,50,78901.23,Doctor,North,PhD,Very High
+530,29,45678.34,Manager,South,Bachelor,Medium
+531,25,31234.56,Engineer,West,Master,Low
+532,44,61234.78,Teacher,East,Bachelor,High
+533,38,54321.9,Student,North,High School,Medium
+534,47,78901.12,Doctor,South,PhD,Very High
+535,33,45678.45,Manager,West,Bachelor,Low
+536,28,29876.67,Engineer,East,Master,High
+537,45,61234.78,Teacher,North,Bachelor,Medium
+538,34,52345.01,Student,South,High School,Low
+539,49,87654.23,Doctor,West,PhD,Very High
+540,31,45678.34,Manager,East,Bachelor,High
+541,27,31234.56,Engineer,North,Master,Medium
+542,42,67890.89,Teacher,South,Bachelor,Low
+543,36,52345.01,Student,West,High School,High
+544,50,78901.23,Doctor,East,PhD,Very High
+545,29,45678.34,Manager,North,Bachelor,Medium
+546,25,31234.56,Engineer,South,Master,Low
+547,44,61234.78,Teacher,West,Bachelor,High
+548,38,54321.9,Student,East,High School,Medium
+549,47,78901.12,Doctor,North,PhD,Very High
+550,33,45678.45,Manager,South,Bachelor,Low
+551,28,29876.67,Engineer,West,Master,High
+552,45,61234.78,Teacher,East,Bachelor,Medium
+553,34,52345.01,Student,North,High School,Low
+554,49,87654.23,Doctor,South,PhD,Very High
+555,31,45678.34,Manager,West,Bachelor,High
+556,27,31234.56,Engineer,East,Master,Medium
+557,42,67890.89,Teacher,North,Bachelor,Low
+558,36,52345.01,Student,South,High School,High
+559,50,78901.23,Doctor,West,PhD,Very High
+560,29,45678.34,Manager,East,Bachelor,Medium
+561,25,31234.56,Engineer,North,Master,Low
+562,44,61234.78,Teacher,South,Bachelor,High
+563,38,54321.9,Student,West,High School,Medium
+564,47,78901.12,Doctor,East,PhD,Very High
+565,33,45678.45,Manager,North,Bachelor,Low
+566,28,29876.67,Engineer,South,Master,High
+567,45,61234.78,Teacher,West,Bachelor,Medium
+568,34,52345.01,Student,East,High School,Low
+569,49,87654.23,Doctor,North,PhD,Very High
+570,31,45678.34,Manager,South,Bachelor,High
+571,27,31234.56,Engineer,West,Master,Medium
+572,42,67890.89,Teacher,East,Bachelor,Low
+573,36,52345.01,Student,North,High School,High
+574,50,78901.23,Doctor,South,PhD,Very High
+575,29,45678.34,Manager,West,Bachelor,Medium
+576,25,31234.56,Engineer,East,Master,Low
+577,44,61234.78,Teacher,North,Bachelor,High
+578,38,54321.9,Student,South,High School,Medium
+579,47,78901.12,Doctor,West,PhD,Very High
+580,33,45678.45,Manager,East,Bachelor,Low
+581,28,29876.67,Engineer,North,Master,High
+582,45,61234.78,Teacher,South,Bachelor,Medium
+583,34,52345.01,Student,West,High School,Low
+584,49,87654.23,Doctor,East,PhD,Very High
+585,31,45678.34,Manager,North,Bachelor,High
+586,27,31234.56,Engineer,South,Master,Medium
+587,42,67890.89,Teacher,West,Bachelor,Low
+588,36,52345.01,Student,East,High School,High
+589,50,78901.23,Doctor,North,PhD,Very High
+590,29,45678.34,Manager,South,Bachelor,Medium
+591,25,31234.56,Engineer,West,Master,Low
+592,44,61234.78,Teacher,East,Bachelor,High
+593,38,54321.9,Student,North,High School,Medium
+594,47,78901.12,Doctor,South,PhD,Very High
+595,33,45678.45,Manager,West,Bachelor,Low
+596,28,29876.67,Engineer,East,Master,High
+597,45,61234.78,Teacher,North,Bachelor,Medium
+598,34,52345.01,Student,South,High School,Low
+599,49,87654.23,Doctor,West,PhD,Very High
+600,31,45678.34,Manager,East,Bachelor,High
+601,27,31234.56,Engineer,North,Master,Medium
+602,42,67890.89,Teacher,South,Bachelor,Low
+603,36,52345.01,Student,West,High School,High
+604,50,78901.23,Doctor,East,PhD,Very High
+605,29,45678.34,Manager,North,Bachelor,Medium
+606,25,31234.56,Engineer,South,Master,Low
+607,44,61234.78,Teacher,West,Bachelor,High
+608,38,54321.9,Student,East,High School,Medium
+609,47,78901.12,Doctor,North,PhD,Very High
+610,33,45678.45,Manager,South,Bachelor,Low
+611,28,29876.67,Engineer,West,Master,High
+612,45,61234.78,Teacher,East,Bachelor,Medium
+613,34,52345.01,Student,North,High School,Low
+614,49,87654.23,Doctor,South,PhD,Very High
+615,31,45678.34,Manager,West,Bachelor,High
+616,27,31234.56,Engineer,East,Master,Medium
+617,42,67890.89,Teacher,North,Bachelor,Low
+618,36,52345.01,Student,South,High School,High
+619,50,78901.23,Doctor,West,PhD,Very High
+620,29,45678.34,Manager,East,Bachelor,Medium
+621,25,31234.56,Engineer,North,Master,Low
+622,44,61234.78,Teacher,South,Bachelor,High
+623,38,54321.9,Student,West,High School,Medium
+624,47,78901.12,Doctor,East,PhD,Very High
+625,33,45678.45,Manager,North,Bachelor,Low
+626,28,29876.67,Engineer,South,Master,High
+627,45,61234.78,Teacher,West,Bachelor,Medium
+628,34,52345.01,Student,East,High School,Low
+629,49,87654.23,Doctor,North,PhD,Very High
+630,31,45678.34,Manager,South,Bachelor,High
+631,27,31234.56,Engineer,West,Master,Medium
+632,42,67890.89,Teacher,East,Bachelor,Low
+633,36,52345.01,Student,North,High School,High
+634,50,78901.23,Doctor,South,PhD,Very High
+635,29,45678.34,Manager,West,Bachelor,Medium
+636,25,31234.56,Engineer,East,Master,Low
+637,44,61234.78,Teacher,North,Bachelor,High
+638,38,54321.9,Student,South,High School,Medium
+639,47,78901.12,Doctor,West,PhD,Very High
+640,33,45678.45,Manager,East,Bachelor,Low
+641,28,29876.67,Engineer,North,Master,High
+642,45,61234.78,Teacher,South,Bachelor,Medium
+643,34,52345.01,Student,West,High School,Low
+644,49,87654.23,Doctor,East,PhD,Very High
+645,31,45678.34,Manager,North,Bachelor,High
+646,27,31234.56,Engineer,South,Master,Medium
+647,42,67890.89,Teacher,West,Bachelor,Low
+648,36,52345.01,Student,East,High School,High
+649,50,78901.23,Doctor,North,PhD,Very High
+650,29,45678.34,Manager,South,Bachelor,Medium
+651,25,31234.56,Engineer,West,Master,Low
+652,44,61234.78,Teacher,East,Bachelor,High
+653,38,54321.9,Student,North,High School,Medium
+654,47,78901.12,Doctor,South,PhD,Very High
+655,33,45678.45,Manager,West,Bachelor,Low
+656,28,29876.67,Engineer,East,Master,High
+657,45,61234.78,Teacher,North,Bachelor,Medium
+658,34,52345.01,Student,South,High School,Low
+659,49,87654.23,Doctor,West,PhD,Very High
+660,31,45678.34,Manager,East,Bachelor,High
+661,27,31234.56,Engineer,North,Master,Medium
+662,42,67890.89,Teacher,South,Bachelor,Low
+663,36,52345.01,Student,West,High School,High
+664,50,78901.23,Doctor,East,PhD,Very High
+665,29,45678.34,Manager,North,Bachelor,Medium
+666,25,31234.56,Engineer,South,Master,Low
+667,44,61234.78,Teacher,West,Bachelor,High
+668,38,54321.9,Student,East,High School,Medium
+669,47,78901.12,Doctor,North,PhD,Very High
+670,33,45678.45,Manager,South,Bachelor,Low
+671,28,29876.67,Engineer,West,Master,High
+672,45,61234.78,Teacher,East,Bachelor,Medium
+673,34,52345.01,Student,North,High School,Low
+674,49,87654.23,Doctor,South,PhD,Very High
+675,31,45678.34,Manager,West,Bachelor,High
+676,27,31234.56,Engineer,East,Master,Medium
+677,42,67890.89,Teacher,North,Bachelor,Low
+678,36,52345.01,Student,South,High School,High
+679,50,78901.23,Doctor,West,PhD,Very High
+680,29,45678.34,Manager,East,Bachelor,Medium
+681,25,31234.56,Engineer,North,Master,Low
+682,44,61234.78,Teacher,South,Bachelor,High
+683,38,54321.9,Student,West,High School,Medium
+684,47,78901.12,Doctor,East,PhD,Very High
+685,33,45678.45,Manager,North,Bachelor,Low
+686,28,29876.67,Engineer,South,Master,High
+687,45,61234.78,Teacher,West,Bachelor,Medium
+688,34,52345.01,Student,East,High School,Low
+689,49,87654.23,Doctor,North,PhD,Very High
+690,31,45678.34,Manager,South,Bachelor,High
+691,27,31234.56,Engineer,West,Master,Medium
+692,42,67890.89,Teacher,East,Bachelor,Low
+693,36,52345.01,Student,North,High School,High
+694,50,78901.23,Doctor,South,PhD,Very High
+695,29,45678.34,Manager,West,Bachelor,Medium
+696,25,31234.56,Engineer,East,Master,Low
+697,44,61234.78,Teacher,North,Bachelor,High
+698,38,54321.9,Student,South,High School,Medium
+699,47,78901.12,Doctor,West,PhD,Very High
+700,33,45678.45,Manager,East,Bachelor,Low
+701,28,29876.67,Engineer,North,Master,High
+702,45,61234.78,Teacher,South,Bachelor,Medium
+703,34,52345.01,Student,West,High School,Low
+704,49,87654.23,Doctor,East,PhD,Very High
+705,31,45678.34,Manager,North,Bachelor,High
+706,27,31234.56,Engineer,South,Master,Medium
+707,42,67890.89,Teacher,West,Bachelor,Low
+708,36,52345.01,Student,East,High School,High
+709,50,78901.23,Doctor,North,PhD,Very High
+710,29,45678.34,Manager,South,Bachelor,Medium
+711,25,31234.56,Engineer,West,Master,Low
+712,44,61234.78,Teacher,East,Bachelor,High
+713,38,54321.9,Student,North,High School,Medium
+714,47,78901.12,Doctor,South,PhD,Very High
+715,33,45678.45,Manager,West,Bachelor,Low
+716,28,29876.67,Engineer,East,Master,High
+717,45,61234.78,Teacher,North,Bachelor,Medium
+718,34,52345.01,Student,South,High School,Low
+719,49,87654.23,Doctor,West,PhD,Very High
+720,31,45678.34,Manager,East,Bachelor,High
+721,27,31234.56,Engineer,North,Master,Medium
+722,42,67890.89,Teacher,South,Bachelor,Low
+723,36,52345.01,Student,West,High School,High
+724,50,78901.23,Doctor,East,PhD,Very High
+725,29,45678.34,Manager,North,Bachelor,Medium
+726,25,31234.56,Engineer,South,Master,Low
+727,44,61234.78,Teacher,West,Bachelor,High
+728,38,54321.9,Student,East,High School,Medium
+729,47,78901.12,Doctor,North,PhD,Very High
+730,33,45678.45,Manager,South,Bachelor,Low
+731,28,29876.67,Engineer,West,Master,High
+732,45,61234.78,Teacher,East,Bachelor,Medium
+733,34,52345.01,Student,North,High School,Low
+734,49,87654.23,Doctor,South,PhD,Very High
+735,31,45678.34,Manager,West,Bachelor,High
+736,27,31234.56,Engineer,East,Master,Medium
+737,42,67890.89,Teacher,North,Bachelor,Low
+738,36,52345.01,Student,South,High School,High
+739,50,78901.23,Doctor,West,PhD,Very High
+740,29,45678.34,Manager,East,Bachelor,Medium
+741,25,31234.56,Engineer,North,Master,Low
+742,44,61234.78,Teacher,South,Bachelor,High
+743,38,54321.9,Student,West,High School,Medium
+744,47,78901.12,Doctor,East,PhD,Very High
+745,33,45678.45,Manager,North,Bachelor,Low
+746,28,29876.67,Engineer,South,Master,High
+747,45,61234.78,Teacher,West,Bachelor,Medium
+748,34,52345.01,Student,East,High School,Low
+749,49,87654.23,Doctor,North,PhD,Very High
+750,31,45678.34,Manager,South,Bachelor,High
+751,27,31234.56,Engineer,West,Master,Medium
+752,42,67890.89,Teacher,East,Bachelor,Low
+753,36,52345.01,Student,North,High School,High
+754,50,78901.23,Doctor,South,PhD,Very High
+755,29,45678.34,Manager,West,Bachelor,Medium
+756,25,31234.56,Engineer,East,Master,Low
+757,44,61234.78,Teacher,North,Bachelor,High
+758,38,54321.9,Student,South,High School,Medium
+759,47,78901.12,Doctor,West,PhD,Very High
+760,33,45678.45,Manager,East,Bachelor,Low
+761,28,29876.67,Engineer,North,Master,High
+762,45,61234.78,Teacher,South,Bachelor,Medium
+763,34,52345.01,Student,West,High School,Low
+764,49,87654.23,Doctor,East,PhD,Very High
+765,31,45678.34,Manager,North,Bachelor,High
+766,27,31234.56,Engineer,South,Master,Medium
+767,42,67890.89,Teacher,West,Bachelor,Low
+768,36,52345.01,Student,East,High School,High
+769,50,78901.23,Doctor,North,PhD,Very High
+770,29,45678.34,Manager,South,Bachelor,Medium
+771,25,31234.56,Engineer,West,Master,Low
+772,44,61234.78,Teacher,East,Bachelor,High
+773,38,54321.9,Student,North,High School,Medium
+774,47,78901.12,Doctor,South,PhD,Very High
+775,33,45678.45,Manager,West,Bachelor,Low
+776,28,29876.67,Engineer,East,Master,High
+777,45,61234.78,Teacher,North,Bachelor,Medium
+778,34,52345.01,Student,South,High School,Low
+779,49,87654.23,Doctor,West,PhD,Very High
+780,31,45678.34,Manager,East,Bachelor,High
+781,27,31234.56,Engineer,North,Master,Medium
+782,42,67890.89,Teacher,South,Bachelor,Low
+783,36,52345.01,Student,West,High School,High
+784,50,78901.23,Doctor,East,PhD,Very High
+785,29,45678.34,Manager,North,Bachelor,Medium
+786,25,31234.56,Engineer,South,Master,Low
+787,44,61234.78,Teacher,West,Bachelor,High
+788,38,54321.9,Student,East,High School,Medium
+789,47,78901.12,Doctor,North,PhD,Very High
+790,33,45678.45,Manager,South,Bachelor,Low
+791,28,29876.67,Engineer,West,Master,High
+792,45,61234.78,Teacher,East,Bachelor,Medium
+793,34,52345.01,Student,North,High School,Low
+794,49,87654.23,Doctor,South,PhD,Very High
+795,31,45678.34,Manager,West,Bachelor,High
+796,27,31234.56,Engineer,East,Master,Medium
+797,42,67890.89,Teacher,North,Bachelor,Low
+798,36,52345.01,Student,South,High School,High
+799,50,78901.23,Doctor,West,PhD,Very High
+800,29,45678.34,Manager,East,Bachelor,Medium
+801,25,31234.56,Engineer,North,Master,Low
+802,44,61234.78,Teacher,South,Bachelor,High
+803,38,54321.9,Student,West,High School,Medium
+804,47,78901.12,Doctor,East,PhD,Very High
+805,33,45678.45,Manager,North,Bachelor,Low
+806,28,29876.67,Engineer,South,Master,High
+807,45,61234.78,Teacher,West,Bachelor,Medium
+808,34,52345.01,Student,East,High School,Low
+809,49,87654.23,Doctor,North,PhD,Very High
+810,31,45678.34,Manager,South,Bachelor,High
+811,27,31234.56,Engineer,West,Master,Medium
+812,42,67890.89,Teacher,East,Bachelor,Low
+813,36,52345.01,Student,North,High School,High
+814,50,78901.23,Doctor,South,PhD,Very High
+815,29,45678.34,Manager,West,Bachelor,Medium
+816,25,31234.56,Engineer,East,Master,Low
+817,44,61234.78,Teacher,North,Bachelor,High
+818,38,54321.9,Student,South,High School,Medium
+819,47,78901.12,Doctor,West,PhD,Very High
+820,33,45678.45,Manager,East,Bachelor,Low
+821,28,29876.67,Engineer,North,Master,High
+822,45,61234.78,Teacher,South,Bachelor,Medium
+823,34,52345.01,Student,West,High School,Low
+824,49,87654.23,Doctor,East,PhD,Very High
+825,31,45678.34,Manager,North,Bachelor,High
+826,27,31234.56,Engineer,South,Master,Medium
+827,42,67890.89,Teacher,West,Bachelor,Low
+828,36,52345.01,Student,East,High School,High
+829,50,78901.23,Doctor,North,PhD,Very High
+830,29,45678.34,Manager,South,Bachelor,Medium
+831,25,31234.56,Engineer,West,Master,Low
+832,44,61234.78,Teacher,East,Bachelor,High
+833,38,54321.9,Student,North,High School,Medium
+834,47,78901.12,Doctor,South,PhD,Very High
+835,33,45678.45,Manager,West,Bachelor,Low
+836,28,29876.67,Engineer,East,Master,High
+837,45,61234.78,Teacher,North,Bachelor,Medium
+838,34,52345.01,Student,South,High School,Low
+839,49,87654.23,Doctor,West,PhD,Very High
+840,31,45678.34,Manager,East,Bachelor,High
+841,27,31234.56,Engineer,North,Master,Medium
+842,42,67890.89,Teacher,South,Bachelor,Low
+843,36,52345.01,Student,West,High School,High
+844,50,78901.23,Doctor,East,PhD,Very High
+845,29,45678.34,Manager,North,Bachelor,Medium
+846,25,31234.56,Engineer,South,Master,Low
+847,44,61234.78,Teacher,West,Bachelor,High
+848,38,54321.9,Student,East,High School,Medium
+849,47,78901.12,Doctor,North,PhD,Very High
+850,33,45678.45,Manager,South,Bachelor,Low
+851,28,29876.67,Engineer,West,Master,High
+852,45,61234.78,Teacher,East,Bachelor,Medium
+853,34,52345.01,Student,North,High School,Low
+854,49,87654.23,Doctor,South,PhD,Very High
+855,31,45678.34,Manager,West,Bachelor,High
+856,27,31234.56,Engineer,East,Master,Medium
+857,42,67890.89,Teacher,North,Bachelor,Low
+858,36,52345.01,Student,South,High School,High
+859,50,78901.23,Doctor,West,PhD,Very High
+860,29,45678.34,Manager,East,Bachelor,Medium
+861,25,31234.56,Engineer,North,Master,Low
+862,44,61234.78,Teacher,South,Bachelor,High
+863,38,54321.9,Student,West,High School,Medium
+864,47,78901.12,Doctor,East,PhD,Very High
+865,33,45678.45,Manager,North,Bachelor,Low
+866,28,29876.67,Engineer,South,Master,High
+867,45,61234.78,Teacher,West,Bachelor,Medium
+868,34,52345.01,Student,East,High School,Low
+869,49,87654.23,Doctor,North,PhD,Very High
+870,31,45678.34,Manager,South,Bachelor,High
+871,27,31234.56,Engineer,West,Master,Medium
+872,42,67890.89,Teacher,East,Bachelor,Low
+873,36,52345.01,Student,North,High School,High
+874,50,78901.23,Doctor,South,PhD,Very High
+875,29,45678.34,Manager,West,Bachelor,Medium
+876,25,31234.56,Engineer,East,Master,Low
+877,44,61234.78,Teacher,North,Bachelor,High
+878,38,54321.9,Student,South,High School,Medium
+879,47,78901.12,Doctor,West,PhD,Very High
+880,33,45678.45,Manager,East,Bachelor,Low
+881,28,29876.67,Engineer,North,Master,High
+882,45,61234.78,Teacher,South,Bachelor,Medium
+883,34,52345.01,Student,West,High School,Low
+884,49,87654.23,Doctor,East,PhD,Very High
+885,31,45678.34,Manager,North,Bachelor,High
+886,27,31234.56,Engineer,South,Master,Medium
+887,42,67890.89,Teacher,West,Bachelor,Low
+888,36,52345.01,Student,East,High School,High
+889,50,78901.23,Doctor,North,PhD,Very High
+890,29,45678.34,Manager,South,Bachelor,Medium
+891,25,31234.56,Engineer,West,Master,Low
+892,44,61234.78,Teacher,East,Bachelor,High
+893,38,54321.9,Student,North,High School,Medium
+894,47,78901.12,Doctor,South,PhD,Very High
+895,33,45678.45,Manager,West,Bachelor,Low
+896,28,29876.67,Engineer,East,Master,High
+897,45,61234.78,Teacher,North,Bachelor,Medium
+898,34,52345.01,Student,South,High School,Low
+899,49,87654.23,Doctor,West,PhD,Very High
+900,31,45678.34,Manager,East,Bachelor,High
+901,27,31234.56,Engineer,North,Master,Medium
+902,42,67890.89,Teacher,South,Bachelor,Low
+903,36,52345.01,Student,West,High School,High
+904,50,78901.23,Doctor,East,PhD,Very High
+905,29,45678.34,Manager,North,Bachelor,Medium
+906,25,31234.56,Engineer,South,Master,Low
+907,44,61234.78,Teacher,West,Bachelor,High
+908,38,54321.9,Student,East,High School,Medium
+909,47,78901.12,Doctor,North,PhD,Very High
+910,33,45678.45,Manager,South,Bachelor,Low
+911,28,29876.67,Engineer,West,Master,High
+912,45,61234.78,Teacher,East,Bachelor,Medium
+913,34,52345.01,Student,North,High School,Low
+914,49,87654.23,Doctor,South,PhD,Very High
+915,31,45678.34,Manager,West,Bachelor,High
+916,27,31234.56,Engineer,East,Master,Medium
+917,42,67890.89,Teacher,North,Bachelor,Low
+918,36,52345.01,Student,South,High School,High
+919,50,78901.23,Doctor,West,PhD,Very High
+920,29,45678.34,Manager,East,Bachelor,Medium
+921,25,31234.56,Engineer,North,Master,Low
+922,44,61234.78,Teacher,South,Bachelor,High
+923,38,54321.9,Student,West,High School,High
