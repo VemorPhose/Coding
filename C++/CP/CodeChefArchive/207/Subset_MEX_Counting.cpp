@@ -66,10 +66,7 @@ int main(){
     fastio();
     ll t; cin >> t;
     while(t--){
-        ll x,y,z; cin >> x >> y >> z;
-        // cout << (x&y&z) << " " << (x&y) << " " << (y&z) << " " << (x&z) << endl;
-        if((x&y&z) == (x&y) && (x&y) == (y&z) && (y&z) == (x&z)) coutY;
-        else coutN;
+        
     }
     return 0;
 }

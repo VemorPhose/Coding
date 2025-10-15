@@ -1,0 +1,6 @@
+Mbps,Packet_transmitted,Packet_collided,Packet_received,Simulation_Time
+1,4448,2744,1704,100
+2,4448,1697,2751,100
+5,4448,769,3679,100
+10,4448,431,4017,100
+20,4448,236,4212,100
