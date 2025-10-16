@@ -66,7 +66,25 @@ int main(){
     fastio();
     ll t; cin >> t;
     while(t--){
-        
+        ll n; cin >> n;
+        vi v; vIn(v, n);
+        sort(all(v));
+        ll res = 0, scnt = 0;
+        FOR(i, 0, n-1) {
+            if(v[i+1] == v[i]) {res += v[i]*2; scnt += 2; i++;} 
+        }
+        bool flag = true;
+        ROF(i, 1, n) {
+            if(v[i]==v[i-1]) i--;
+            else if(v[i] >= res) continue;
+            else {
+                res += v[i];
+                scnt++;
+                if(flag) flag = false;
+                else break;
+            }
+        }
+        cout << (scnt > 2 ? res : 0) << endl;
     }
     return 0;
 }
