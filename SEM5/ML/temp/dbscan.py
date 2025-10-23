@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # --- Helper Function: Distance ---
 
@@ -228,12 +229,53 @@ if __name__ == "__main__":
     # Use pandas to count occurrences of each cluster label
     print(X_df['cluster'].value_counts().sort_index())
 
-    # You could visualize this data with matplotlib to see the clusters
-    # (requires adding `import matplotlib.pyplot as plt`)
-    # if 'matplotlib' in sys.modules:
-    #     plt.figure(figsize=(8, 6))
-    #     plt.scatter(X_df['feature_1'], X_df['feature_2'], c=X_df['cluster'], cmap='viridis', s=10)
-    #     plt.title(f'DBSCAN Clustering (eps={EPSILON}, min_pts={MIN_POINTS})')
-    #     plt.xlabel('Feature 1')
-    #     plt.ylabel('Feature 2')
-    #     plt.show()
+    # 4. Visualize the results (for 2D data)
+    if X_train.shape[1] == 2:
+        plt.figure(figsize=(10, 7))
+        
+        unique_labels = sorted(np.unique(cluster_labels))
+        
+        # Create a color map
+        # We reserve black for noise
+        n_clusters_ = len([l for l in unique_labels if l > -1])
+        # Get a colormap, ensuring it works even if n_clusters_ is 0
+        colors = plt.cm.get_cmap('viridis', n_clusters_) if n_clusters_ > 0 else []
+        
+        legend_handles = []
+
+        for k in unique_labels:
+            class_member_mask = (cluster_labels == k)
+            xy = X_df[class_member_mask]
+            
+            if k == -1:
+                # Plot Noise points as small black 'x'
+                plt.scatter(
+                    xy['feature_1'], 
+                    xy['feature_2'], 
+                    c='black',
+                    marker='x',
+                    s=20,
+                    label='Noise'
+                )
+                legend_handles.append(plt.Line2D([0], [0], marker='x', color='black', label='Noise', linestyle='None', markersize=6))
+            else:
+                # Plot clustered points
+                color = colors(k % n_clusters_) if n_clusters_ > 0 else 'blue'
+                label = f'Cluster {k}'
+                plt.scatter(
+                    xy['feature_1'], 
+                    xy['feature_2'], 
+                    c=[color], # Pass color as a list
+                    s=50,
+                    alpha=0.7,
+                    label=label
+                )
+                legend_handles.append(plt.Line2D([0], [0], marker='o', color='w', label=label, markerfacecolor=color, markersize=8, alpha=0.7))
+
+        plt.title(f'DBSCAN Clustering (eps={EPSILON}, min_pts={MIN_POINTS})')
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+        plt.legend(handles=legend_handles, title="Clusters")
+        plt.grid(True)
+        plt.show()
+

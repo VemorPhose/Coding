@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # --- Helper Function: Distance ---
 
@@ -195,3 +196,57 @@ if __name__ == "__main__":
     
     print("\nCluster counts:")
     print(X_df['cluster'].value_counts())
+    
+    # 4. Visualize the results (for 2D data)
+    if X_train.shape[1] == 2:
+        plt.figure(figsize=(10, 7))
+        
+        # Plot data points
+        scatter = plt.scatter(
+            X_df['feature_1'], 
+            X_df['feature_2'], 
+            c=X_df['cluster'], 
+            cmap='viridis', 
+            s=50, 
+            alpha=0.7
+        )
+        
+        # Plot centroids
+        plt.scatter(
+            final_centroids[:, 0], 
+            final_centroids[:, 1], 
+            c='red', 
+            marker='X', 
+            s=200, 
+            edgecolor='black',
+            label='Centroids'
+        )
+        
+        plt.title(f'K-Means Clustering (k={K_CLUSTERS})')
+        plt.xlabel('Feature 1')
+        plt.ylabel('Feature 2')
+
+        # Create a legend
+        # Get cluster handles
+        handles, labels = scatter.legend_elements(prop="colors", alpha=0.7)
+        legend_labels = [f'Cluster {i}' for i in range(K_CLUSTERS)]
+        
+        # Get centroid handle
+        centroid_handle = plt.Line2D(
+            [0], [0], 
+            marker='X', 
+            color='w', 
+            label='Centroids', 
+            markerfacecolor='red', 
+            markeredgecolor='black',
+            markersize=15, 
+            linestyle='None'
+        )
+        
+        handles.append(centroid_handle)
+        legend_labels.append('Centroids')
+
+        plt.legend(handles=handles, labels=legend_labels, title="Legend")
+        plt.grid(True)
+        plt.show()
+
