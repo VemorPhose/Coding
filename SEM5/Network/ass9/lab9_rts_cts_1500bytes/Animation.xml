@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<NETSIM_ANIMATION>
+ <!--NETSIM_ANIMATION-->
+ <MENU NAME="IP Table" isNewScreen="false">
+  <MENU NAME="WIRELESS_NODE_1" isNewScreen="true" FileName="Animation_WIRELESS_NODE_1.txt" Type="table"/>
+  <MENU NAME="WIRELESS_NODE_2" isNewScreen="true" FileName="Animation_WIRELESS_NODE_2.txt" Type="table"/>
+  <MENU NAME="WIRELESS_NODE_3" isNewScreen="true" FileName="Animation_WIRELESS_NODE_3.txt" Type="table"/>
+  <MENU NAME="WIRELESS_NODE_4" isNewScreen="true" FileName="Animation_WIRELESS_NODE_4.txt" Type="table"/>
+ </MENU>
+ <MENU NAME="Transmit_packet" isNewScreen="false" FileName="Animation_Transmit_packet.txt" Type="generic"/>
+</NETSIM_ANIMATION>
