@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<NETSIM_ANIMATION>
+ <!--NETSIM_ANIMATION-->
+ <MENU NAME="IP Table" isNewScreen="false">
+  <MENU NAME="ROUTER_4" isNewScreen="true" FileName="Animation_ROUTER_4.txt" Type="table"/>
+  <MENU NAME="ROUTER_5" isNewScreen="true" FileName="Animation_ROUTER_5.txt" Type="table"/>
+  <MENU NAME="ROUTER_6" isNewScreen="true" FileName="Animation_ROUTER_6.txt" Type="table"/>
+  <MENU NAME="ROUTER_7" isNewScreen="true" FileName="Animation_ROUTER_7.txt" Type="table"/>
+  <MENU NAME="ROUTER_8" isNewScreen="true" FileName="Animation_ROUTER_8.txt" Type="table"/>
+  <MENU NAME="ROUTER_9" isNewScreen="true" FileName="Animation_ROUTER_9.txt" Type="table"/>
+  <MENU NAME="ROUTER_10" isNewScreen="true" FileName="Animation_ROUTER_10.txt" Type="table"/>
+  <MENU NAME="ROUTER_11" isNewScreen="true" FileName="Animation_ROUTER_11.txt" Type="table"/>
+  <MENU NAME="ROUTER_12" isNewScreen="true" FileName="Animation_ROUTER_12.txt" Type="table"/>
+  <MENU NAME="WIRED_NODE_13" isNewScreen="true" FileName="Animation_WIRED_NODE_13.txt" Type="table"/>
+  <MENU NAME="WIRED_NODE_14" isNewScreen="true" FileName="Animation_WIRED_NODE_14.txt" Type="table"/>
+  <MENU NAME="WIRED_NODE_15" isNewScreen="true" FileName="Animation_WIRED_NODE_15.txt" Type="table"/>
+ </MENU>
+ <MENU NAME="Transmit_packet" isNewScreen="false" FileName="Animation_Transmit_packet.txt" Type="generic"/>
+</NETSIM_ANIMATION>
