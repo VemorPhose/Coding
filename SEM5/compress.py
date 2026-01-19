@@ -59,13 +59,13 @@ def perform_key_combination():
     print("Executing manual 'Ctrl + /' sequence...")
     try:
         # 1. Press and hold generic Ctrl key
-        pyautogui.keyDown('ctrl')
+        # pyautogui.keyDown('ctrl')
         
         # 2. Press '/' (while Ctrl is still down)
         pyautogui.press('/')
         
         # 3. Release Ctrl (clean up)
-        pyautogui.keyUp('ctrl')
+        # pyautogui.keyUp('ctrl')
         
         print("Key combination executed successfully.")
     except Exception as e:
