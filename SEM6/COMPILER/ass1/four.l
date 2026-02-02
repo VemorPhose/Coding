@@ -3,13 +3,9 @@
 %}
 
 %%
-([a-z]+) {printf("Small Letter(s): %s\n", yytext);}
+([a-z]+) {printf("%s", yytext);}
 [ \t\n]* ;
 . ;
-
-
-^ {printf("Small Letters: ")}
-([a-z]+) 
 %%
 
 int main() {
