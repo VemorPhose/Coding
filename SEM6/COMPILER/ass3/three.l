@@ -8,6 +8,7 @@ int expect_operand = 1;
 
 int id_count = 0;
 int op_count = 0;
+int lt_count = 0;
 
 %}
 
@@ -28,8 +29,8 @@ CLOSE_PAR  ")"
 
 {NUMBER} {
     if (!expect_operand) { valid = 0; }
-    printf("Identifier: %s\n", yytext);
-    id_count++;
+    printf("Literal: %s\n", yytext);
+    lt_count++;
     expect_operand = 0; 
 }
 
