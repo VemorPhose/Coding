@@ -59,7 +59,7 @@ SEP     [-/.]
 int yywrap() { return 1; }
 
 int main() {
-    printf("Enter a date (e.g., 30-01-2024, 12/30/2024, Jan-15/2024):\n");
+    printf("Enter a date:\n");
     yylex();
     return 0;
 }
