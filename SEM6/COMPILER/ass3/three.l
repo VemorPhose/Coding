@@ -67,7 +67,7 @@ int yywrap() {
 }
 
 int main() {
-    printf("Enter an arithmetic expression (e.g., a = b + c * 10):\n");
+    printf("Enter an arithmetic expression:\n");
     yylex();
 
     if (paren_count != 0) {
@@ -81,6 +81,7 @@ int main() {
     if (valid && id_count > 0) {
         printf("Result: VALID Expression\n");
         printf("Total Identifiers: %d\n", id_count);
+        printf("Total Literals: %d\n", lt_count);
         printf("Total Operators  : %d\n", op_count);
     } else {
         printf("Result: INVALID Expression\n");
