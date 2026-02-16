@@ -35,11 +35,15 @@ CLOSE_PAR  ")"
 }
 
 {OPERATOR} {
-    if (expect_operand) { valid = 0; }
     printf("Operator  : %s\n", yytext);
     op_count++;
-    expect_operand = 1;
+    if (strcmp(yytext, "++") == 0 || strcmp(yytext, "--") == 0) {}
+    else {
+        if (expect_operand) { valid = 0; }
+        expect_operand = 1;
+    }
 }
+
 
 {OPEN_PAR} {
     paren_count++;
