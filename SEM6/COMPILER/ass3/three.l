@@ -14,6 +14,7 @@ int lt_count = 0;
 
 IDENTIFIER [a-zA-Z_][a-zA-Z0-9_]*
 NUMBER     [0-9]+(\.[0-9]+)?
+UNARY      (\+\+|--)
 OPERATOR   [\+\-\*\/\=%]
 OPEN_PAR   "("
 CLOSE_PAR  ")"
@@ -34,16 +35,17 @@ CLOSE_PAR  ")"
     expect_operand = 0; 
 }
 
-{OPERATOR} {
-    printf("Operator  : %s\n", yytext);
+{UNARY} {
     op_count++;
-    if (strcmp(yytext, "++") == 0 || strcmp(yytext, "--") == 0) {}
-    else {
-        if (expect_operand) { valid = 0; }
-        expect_operand = 1;
-    }
+    printf("Operator  : %s\n", yytext);
 }
 
+{OPERATOR} {
+    if (expect_operand) { valid = 0; }
+    printf("Operator  : %s\n", yytext);
+    op_count++;
+    expect_operand = 1;
+}
 
 {OPEN_PAR} {
     paren_count++;
