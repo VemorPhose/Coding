@@ -19,7 +19,7 @@ public class input {
     public int glob = 5; // basically a global variable, defined within class but outside all methods. similar to static variables.
     public static int marks3 = 80; // static variables defined in class. can be accessed by all methods and constructors.
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        System.out.println("Hello /* hey */ World");
         // single line comment
         /* multi 
          * line
